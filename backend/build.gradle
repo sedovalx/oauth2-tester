@@ -27,13 +27,19 @@ repositories {
 	mavenCentral()
 }
 
-
 dependencies {
 	compile('org.springframework.boot:spring-boot-devtools')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile("org.jetbrains.kotlin:kotlin-stdlib:${kotlinVersion}")
 	testCompile('org.springframework.boot:spring-boot-starter-test') 
 }
+
+jar {
+	from('../frontend/dist') {
+		into 'static'
+	}
+}
+jar.dependsOn(':frontend:assemble')
 
 task wrapper(type: Wrapper) {
 	gradleVersion = '2.12'
