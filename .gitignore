@@ -10,4 +10,12 @@ gradle-app.setting
 # Cache of project
 .gradletasknamecache
 
+# IntelliJ IDEA specific
 .idea
+
+# NodeJS specific
+**/node_modules/
+
+# Project
+frontend/dist
+
