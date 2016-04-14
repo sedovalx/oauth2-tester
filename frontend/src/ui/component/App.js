@@ -7,8 +7,13 @@ class App extends React.Component {
         return (
             <div>
                 <AppHeader title="OAuth 2.0 Tester" />
-                <div className="app-main">
-                    <PhaseListContainer />
+                <div className="app-main container-fluid">
+                    <div className="row">
+                        <div className="col-md-4">
+                            <PhaseListContainer />
+                        </div>
+                    </div>
+
                 </div>
             </div>
         )

@@ -1,5 +1,4 @@
 import React from 'react';
-import PhaseType from 'props/PhaseType';
 
 const PhaseItem = ({phase, parentId, isActive}) => (
         <div className="panel panel-default">
@@ -17,18 +16,11 @@ const PhaseItem = ({phase, parentId, isActive}) => (
             </div>
             <div id={"collapse" + phase.name} className={"panel-collapse collapse" + (isActive ? " in" : "")} role="tabpanel" aria-labelledby={"heading" + phase.name}>
                 <div className="panel-body">
-                    {phase.desc}
+                    {this.props.children}
                 </div>
 
             </div>
         </div>
 );
-
-PhaseItem.propTypes = {
-    phase: PhaseType.isRequired,
-    parentId: React.PropTypes.string,
-    isActive: React.PropTypes.bool
-};
-
 
 export default PhaseItem;
