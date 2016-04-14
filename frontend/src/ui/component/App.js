@@ -1,12 +1,14 @@
 import React from 'react';
-import AppHeader from 'component/AppHeader';
+import AppHeaderContainer from 'container/AppHeaderContainer';
 import PhaseListContainer from 'container/PhaseListContainer';
+
+import 'styles/main.scss';
 
 class App extends React.Component {
     render() {
         return (
             <div>
-                <AppHeader title="OAuth 2.0 Tester" />
+                <AppHeaderContainer />
                 <div className="app-main container-fluid">
                     <div className="row">
                         <div className="col-md-4">

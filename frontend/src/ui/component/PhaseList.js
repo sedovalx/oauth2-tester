@@ -10,13 +10,13 @@ const PhaseList = React.createClass({
         return (
             <div className="phase-list">
                 <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                    <PhaseItem key={phases.selectServer.name} phase={phases.selectServer} isActive={availablePhases.includes(phases.selectServer.name)}>
+                    <PhaseItem key={phases.selectServer.name} phase={phases.selectServer} isActive={true}>
                         <div className="phase-item phase-select-server"></div>
                     </PhaseItem>
-                    <PhaseItem key={phases.queryToken.name} phase={phases.queryToken} isActive={availablePhases.includes(phases.queryToken.name)}>
+                    <PhaseItem key={phases.queryToken.name} phase={phases.queryToken}>
                         <div className="phase-item phase-query-token"></div>
                     </PhaseItem>
-                    <PhaseItem key={phases.queryData.name} phase={phases.queryData} isActive={availablePhases.includes(phases.queryData.name)}>
+                    <PhaseItem key={phases.queryData.name} phase={phases.queryData}>
                         <div className="phase-item phase-query-data"></div>
                     </PhaseItem>
                 </div>

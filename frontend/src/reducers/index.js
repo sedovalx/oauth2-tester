@@ -1,4 +1,5 @@
 const initialState = {
+    title: "OAuth 2.0 Tester",
     phases: {
         selectServer: {
             name: "SELECT_SERVER",
@@ -18,8 +19,12 @@ const initialState = {
             desc: "3. Выполните запрос к API сервера ресурсов, используя полученный токен."
         }
     },
+    callbackUri: `${location.origin}/api/oauth/callback`,
     servers: [],
     newServer: {
+        id: null,
+        name: "",
+        desc: "",
         authEndpoint: "",
         tokenEndpoint: "",
         clientID: "",
