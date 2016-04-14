@@ -1,5 +1,5 @@
 # oauth2-tester
-Pet application to learn new frameworks/tools:
+Pet application aimed to try a few frameworks/tools:
 * [ECMAScript 2015](https://babeljs.io/docs/learn-es2015/)
 * [Webpack](https://webpack.github.io/)
 * [React](https://facebook.github.io/react/)
