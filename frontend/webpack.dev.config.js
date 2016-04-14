@@ -1,13 +1,12 @@
 var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-var jeet = require('jeet');
-var nib = require('nib');
 
 module.exports = {
     devtool: 'inline-source-map',
     entry: [
         'webpack-hot-middleware/client',
+        'bootstrap-loader',
         './src/index.js'
     ],
     output: {
@@ -33,19 +32,28 @@ module.exports = {
         root: path.join(__dirname, 'src')
     },
     module: {
-        loaders: [{
-            test: /\.js$/,
-            loaders: ['babel?cacheDirectory'],
-            include: path.join(__dirname, 'src')
-        }, {
-            test: /\.styl$/,
-            loaders: ['style-loader', 'css-loader', 'stylus-loader']
-        }, {
-            test: /\.json/,
-            loaders: ['json-loader']
-        }]
-    },
-    stylus: {
-        use: [jeet(), nib()]
+        loaders: [
+            {
+                test: /\.js$/,
+                loaders: ['babel?cacheDirectory'],
+                include: path.join(__dirname, 'src')
+            },
+            {
+                test: /\.json/,
+                loaders: ['json-loader']
+            },
+            { test: /\.css$/, loaders: [ 'style', 'css' ] },
+            { test: /\.scss$/, loaders: [ 'style', 'css', 'sass' ] },
+            {
+                test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                loader: "url?limit=10000"
+            },
+            {
+                test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
+                loader: 'file'
+            },
+            // Bootstrap 3
+            { test: /bootstrap-sass[\/\\]assets[\/\\]javascripts[\/\\]/, loader: 'imports?jQuery=jquery' }
+        ]
     }
 };

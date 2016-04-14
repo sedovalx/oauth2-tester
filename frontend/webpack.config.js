@@ -2,13 +2,12 @@ var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var jeet = require('jeet');
-var nib = require('nib');
 
 module.exports = {
     devtool: 'source-map',
     entry: [
-        './src/index.js'
+        'bootstrap-loader/extractStyles',
+        './src/index'
     ],
     output: {
         path: path.join(__dirname, 'dist'),
@@ -26,12 +25,17 @@ module.exports = {
             }
         }),
         new HtmlWebpackPlugin({
-            title: 'OAuth 2.0 tester',
+            title: 'Boot React',
             template: path.join(__dirname, 'assets/index-template.html')
         }),
         new webpack.DefinePlugin({
             "process.env": {
                 NODE_ENV: JSON.stringify('production')
+            }
+        }),
+        new webpack.optimize.UglifyJsPlugin({
+            compressor: {
+                warnings: false
             }
         }),
         new ExtractTextPlugin('styles.css')
@@ -54,16 +58,23 @@ module.exports = {
                 include: path.join(__dirname, 'src')
             },
             {
-                test: /\.styl$/,
-                loader: ExtractTextPlugin.extract('css-loader!stylus-loader')
-            },
-            {
                 test: /\.json/,
                 loaders: ['json-loader']
-            }
+            },
+            { test: /\.css$/, loader: ExtractTextPlugin.extract('style', 'css') },
+            { test: /\.scss$/, loader: ExtractTextPlugin.extract('style', 'css!sass') },
+            {
+                test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                // Limiting the size of the woff fonts breaks font-awesome ONLY for the extract text plugin
+                // loader: "url?limit=10000"
+                loader: "url"
+            },
+            {
+                test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
+                loader: 'file'
+            },
+            // Bootstrap 3
+            { test: /bootstrap-sass[\/\\]assets[\/\\]javascripts[\/\\]/, loader: 'imports?jQuery=jquery' },
         ]
-    },
-    stylus: {
-        use: [jeet(), nib()]
     }
 };

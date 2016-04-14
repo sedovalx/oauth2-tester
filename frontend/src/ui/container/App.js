@@ -2,8 +2,6 @@ import React from 'react';
 import AppHeader from 'component/AppHeader';
 import PhaseListContainer from 'container/PhaseListContainer';
 
-import 'stylus/main.styl';
-
 class App extends React.Component {
     render() {
         return (
