@@ -1,4 +1,6 @@
 import React from 'react';
+import classNames from 'classnames';
+import PhaseType from 'props/PhaseType';
 
 var PhaseItem = React.createClass({
     getDefaultProps() {
@@ -16,7 +18,7 @@ var PhaseItem = React.createClass({
                 <div className="panel-heading" role="tab" id={"heading" + phase.name}>
                     <h4 className="panel-title">
                         <a role="button"
-                           className={isActive ? "" : "collapsed"}
+                           className={classNames({'collapsed': !isActive})}
                            data-toggle="collapse" data-parent={parentId}
                            href={"#collapse" + phase.name}
                            aria-expanded={isActive ? "true" : "false"}
@@ -25,7 +27,7 @@ var PhaseItem = React.createClass({
                         </a>
                     </h4>
                 </div>
-                <div id={"collapse" + phase.name} className={"panel-collapse collapse" + (isActive ? " in" : "")} role="tabpanel" aria-labelledby={"heading" + phase.name}>
+                <div id={"collapse" + phase.name} className={classNames('panel-collapse', 'collapse', {'in': isActive})} role="tabpanel" aria-labelledby={"heading" + phase.name}>
                     <div className="panel-body">
                         {this.props.children}
                     </div>
@@ -38,10 +40,7 @@ var PhaseItem = React.createClass({
 PhaseItem.propTypes = {
     parentId: React.PropTypes.string,
     isActive: React.PropTypes.bool,
-    phase: React.PropTypes.shape({
-        name: React.PropTypes.string.isRequired,
-        desc: React.PropTypes.string.isRequired
-    }).isRequired
+    phase: React.PropTypes.shape(PhaseType).isRequired
 };
 
 export default PhaseItem;

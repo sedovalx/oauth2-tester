@@ -1,4 +1,5 @@
 import React from 'react';
+import PhaseType from 'props/PhaseType';
 import PhaseItem from 'component/PhaseItem';
 
 const PhaseList = React.createClass({
@@ -30,9 +31,9 @@ PhaseList.propTypes = {
     })).isRequired,
     availablePhases: React.PropTypes.arrayOf(React.PropTypes.string.isRequired).isRequired,
     phases: React.PropTypes.shape({
-        selectServer: React.PropTypes.object.isRequired,
-        queryToken: React.PropTypes.object.isRequired,
-        queryData: React.PropTypes.object.isRequired
+        selectServer: React.PropTypes.shape(PhaseType).isRequired,
+        queryToken: React.PropTypes.shape(PhaseType).isRequired,
+        queryData: React.PropTypes.shape(PhaseType).isRequired
     }).isRequired
 };
 
