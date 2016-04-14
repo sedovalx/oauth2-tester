@@ -10,7 +10,8 @@
       { "src": "./src/ui/component", "expose": "component" },
       { "src": "./src/ui/container", "expose": "container" },
       { "src": "./assets/stylus", "expose": "stylus" },
-      { "src": "./assets/lang", "expose": "lang" }
+      { "src": "./assets/lang", "expose": "lang" },
+      { "src": "./src/props", "expose": "props" }
     ]]
   ],
   "env": {
