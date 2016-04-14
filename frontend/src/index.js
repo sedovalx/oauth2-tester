@@ -8,15 +8,13 @@ import App from 'container/App';
 
 const devTools = process.env.NODE_ENV === 'development' ? <DevTools /> : null;
 
-let phases = [
-    { name: 'Phase 1', content: '111', desc: 'asdasd' },
-    { name: 'Phase 2', content: '222', desc: 'asdasd' },
-    { name: 'Phase 3', content: '333', desc: 'asdasd' },
-    { name: 'Phase 4', content: '444', desc: 'asdasd' }
-];
 const store = initStore({
-    phases: phases,
-    activePhase: phases[0]
+    phases: [
+        { name: 'SelectServer', content: {}, desc: 'Выберите OAuth 2.0 сервер. Можно добавить свой.' },
+        { name: 'QueryToken', content: {}, desc: 'Запустите процесс получения токена для доступа к ресурсам.' },
+        { name: 'QueryData', content: {}, desc: 'Выполните запрос к API сервера ресурсов, используя полученный токен.' }
+    ],
+    activePhase: 0
 });
 
 ReactDOM.render(
