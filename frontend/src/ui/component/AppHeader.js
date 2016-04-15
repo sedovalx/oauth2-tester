@@ -1,6 +1,6 @@
 import React from 'react';
 
-const AppHeader = ({title, callbackUri}) => (
+const AppHeader = ({title}) => (
     <div className="app-header page-header">
         <div className="container-fluid">
             <div className="row">

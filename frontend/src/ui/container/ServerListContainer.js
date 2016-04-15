@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { fetchServers } from 'actions/actions';
+import asyncFetchServers from 'actions/asyncFetchServers';
 import ServerList from 'component/ServerList';
 
 const mapStateToProps = (state) => {
@@ -12,7 +12,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onInit: () => {
-            dispatch(fetchServers())
+            dispatch(asyncFetchServers())
         }
     };
 };

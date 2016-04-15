@@ -3,8 +3,7 @@ import AppHeader from 'component/AppHeader';
 
 const mapStateToProps = (state) => {
     return {
-        title: state.title,
-        callbackUri: state.callbackUri
+        title: state.commons.title
     };
 };
 
