@@ -11,7 +11,10 @@ const PhaseList = React.createClass({
             <div className="phase-list">
                 <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                     <PhaseItem key={phases.selectServer.name} phase={phases.selectServer} isActive={true}>
-                        <div className="phase-item phase-select-server"></div>
+                        <div className="phase-item phase-select-server">
+                            <span>hi</span>
+                            
+                        </div>
                     </PhaseItem>
                     <PhaseItem key={phases.queryToken.name} phase={phases.queryToken}>
                         <div className="phase-item phase-query-token"></div>

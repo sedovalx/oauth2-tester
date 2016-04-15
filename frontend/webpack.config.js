@@ -2,6 +2,7 @@ var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
     devtool: 'source-map',
@@ -14,6 +15,10 @@ module.exports = {
         filename: '[name].js'
     },
     plugins: [
+        new CleanWebpackPlugin(['dist'], {
+            verbose: true,
+            dry: false
+        }),
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.optimize.CommonsChunkPlugin({
             name: 'vendors',
