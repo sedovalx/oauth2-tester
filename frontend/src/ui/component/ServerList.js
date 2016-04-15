@@ -11,8 +11,8 @@ const ServerList = React.createClass({
         const servers = this.props.servers;
         const isFetching = this.props.isFetching;
         return (
-            <Loader loaded={!isFetching}>
-                <div className="server-list">
+            <div className="server-list">
+                <Loader loaded={!isFetching} scale={0.5}>
                     <div className="list-group">
                         {servers.map(s => {
                             return <ServerItem key={s.id} server={s} />
@@ -23,8 +23,8 @@ const ServerList = React.createClass({
                             </div>
                         </a>
                     </div>
-                </div>
-            </Loader>
+                </Loader>
+            </div>
         );
     }
 });

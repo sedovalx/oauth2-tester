@@ -3,6 +3,8 @@ $icon-size: 33px;
 .phase-select-server .server-list {
   max-height: 300px;
   overflow: auto;
+  position: relative;
+  min-height: 30px;
 
   .server-item {
     div.row {

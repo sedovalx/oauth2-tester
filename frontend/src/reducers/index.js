@@ -1,48 +1,19 @@
-const initialState = {
-    title: "OAuth 2.0 Tester",
-    phases: {
-        selectServer: {
-            name: "SELECT_SERVER",
-            desc: "1. Add or select existing OAuth 2.0 server",
-            selected: null,
-            flow: "CODE_FLOW"
-        },
-        queryToken: {
-            name: "QUERY_TOKEN",
-            desc: "2. Get authorization code and exchange it for tokens",
-            authCode: "",
-            authToken: "",
-            refreshToken: ""
-        },
-        queryData: {
-            name: "QUERY_DATA",
-            desc: "3. Make a request to the API"
-        }
-    },
-    callbackUri: `${location.origin}/api/oauth/callback`,
-    servers: {
-        isFetching: false,
-        items: []
-    },
-    newServer: {
-        id: null,
-        name: "",
-        authEndpoint: "",
-        tokenEndpoint: "",
-        clientID: "",
-        clientSecret: ""
-    },
-    flows: [
-        { name: "CODE_FLOW", desc: "Code flow" },
-        { name: "RESOURCE_FLOW", desc: "Resource Owner Flow" },
-        { name: "CLIENT_FLOW", desc: "Client Flow" }
-    ],
-    availablePhases: ["SELECT_SERVER"],
-    exchange: {
-        log: []
-    }
-};
+import u from 'updeep'
+import initialState from 'config/initialState'
+import actionTypes from 'actions/actionTypes'
 
 export default function index(state = initialState, action) {
-    return state;
+    switch (action.type) {
+        case actionTypes.REQUEST_SERVERS_START:
+            return u({servers: { isFetching: true }}, state);
+        case actionTypes.REQUEST_SERVERS_END:
+            let newState = u({servers: { isFetching: false }}, state); 
+            if (action.error) {
+                return u({errors: {last: action.payload}})
+            } else {
+                return u({servers: {items: action.payload}}, newState);
+            }
+        default:
+            return state;
+    }
 }
