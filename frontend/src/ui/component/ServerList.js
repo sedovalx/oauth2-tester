@@ -11,6 +11,11 @@ const ServerList = React.createClass({
                     {servers.map(s => {
                         return <ServerItem key={s.id} server={s} />
                     })}
+                    <a href="#" className="list-group-item btn-add-server">
+                        <div>
+                            <span className="glyphicon glyphicon-plus" aria-hidden="true"></span><strong>Add server</strong>
+                        </div>
+                    </a>
                 </div>
             </div>
         );

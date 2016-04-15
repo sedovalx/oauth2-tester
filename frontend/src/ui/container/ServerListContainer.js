@@ -11,4 +11,4 @@ const ServerListContainer = connect(
     mapStateToProps
 )(ServerList);
 
-export default ServerListContainer;
+export default ServerListContainer
