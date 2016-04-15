@@ -9,7 +9,7 @@ Configuration:
         Pattern: "%d{ABSOLUTE} %5p %c:%L - %m%n"
 
   Loggers:
-    AsyncRoot:
+    Root:
       level: info
       includeLocation: true
       AppenderRef:

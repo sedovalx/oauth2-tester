@@ -1,12 +1,18 @@
 import React from 'react';
 import reducer from '../reducers';
+import thunkMiddleware from 'redux-thunk';
 import { createStore, applyMiddleware, compose } from 'redux';
 import DevTools from 'config/devtools';
 import promiseMiddleware from 'config/promiseMiddleware';
 
-const middlewares = process.env.NODE_ENV === 'development' ?
-    [applyMiddleware(promiseMiddleware), DevTools.instrument()] :
-    [applyMiddleware(promiseMiddleware)];
+let middlewares = [applyMiddleware(
+    promiseMiddleware,
+    thunkMiddleware
+)];
+
+if (process.env.NODE_ENV === 'development') {
+    middlewares.push(DevTools.instrument());
+}
 
 var initialize = (initialState) => {
     const store = createStore(reducer, initialState, compose(...middlewares));

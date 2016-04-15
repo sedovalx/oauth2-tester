@@ -20,7 +20,10 @@ const initialState = {
         }
     },
     callbackUri: `${location.origin}/api/oauth/callback`,
-    servers: [],
+    servers: {
+        isFetching: false,
+        items: []
+    },
     newServer: {
         id: null,
         name: "",
