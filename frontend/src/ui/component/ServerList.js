@@ -17,7 +17,7 @@ const ServerList = React.createClass({
                         {servers.map(s => {
                             return <ServerItem key={s.id} server={s} />
                         })}
-                        <a href="#" className="list-group-item btn-add-server">
+                        <a href="#" className="list-group-item btn-add-server" onClick={this.props.onAdd}>
                             <div>
                                 <span className="glyphicon glyphicon-plus" aria-hidden="true"></span><strong>Add server</strong>
                             </div>
@@ -27,10 +27,12 @@ const ServerList = React.createClass({
             </div>
         );
     }
-});
+}); 
 ServerList.propType = {
     servers: React.PropTypes.arrayOf(React.PropTypes.shape(ServerType)).isRequired,
-    isFetching: React.PropTypes.bool
+    isFetching: React.PropTypes.bool,
+    onInit: React.PropTypes.func.isRequired,
+    onAdd: React.PropTypes.func.isRequired
 };
 
 export default ServerList;
