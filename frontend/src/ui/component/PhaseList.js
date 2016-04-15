@@ -1,6 +1,7 @@
 import React from 'react';
 import PhaseType from 'props/PhaseType';
 import PhaseItem from 'component/PhaseItem';
+import ServerListContainer from 'container/ServerListContainer';
 
 const PhaseList = React.createClass({
     render(){
@@ -12,8 +13,7 @@ const PhaseList = React.createClass({
                 <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                     <PhaseItem key={phases.selectServer.name} phase={phases.selectServer} isActive={true}>
                         <div className="phase-item phase-select-server">
-                            <span>hi</span>
-                            
+                            <ServerListContainer />
                         </div>
                     </PhaseItem>
                     <PhaseItem key={phases.queryToken.name} phase={phases.queryToken}>

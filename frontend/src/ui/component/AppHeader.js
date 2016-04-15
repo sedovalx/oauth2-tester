@@ -8,7 +8,7 @@ const AppHeader = ({title, callbackUri}) => (
                     <h1>{title}</h1>
                 </div>
                 <div className="col-md-1">
-                    <button type="button" className="app-settings btn btn-link">Настройки</button>
+                    <button type="button" className="app-settings btn btn-link">Settings</button>
                 </div>
             </div>
         </div>

@@ -1,0 +1,22 @@
+$icon-size: 33px;
+
+.phase-select-server .server-list {
+  max-height: 300px;
+  overflow: auto;
+
+  .server-item {
+    div.row {
+      line-height: $icon-size;
+    }
+
+    .img-container {
+      max-height: $icon-size;
+      max-width: $icon-size;
+
+      img {
+        width: auto;
+        height: 100%;
+      }
+    }
+  }
+}

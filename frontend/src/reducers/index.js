@@ -20,11 +20,85 @@ const initialState = {
         }
     },
     callbackUri: `${location.origin}/api/oauth/callback`,
-    servers: [],
+    servers: [
+        {
+            id: -1,
+            name: "GitHub.com",
+            authEndpoint: "https://github.com/login/oauth/authorize",
+            tokenEndpoint: "https://github.com/login/oauth/access_token",
+            clientID: "a586b75223a497c9e81f",
+            clientSecret: "87b7c4f7877f1c8d30d20bb2024172918a6ff3e5"
+        },
+        {
+            id: -2,
+            name: "GitHub.com",
+            authEndpoint: "https://github.com/login/oauth/authorize",
+            tokenEndpoint: "https://github.com/login/oauth/access_token",
+            clientID: "a586b75223a497c9e81f",
+            clientSecret: "87b7c4f7877f1c8d30d20bb2024172918a6ff3e5"
+        },
+        {
+            id: -3,
+            name: "GitHub.com",
+            authEndpoint: "https://github.com/login/oauth/authorize",
+            tokenEndpoint: "https://github.com/login/oauth/access_token",
+            clientID: "a586b75223a497c9e81f",
+            clientSecret: "87b7c4f7877f1c8d30d20bb2024172918a6ff3e5"
+        },
+        {
+            id: -4,
+            name: "GitHub.com",
+            authEndpoint: "https://github.com/login/oauth/authorize",
+            tokenEndpoint: "https://github.com/login/oauth/access_token",
+            clientID: "a586b75223a497c9e81f",
+            clientSecret: "87b7c4f7877f1c8d30d20bb2024172918a6ff3e5"
+        },
+        {
+            id: -5,
+            name: "GitHub.com",
+            authEndpoint: "https://github.com/login/oauth/authorize",
+            tokenEndpoint: "https://github.com/login/oauth/access_token",
+            clientID: "a586b75223a497c9e81f",
+            clientSecret: "87b7c4f7877f1c8d30d20bb2024172918a6ff3e5"
+        },
+        {
+            id: -6,
+            name: "GitHub.com",
+            authEndpoint: "https://github.com/login/oauth/authorize",
+            tokenEndpoint: "https://github.com/login/oauth/access_token",
+            clientID: "a586b75223a497c9e81f",
+            clientSecret: "87b7c4f7877f1c8d30d20bb2024172918a6ff3e5"
+        },
+        {
+            id: -7,
+            name: "GitHub.com",
+            authEndpoint: "https://github.com/login/oauth/authorize",
+            tokenEndpoint: "https://github.com/login/oauth/access_token",
+            clientID: "a586b75223a497c9e81f",
+            clientSecret: "87b7c4f7877f1c8d30d20bb2024172918a6ff3e5"
+        },
+        {
+            id: -8,
+            name: "GitHub.com",
+            authEndpoint: "https://github.com/login/oauth/authorize",
+            tokenEndpoint: "https://github.com/login/oauth/access_token",
+            clientID: "a586b75223a497c9e81f",
+            clientSecret: "87b7c4f7877f1c8d30d20bb2024172918a6ff3e5"
+        },
+        {
+            id: -9,
+            name: "GitHub.com",
+            authEndpoint: "https://github.com/login/oauth/authorize",
+            tokenEndpoint: "https://github.com/login/oauth/access_token",
+            clientID: "a586b75223a497c9e81f",
+            clientSecret: "87b7c4f7877f1c8d30d20bb2024172918a6ff3e5"
+        }
+    ],
     newServer: {
         id: null,
         name: "",
         desc: "",
+        icon: "",
         authEndpoint: "",
         tokenEndpoint: "",
         clientID: "",
