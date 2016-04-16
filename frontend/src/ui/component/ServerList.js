@@ -1,5 +1,6 @@
 import React from 'react';
 import Loader from 'react-loader';
+import Icon from 'react-fa'
 import ServerItem from 'component/ServerItem';
 import ServerType from 'props/ServerType';
 
@@ -19,7 +20,7 @@ const ServerList = React.createClass({
                         })}
                         <a href="#" className="list-group-item btn-add-server" onClick={this.props.onAdd}>
                             <div>
-                                <span className="glyphicon glyphicon-plus" aria-hidden="true"></span><strong>Add server</strong>
+                                <Icon name="plus" />{' '}<strong>Add server</strong>
                             </div>
                         </a>
                     </div>
@@ -27,7 +28,7 @@ const ServerList = React.createClass({
             </div>
         );
     }
-}); 
+});
 ServerList.propType = {
     servers: React.PropTypes.arrayOf(React.PropTypes.shape(ServerType)).isRequired,
     isFetching: React.PropTypes.bool,

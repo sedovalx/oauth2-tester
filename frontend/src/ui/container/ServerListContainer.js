@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import asyncFetchServers from 'actions/asyncFetchServers';
-import { addServerModalShow } from 'actions/addServer'
+import requestServersAsync from 'actions/requestServersAsync';
+import { addServerModalShow } from 'actions/addServerModal'
 import ServerList from 'component/ServerList';
 
 const mapStateToProps = (state) => {
@@ -12,8 +12,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onInit: () => {
-            dispatch(asyncFetchServers())
+        onInit: () => { 
+            dispatch(requestServersAsync())
         },
         onAdd: () => {
             dispatch(addServerModalShow())

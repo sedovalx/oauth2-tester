@@ -1,4 +1,5 @@
 import React from 'react'
+import Icon from 'react-fa'
 import { reduxForm } from 'redux-form'
 
 const ServerEditor = React.createClass({
@@ -45,10 +46,10 @@ const ServerEditor = React.createClass({
                     <div className="form-group">
                         <div className="btn-group pull-right" role="group">
                             <button type="submit" className="btn btn-primary" disabled={submitting}>
-                                {submitting ? <i/> : <i/>} Submit
+                                {submitting ? <Icon spin name="cog"/> : <Icon name="check"/>} Submit
                             </button>
                             <button type="button" className="btn btn-default" disabled={submitting} onClick={this.props.onCancel}>
-                                Cancel
+                                <Icon name="times"/> Cancel
                             </button>
                         </div>
                     </div>

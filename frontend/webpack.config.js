@@ -69,13 +69,13 @@ module.exports = {
             { test: /\.css$/, loader: ExtractTextPlugin.extract('style', 'css') },
             { test: /\.scss$/, loader: ExtractTextPlugin.extract('style', 'css!sass') },
             {
-                test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
                 // Limiting the size of the woff fonts breaks font-awesome ONLY for the extract text plugin
                 // loader: "url?limit=10000"
-                loader: "url"
+                loader: 'url-loader?limit=10000&mimetype=application/font-woff'
             },
             {
-                test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
+                test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
                 loader: 'file'
             },
             // Bootstrap 3
