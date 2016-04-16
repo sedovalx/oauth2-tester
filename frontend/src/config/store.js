@@ -4,14 +4,14 @@ import thunkMiddleware from 'redux-thunk'
 import { createStore, applyMiddleware, compose } from 'redux'
 import DevTools from 'config/devtools'
 import promiseMiddleware from 'config/promiseMiddleware'
-import createLogger from 'redux-logger'
+// import createLogger from 'redux-logger'
 
-const loggerMiddleware = createLogger();
+// const loggerMiddleware = createLogger();
 
 let middlewares = [applyMiddleware(
     promiseMiddleware,
     thunkMiddleware,
-    loggerMiddleware
+    // loggerMiddleware
 )];
 
 if (process.env.NODE_ENV === 'development') {

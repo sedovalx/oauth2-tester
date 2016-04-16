@@ -1,7 +1,7 @@
 let phasesState = {
     selectServer: {
         name: "SELECT_SERVER",
-        desc: "1. Add or select existing OAuth 2.0 server",
+        desc: "1. Add new or select existing OAuth 2.0 server",
         selected: null,
         flow: "CODE_FLOW"
     },

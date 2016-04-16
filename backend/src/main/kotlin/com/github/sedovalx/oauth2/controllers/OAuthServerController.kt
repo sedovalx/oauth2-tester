@@ -20,7 +20,7 @@ class OAuthServerController {
      */
     @RequestMapping(value = "", method = arrayOf(RequestMethod.GET))
     fun getAll(@RequestParam(required = false) limit: Int? = 100): ResponseEntity<List<OAuthServer>> {
-        Thread.sleep(1000)
+        Thread.sleep(100)
         return Response.buildJsonObjectOK(listOf(
                 OAuthServer(
                         id = 1,

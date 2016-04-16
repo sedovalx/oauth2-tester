@@ -17,14 +17,15 @@ const ServerEditorModal = React.createClass({
     render(){
         return (
             <Modal isOpen={this.props.isOpen} style={customStyles} onRequestClose={this.props.onCancel}>
-                <ServerEditor server={this.props.server} onAccept={this.props.onAccept} onCancel={this.props.onCancel} />
+                <ServerEditor onSubmit={this.props.onAccept} onCancel={this.props.onCancel} />
             </Modal>
         );
     }
 });
 ServerEditorModal.propTypes = {
     isOpen: React.PropTypes.bool,
-    onCancel: React.PropTypes.func.isRequired
+    onCancel: React.PropTypes.func.isRequired,
+    onAccept: React.PropTypes.func.isRequired
 };
 
 export default ServerEditorModal;
