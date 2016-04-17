@@ -13,11 +13,19 @@ import java.util.concurrent.atomic.AtomicLong
 interface OAuthServerRepo {
     fun get(limit: Int?): List<OAuthServer>
     fun create(dto: OAuthServerDto): OAuthServer
+    fun edit(id: Long, dto: OAuthServerDto): OAuthServer?
     fun delete(id: Long): Boolean
 }
 
 @Component
 class OAuthServerRepoImpl: OAuthServerRepo {
+    override fun edit(id: Long, dto: OAuthServerDto): OAuthServer? {
+        items[id] ?: return null
+        val entity = OAuthServer.fromDto(id, dto)
+        items[id] = entity
+        return entity
+    }
+
     override fun delete(id: Long): Boolean {
         return items.remove(id) != null
     }

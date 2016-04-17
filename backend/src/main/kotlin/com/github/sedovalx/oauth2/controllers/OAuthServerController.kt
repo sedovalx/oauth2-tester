@@ -41,9 +41,24 @@ class OAuthServerController {
         return Response.buildJsonObjectOK(entity)
     }
 
+    @RequestMapping(value = "{id}", method = arrayOf(RequestMethod.POST))
+    fun edit(@PathVariable id: Long, @Validated @RequestBody dto: OAuthServerDto): ResponseEntity<OAuthServer?> {
+        // todo: remove it
+        Thread.sleep(1000)
+
+        val entity = repo.edit(id, dto)
+        return if (entity != null)
+            Response.buildJsonObjectOK(entity)
+        else
+            Response.buildJsonObject<OAuthServer?>(HttpStatus.NOT_FOUND, null);
+    }
+
     @RequestMapping(value = "{id}", method = arrayOf(RequestMethod.DELETE))
     fun delete(@PathVariable id: Long): ResponseEntity<String?> {
         val wasFound = repo.delete(id)
-        return if (wasFound) Response.buildJsonOK() else Response.buildStringResponse(HttpStatus.NOT_FOUND, MediaType.APPLICATION_JSON, null)
+        return if (wasFound)
+            Response.buildJsonOK()
+        else
+            Response.buildJsonStatus(HttpStatus.NOT_FOUND)
     }
 }

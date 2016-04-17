@@ -17,6 +17,10 @@ object Response {
         return buildStringResponse(HttpStatus.OK, MediaType.APPLICATION_JSON, jsonContent)
     }
 
+    fun buildJsonStatus(status: HttpStatus): ResponseEntity<String?> {
+        return buildStringResponse(status, MediaType.APPLICATION_JSON, null)
+    }
+
     fun <T> buildObjectResponse(status: HttpStatus, contentType: MediaType, content: T): ResponseEntity<T> {
         val headers = HttpHeaders()
         headers.contentType = contentType
