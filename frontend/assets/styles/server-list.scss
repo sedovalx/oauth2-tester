@@ -11,6 +11,10 @@ $icon-size: 33px;
 
     div.row {
       line-height: $icon-size;
+
+      .actions {
+        padding: 0;
+      }
     }
 
     .img-container {

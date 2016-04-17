@@ -25,7 +25,7 @@ const ServerEditorModal = React.createClass({
 ServerEditorModal.propTypes = {
     isOpen: React.PropTypes.bool,
     onCancel: React.PropTypes.func.isRequired,
-    onAccept: React.PropTypes.func.isRequired
+    onAccept: React.PropTypes.func.isRequired  
 };
 
 export default ServerEditorModal;
