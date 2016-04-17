@@ -2,6 +2,7 @@ import { connect } from 'react-redux'
 import { addServerModalCancel, addServerModalAccept } from 'actions/addServerModal'
 import ServerEditorModal from 'component/editors/ServerEditorModal'
 import validateServer from 'validation/server'
+import asyncApiSaveServer from 'actions/asyncApiSaveServer'
 
 const mapStateToProps = (state) => {
     return {
@@ -15,7 +16,10 @@ const mapDispatchToProps = function(dispatch){
             dispatch(addServerModalCancel());
         },
         onAccept: (fields) => {
-            return validateServer(fields).then(() => dispatch(addServerModalAccept()))
+            return validateServer(fields)
+                .then(() => dispatch(asyncApiSaveServer(fields)))
+                .then(() => dispatch(addServerModalAccept()))
+                .catch(err => Promise.reject(err instanceof Error ? { _error: err.message } : err));
         }
     }
 };

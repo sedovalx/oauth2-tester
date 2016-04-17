@@ -1,12 +1,12 @@
 import yup from 'yup'
 import { polyfill } from 'es6-promise'; polyfill();
 
-export const serverSchema = yup.object().shape({
-    name: yup.string().required(),
-    authEndpoint: yup.string().url().required(),
-    tokenEndpoint: yup.string().url(),
-    clientID: yup.string().required(),
-    clientSecret: yup.string().required()
+export const serverSchema = yup.object({
+    name: yup.string().required().label("Name"),
+    authEndpoint: yup.string().url().required().label("Authorization endpoint"),
+    tokenEndpoint: yup.string().transform((value) => value === "" ? null : value).url().nullable().label("Token endpoint"),
+    clientID: yup.string().required().label("Client ID"),
+    clientSecret: yup.string().required().label("Client secret")
 });
 
 export default function(fields) {

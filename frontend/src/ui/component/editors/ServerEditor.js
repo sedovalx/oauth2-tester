@@ -7,8 +7,9 @@ const ServerEditor = React.createClass({
     render(){
         const {
             fields: { name, authEndpoint, tokenEndpoint, clientID, clientSecret },
-            handleSubmit,
+            error,
             resetForm,
+            handleSubmit,
             submitting
         } = this.props;
         const props = [
@@ -32,6 +33,7 @@ const ServerEditor = React.createClass({
                             </div>
                         ))
                     }
+                    { error && <div className="alert alert-danger" role="alert">{error}</div> }
                     <div className="form-group">
                         <div className="btn-group pull-right" role="group">
                             <button type="submit" className="btn btn-primary" disabled={submitting}>

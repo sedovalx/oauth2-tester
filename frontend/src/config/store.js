@@ -1,15 +1,16 @@
 import React from 'react'
-import reducer from '../reducers'
 import thunkMiddleware from 'redux-thunk'
 import { createStore, applyMiddleware, compose } from 'redux'
-import DevTools from 'config/devtools'
-import promiseMiddleware from 'config/promiseMiddleware'
-// import createLogger from 'redux-logger'
+import createLogger from 'redux-logger'
 
-// const loggerMiddleware = createLogger();
+import reducer from '../reducers'
+import DevTools from 'config/devtools'
+import callAPIMiddleware from 'config/callAPIMiddleware'
+
+const loggerMiddleware = createLogger();
 
 let middlewares = [applyMiddleware(
-    promiseMiddleware,
+    callAPIMiddleware({ log: { enabled: true, content: true, error: true } }),
     thunkMiddleware,
     // loggerMiddleware
 )];

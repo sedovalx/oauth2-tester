@@ -7,7 +7,7 @@ export default function(state = { isFetching: false, items: [] }, action) {
             return u({ isFetching: true }, state);
         case actionTypes.REQUEST_SERVERS_END:
             let newState = u({ isFetching: false }, state);
-            return action.error ? newState : u({items: action.payload}, newState);
+            return action.error ? newState : u({items: action.payload}, newState);  
         default:
             return state;
     }
