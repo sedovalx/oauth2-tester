@@ -1,6 +1,7 @@
 import React from 'react'
 import Icon from 'react-fa'
 import { reduxForm } from 'redux-form'
+import classNames from 'classnames'
 
 const ServerEditor = React.createClass({
     render(){
@@ -10,39 +11,27 @@ const ServerEditor = React.createClass({
             resetForm,
             submitting
         } = this.props;
+        const props = [
+            { obj: name, desc: "Name" },
+            { obj: authEndpoint, desc: "Authorization endpoint" },
+            { obj: tokenEndpoint, desc: "Token endpoint" },
+            { obj: clientID, desc: "Client ID" },
+            { obj: clientSecret, desc: "Client secret" }
+        ];
         return (
             <div className="server-editor ">
                 <form className="form-horizontal" onSubmit={handleSubmit}>
-                    <div className="form-group">
-                        <label className="col-md-3 control-label">Name</label>
-                        <div className="col-md-9">
-                            <input type="text" className="form-control" placeholder="Name" {...name}/>
-                        </div>
-                    </div>
-                    <div className="form-group">
-                        <label className="col-md-3 control-label">Authorization endpoint</label>
-                        <div className="col-md-9">
-                            <input type="text" className="form-control" placeholder="Authorization endpoint" {...authEndpoint}/>
-                        </div>
-                    </div>
-                    <div className="form-group">
-                        <label className="col-md-3 control-label">Token endpoint</label>
-                        <div className="col-md-9">
-                            <input type="text" className="form-control" placeholder="Token endpoint" {...tokenEndpoint}/>
-                        </div>
-                    </div>
-                    <div className="form-group">
-                        <label className="col-md-3 control-label">Client ID</label>
-                        <div className="col-md-9">
-                            <input type="text" className="form-control" placeholder="Client ID" {...clientID}/>
-                        </div>
-                    </div>
-                    <div className="form-group">
-                        <label className="col-md-3 control-label">Client secret</label>
-                        <div className="col-md-9">
-                            <input type="text" className="form-control" placeholder="Client secret" {...clientSecret}/>
-                        </div>
-                    </div>
+                    {
+                        props.map((p, idx) => (
+                            <div key={idx} className={classNames('form-group', {'has-error': p.obj.touched && p.obj.error})}>
+                                <label className="col-md-3 control-label">{p.desc}</label>
+                                <div className="col-md-9">
+                                    <input type="text" className="form-control" placeholder={p.desc} {...p.obj} aria-describedby={"helpBlock_" + p.obj.name}/>
+                                    <span id={"helpBlock_" + p.obj.name} className={classNames('help-block', { 'show': p.obj.touched && p.obj.error })}>{p.obj.error}</span>
+                                </div>
+                            </div>
+                        ))
+                    }
                     <div className="form-group">
                         <div className="btn-group pull-right" role="group">
                             <button type="submit" className="btn btn-primary" disabled={submitting}>

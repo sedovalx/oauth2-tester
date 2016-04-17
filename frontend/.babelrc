@@ -11,7 +11,8 @@
       { "src": "./src/ui/container", "expose": "container" },
       { "src": "./assets/styles", "expose": "styles" },
       { "src": "./assets/lang", "expose": "lang" },
-      { "src": "./src/props", "expose": "props" }
+      { "src": "./src/props", "expose": "props" },
+      { "src": "./src/validation", "expose": "validation" }
     ]]
   ],
   "env": {
