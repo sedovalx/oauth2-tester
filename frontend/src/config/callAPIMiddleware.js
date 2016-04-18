@@ -1,18 +1,3 @@
-function signalSuccess(actionType, payload) {
-    return {
-        type: actionType,
-        payload: payload
-    }
-}
-
-function signalError(actionType, error) {
-    return {
-        type: actionType,
-        payload: error,
-        error: true
-    }
-}
-
 const defaultOptions = {
     log: { 
         enabled: false, 
@@ -78,10 +63,17 @@ export default function (options = defaultOptions) {
                 }
             }).then(result => {
                 logOptions && logOptions.enabled && logOptions.content && console.log(result);
-                dispatch(Object.assign({}, actionBody, signalSuccess(responseType, result)))
+                dispatch(Object.assign({}, actionBody, {
+                    type: responseType,
+                    payload: result
+                }))
             }).catch(error => {
                 logOptions && logOptions.enabled && logOptions.error && console.error(error);
-                dispatch(Object.assign({}, actionBody, signalError(responseType, error)));
+                dispatch(Object.assign({}, actionBody, {
+                    type: responseType,
+                    payload: error,
+                    error: true
+                }));
                 throw error;
             }) 
         }

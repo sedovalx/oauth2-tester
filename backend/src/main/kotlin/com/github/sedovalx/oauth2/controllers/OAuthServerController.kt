@@ -32,6 +32,9 @@ class OAuthServerController {
         return Response.buildJsonObjectOK(repo.get(limit))
     }
 
+    /**
+     * Создание нового
+     */
     @RequestMapping(value = "", method = arrayOf(RequestMethod.POST))
     fun create(@Validated @RequestBody dto: OAuthServerDto): ResponseEntity<OAuthServer> {
         // todo: remove it
@@ -41,6 +44,9 @@ class OAuthServerController {
         return Response.buildJsonObjectOK(entity)
     }
 
+    /**
+     * Редактирование существующего
+     */
     @RequestMapping(value = "{id}", method = arrayOf(RequestMethod.POST))
     fun edit(@PathVariable id: Long, @Validated @RequestBody dto: OAuthServerDto): ResponseEntity<OAuthServer?> {
         // todo: remove it
@@ -53,12 +59,53 @@ class OAuthServerController {
             Response.buildJsonObject<OAuthServer?>(HttpStatus.NOT_FOUND, null);
     }
 
+    /**
+     * Удаление существующего
+     */
     @RequestMapping(value = "{id}", method = arrayOf(RequestMethod.DELETE))
     fun delete(@PathVariable id: Long): ResponseEntity<String?> {
+        // todo: remove it
+        Thread.sleep(1000)
+
         val wasFound = repo.delete(id)
+        val idJson = "{id: $id}"
         return if (wasFound)
-            Response.buildJsonOK()
+            Response.buildJsonOK(idJson)
         else
-            Response.buildJsonStatus(HttpStatus.NOT_FOUND)
+            Response.buildJsonResponse(HttpStatus.NOT_FOUND, idJson)
+    }
+
+    /**
+     * Создание дефолтного списка
+     */
+    @RequestMapping(value = "/default", method = arrayOf(RequestMethod.POST))
+    fun default(): ResponseEntity<List<OAuthServer>> {
+        val entities = arrayOf(
+                OAuthServerDto(
+                        name = "Github",
+                        authEndpoint = "https://github.com/login/oauth/authorize",
+                        clientID = "123123",
+                        clientSecret = "asdasd"
+                ),
+                OAuthServerDto(
+                        name = "Facebook",
+                        authEndpoint = "https://www.facebook.com/dialog/oauth",
+                        clientID = "123123",
+                        clientSecret = "asdasd"
+                ),
+                OAuthServerDto(
+                        name = "LinkedIn",
+                        authEndpoint = "https://www.linkedin.com/uas/oauth2/authorization",
+                        clientID = "123123",
+                        clientSecret = "asdasd"
+                ),
+                OAuthServerDto(
+                        name = "Google",
+                        authEndpoint = "https://www.googleapis.com/oauth2/v4/token",
+                        clientID = "123123",
+                        clientSecret = "asdasd"
+                )
+        ).map { repo.create(it) }
+        return Response.buildJsonObjectOK(entities)
     }
 }

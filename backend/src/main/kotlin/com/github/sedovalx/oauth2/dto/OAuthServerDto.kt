@@ -11,7 +11,7 @@ open class OAuthServerDto(
         val name: String,
         @NotNull
         val authEndpoint: String,
-        val tokenEndpoint: String?,
+        val tokenEndpoint: String? = null,
         @NotNull
         val clientID: String,
         @NotNull

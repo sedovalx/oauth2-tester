@@ -1,20 +1,16 @@
 import { connect } from 'react-redux'
 import ServerItem from 'component/ServerItem'
+import asyncApiDeleteServer from 'actions/asyncApiDeleteServer'
 
-
-const mapStateToProps = (state) => {
-    return {
-        
-    }
-};
+const mapStateToProps = () => { return {} };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onEdit: () => {
-
+        onEdit: (server) => {
+            
         },
-        onDelete: () => {
-
+        onDelete: (server) => {
+            dispatch(asyncApiDeleteServer(server))
         }
     };
 };

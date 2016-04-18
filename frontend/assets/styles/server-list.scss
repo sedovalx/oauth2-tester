@@ -9,6 +9,10 @@ $icon-size: 33px;
   .server-item {
     padding: 3px;
 
+    &.is-busy {
+      opacity: 0.3;
+    }
+
     div.row {
       line-height: $icon-size;
 

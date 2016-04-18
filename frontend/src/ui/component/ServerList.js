@@ -23,6 +23,11 @@ const ServerList = React.createClass({
                                 <Icon name="plus" />{' '}<strong>Add server</strong>
                             </div>
                         </a>
+                        <a href="#" className="list-group-item btn-add-server" onClick={this.props.onAddDefault}>
+                            <div>
+                                <Icon name="rocket" />{' '}<strong>Add default</strong>
+                            </div>
+                        </a>
                     </div>
                 </Loader>
             </div>

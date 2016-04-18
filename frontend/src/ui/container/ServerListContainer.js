@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
-import asyncApiRequestServers from 'actions/asyncApiRequestServers'
+import asyncApiFetchServers from 'actions/asyncApiFetchServers'
+import asyncApiAddDefaultServers from 'actions/asyncApiAddDefaultServers'
 import { addServerModalShow } from 'actions/addServerModal'
 import ServerList from 'component/ServerList'
 
@@ -13,10 +14,13 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onInit: () => {
-            dispatch(asyncApiRequestServers())
+            dispatch(asyncApiFetchServers())
         },
         onAdd: () => {
             dispatch(addServerModalShow())
+        },
+        onAddDefault: () => {
+            dispatch(asyncApiAddDefaultServers())
         }
     };
 };
