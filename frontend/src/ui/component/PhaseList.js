@@ -2,6 +2,7 @@ import React from 'react'
 import PhaseType from 'props/PhaseType'
 import PhaseItem from 'component/PhaseItem'
 import ServerListContainer from 'container/ServerListContainer'
+import AuthApiInitializerContainer from 'container/AuthApiInitializerContainer'
 import ServerEditorModalContainer from 'container/editors/ServerEditorModalContainer'
 
 const PhaseList = React.createClass({
@@ -18,6 +19,7 @@ const PhaseList = React.createClass({
                         <PhaseItem key={phases.selectServer.name} phase={phases.selectServer} isActive={true}>
                             <div className="phase-item phase-select-server">
                                 <ServerListContainer />
+                                <AuthApiInitializerContainer />  
                             </div>
                         </PhaseItem>
                     )}

@@ -1,0 +1,11 @@
+import { connect } from 'react-redux'
+import AuthApiInitializer from 'component/AuthApiInitializer'
+
+const mapStateToProps = state => ({});
+
+const mapDispatchToProps = dispatch => ({});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(AuthApiInitializer);
