@@ -25,7 +25,7 @@ export function deleteServer(server) {
     })
 }
 
-export function editServer(server) {
+export function updateServer(server) {
     return fetch(`/api/servers/${server.id}`, {
         method: 'POST',
         headers: {

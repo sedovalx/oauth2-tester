@@ -1,24 +1,29 @@
 import { connect } from 'react-redux'
-import { addServerModalCancel, addServerModalAccept } from 'actions/addServerModal'
+import { serverModalClose } from 'actions/serverModal'
 import ServerEditorModal from 'component/editors/ServerEditorModal'
 import validateServer from 'validation/server'
-import asyncApiSaveServer from 'actions/asyncApiSaveServer'
+import asyncApiCreateServer from 'actions/asyncApiCreateServer'
+import asyncApiUpdateServer from 'actions/asyncApiUpdateServer'
 
 const mapStateToProps = (state) => {
     return {
-        isOpen: state.modals.editor.server
+        data: state.modals.editor.server
     }
 };
 
 const mapDispatchToProps = function(dispatch){
     return {
         onCancel: function(){
-            dispatch(addServerModalCancel());
+            dispatch(serverModalClose());
         },
         onAccept: (fields) => {
             return validateServer(fields)
-                .then(() => dispatch(asyncApiSaveServer(fields)))
-                .then(() => dispatch(addServerModalAccept()))
+                .then(() => {
+                    return fields.id
+                        ? dispatch(asyncApiUpdateServer(fields))
+                        : dispatch(asyncApiCreateServer(fields));
+                })
+                .then(() => dispatch(serverModalClose()))
                 .catch(err => Promise.reject(err instanceof Error ? { _error: err.message } : err));
         }
     }

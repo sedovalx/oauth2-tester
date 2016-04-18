@@ -3,17 +3,16 @@ import actionTypes from 'actions/actionTypes'
 
 const modalsState = {
     editor: {
-        server: false
+        server: null
     }
 };
 
 export default function(state = modalsState, action) {
     switch (action.type) {
-        case actionTypes.ADD_SERVER_MODAL_SHOW:
-            return u({editor: {server: true}}, state);
-        case actionTypes.ADD_SERVER_MODAL_CANCEL:
-        case actionTypes.ADD_SERVER_MODAL_ACCEPT:
-            return u({editor: {server: false}}, state);
+        case actionTypes.SERVER_MODAL_SHOW:
+            return u({editor: {server: action.payload || { }}}, state);
+        case actionTypes.SERVER_MODAL_CLOSE:
+            return u({editor: {server: null}}, state);
         default:
             return state;
     }

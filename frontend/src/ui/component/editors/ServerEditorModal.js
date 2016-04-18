@@ -15,17 +15,22 @@ const customStyles = {
 
 const ServerEditorModal = React.createClass({
     render(){
+        const {
+            data,
+            onCancel,
+            onAccept
+        } = this.props;
         return (
-            <Modal isOpen={this.props.isOpen} style={customStyles} onRequestClose={this.props.onCancel}>
-                <ServerEditor onSubmit={this.props.onAccept} onCancel={this.props.onCancel} />
+            <Modal isOpen={data != null} style={customStyles} onRequestClose={onCancel}>
+                <ServerEditor onSubmit={onAccept} onCancel={onCancel} />
             </Modal>
         );
     }
 });
 ServerEditorModal.propTypes = {
-    isOpen: React.PropTypes.bool,
+    data: React.PropTypes.object,
     onCancel: React.PropTypes.func.isRequired,
-    onAccept: React.PropTypes.func.isRequired  
+    onAccept: React.PropTypes.func.isRequired
 };
 
 export default ServerEditorModal;

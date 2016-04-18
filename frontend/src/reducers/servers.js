@@ -11,8 +11,16 @@ export default function(state = { isFetching: false, items: [] }, action) {
         case actionTypes.FETCH_SERVERS_END:
             let newState = u({ isFetching: false }, state);
             return action.error ? newState : u({items: addServers(action.payload)}, newState);
-        case actionTypes.SAVE_SERVER_END:
-            return !action.error ? u({items: addServers([action.payload])}, state) : state;
+        case actionTypes.SAVE_SERVER_END: {
+            if (action.error) {
+                return state;
+            }
+            const serverId = action.payload.id;
+            const arrayIdx = state.items.map(s => s.id).indexOf(serverId);
+            return arrayIdx >= 0
+                ? u({items: {[arrayIdx]: action.payload}}, state)
+                : u({items: addServers([action.payload])}, state);
+        }
         case actionTypes.DELETE_SERVER_START:
             const serverId = action.payload;
             const arrayIdx = state.items.map(s => s.id).indexOf(serverId);

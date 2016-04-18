@@ -1,9 +1,8 @@
 import keyMirror from 'keymirror';
 
 let types = keyMirror({
-    ADD_SERVER_MODAL_SHOW: null,
-    ADD_SERVER_MODAL_CANCEL: null,
-    ADD_SERVER_MODAL_ACCEPT: null,
+    SERVER_MODAL_SHOW: null,
+    SERVER_MODAL_CLOSE: null,
 
     FETCH_SERVERS_START: null,
     FETCH_SERVERS_END: null,

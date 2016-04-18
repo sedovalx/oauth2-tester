@@ -8,9 +8,9 @@ const ServerEditor = React.createClass({
         const {
             fields: { name, authEndpoint, tokenEndpoint, clientID, clientSecret },
             error,
-            resetForm,
             handleSubmit,
-            submitting
+            submitting,
+            onCancel
         } = this.props;
         const props = [
             { obj: name, desc: "Name" },
@@ -27,7 +27,7 @@ const ServerEditor = React.createClass({
                             <div key={idx} className={classNames('form-group', {'has-error': p.obj.touched && p.obj.error})}>
                                 <label className="col-md-3 control-label">{p.desc}</label>
                                 <div className="col-md-9">
-                                    <input type="text" className="form-control" placeholder={p.desc} {...p.obj} aria-describedby={"helpBlock_" + p.obj.name}/>
+                                    <input type="text" className="form-control" placeholder={p.desc} aria-describedby={"helpBlock_" + p.obj.name} {...p.obj}/>
                                     <span id={"helpBlock_" + p.obj.name} className={classNames('help-block', { 'show': p.obj.touched && p.obj.error })}>{p.obj.error}</span>
                                 </div>
                             </div>
@@ -39,7 +39,7 @@ const ServerEditor = React.createClass({
                             <button type="submit" className="btn btn-primary" disabled={submitting}>
                                 {submitting ? <Icon spin name="cog"/> : <Icon name="check"/>} Submit
                             </button>
-                            <button type="button" className="btn btn-default" disabled={submitting} onClick={this.props.onCancel}>
+                            <button type="button" className="btn btn-default" disabled={submitting} onClick={onCancel}>
                                 <Icon name="times"/> Cancel
                             </button>
                         </div>
@@ -57,6 +57,22 @@ ServerEditor.propTypes = {
 };
 
 export default reduxForm({
-    form: 'server-editor',
-    fields: ['name', 'authEndpoint', 'tokenEndpoint', 'clientID', 'clientSecret']
-})(ServerEditor);
+        form: 'server-editor',
+        fields: ['id', 'name', 'authEndpoint', 'tokenEndpoint', 'clientID', 'clientSecret']
+    },
+    state => {
+        const server = state.modals.editor.server;
+        const initialValues = {};
+        // отфильтровываем пустые свойства, на них ругаются инпуты в redux-form
+        if (server) {
+            Object.keys(server).forEach(key => {
+                if (server[key] != null){
+                    initialValues[key] = server[key];
+                }
+            });
+        }
+        return {
+            initialValues
+        };
+    }
+)(ServerEditor);
