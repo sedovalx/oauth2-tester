@@ -1,7 +1,7 @@
-import { connect } from 'react-redux';
-import asyncApiRequestServers from 'actions/asyncApiRequestServers';
+import { connect } from 'react-redux'
+import asyncApiRequestServers from 'actions/asyncApiRequestServers'
 import { addServerModalShow } from 'actions/addServerModal'
-import ServerList from 'component/ServerList';
+import ServerList from 'component/ServerList'
 
 const mapStateToProps = (state) => {
     return {

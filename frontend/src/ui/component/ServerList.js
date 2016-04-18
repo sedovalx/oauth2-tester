@@ -1,7 +1,7 @@
 import React from 'react';
 import Loader from 'react-loader';
 import Icon from 'react-fa'
-import ServerItem from 'component/ServerItem';
+import ServerItemContainer from 'container/ServerItemContainer';
 import ServerType from 'props/ServerType';
 
 const ServerList = React.createClass({
@@ -16,7 +16,7 @@ const ServerList = React.createClass({
                 <Loader loaded={!isFetching} scale={0.5}>
                     <div className="list-group">
                         {servers.map(s => {
-                            return <ServerItem key={s.id} server={s} />
+                            return <ServerItemContainer key={s.id} server={s} />
                         })}
                         <a href="#" className="list-group-item btn-add-server" onClick={this.props.onAdd}>
                             <div>

@@ -17,10 +17,14 @@ const ServerItem = React.createClass({
                         <div className="col-md-7 name">{server.name}</div>
                         <div className="col-md-3 actions">
                             <div className="btn-group pull-right" role="group">
-                                <button type="button" className="btn btn-default no-borders" data-toggle="tooltip" data-placement="left" title="Edit">
+                                <button type="button" className="btn btn-default no-borders"
+                                        data-toggle="tooltip" data-placement="left" title="Edit"
+                                        onClick={() => this.props.onEdit(server)}>
                                     <Icon name="pencil"/>
                                 </button>
-                                <button type="button" className="btn btn-default no-borders" data-toggle="tooltip" data-placement="left" title="Delete">
+                                <button type="button" className="btn btn-default no-borders"
+                                        data-toggle="tooltip" data-placement="left" title="Delete"
+                                        onClick={() => this.props.onDelete(server)}>
                                     <Icon name="trash-o"/>
                                 </button>
                             </div>
@@ -30,9 +34,11 @@ const ServerItem = React.createClass({
             </a>
         );
     }
-});  
+});
 ServerItem.propTypes = {
-    server: React.PropTypes.shape(ServerType).isRequired
+    server: React.PropTypes.shape(ServerType).isRequired,
+    onEdit: React.PropTypes.func.isRequired,
+    onDelete: React.PropTypes.func.isRequired
 };
 
 export default ServerItem;
