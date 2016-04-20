@@ -4,7 +4,7 @@ import phases from 'reducers/phases'
 import availablePhases from 'reducers/availablePhases'
 import errors from 'reducers/errors'
 import servers from 'reducers/servers'
-import modals from 'reducers/modals'
+import modals from 'reducers/modals' 
 
 import {reducer as form} from 'redux-form'
 
