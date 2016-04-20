@@ -3,6 +3,7 @@ buildscript {
 		commonsLoggingVersion = '1.2'
         groovyVersion = '2.4.4'
 		jacksonVersion = '2.7.3'
+        jsonPathVersion = '2.2.0'
         log4jVersion = '2.5'
         kotlinNosqlVersion = '0.1-SNAPSHOT'
 		kotlinVersion = '1.0.1-2'
@@ -57,6 +58,7 @@ dependencies {
 		exclude(group: 'ch.qos.logback', module: 'logback-classic')
 	}
 
+    testCompile("com.jayway.jsonpath:json-path:$jsonPathVersion")
     testCompile("org.codehaus.groovy:groovy-all:$groovyVersion")
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile("org.spockframework:spock-core:$spockVersion")

@@ -1,5 +1,6 @@
 package com.github.sedovalx.oauth2.controllers
 
+import com.github.sedovalx.oauth2.controllers.dto.OAuthServerListDto
 import com.github.sedovalx.oauth2.domain.OAuthServer
 import com.github.sedovalx.oauth2.storage.repos.OAuthServerRepo
 import com.github.sedovalx.oauth2.utils.web.Response
@@ -23,11 +24,12 @@ class OAuthServerController {
      * Get list of saved servers
      */
     @RequestMapping(value = "", method = arrayOf(RequestMethod.GET))
-    fun getAll(@RequestParam(required = false) limit: Int? = 100): ResponseEntity<List<OAuthServer>> {
+    fun getAll(@RequestParam(required = false) limit: Int? = 100): ResponseEntity<OAuthServerListDto> {
         // todo: remove it
         Thread.sleep(100)
 
-        return Response.buildJsonObjectOK(repo.getAll(limit))
+        val dto = OAuthServerListDto(repo.getAll(limit))
+        return Response.buildJsonObjectOK(dto)
     }
 
     /**
@@ -57,7 +59,7 @@ class OAuthServerController {
      * Create test data
      */
     @RequestMapping(value = "/create-test-data", method = arrayOf(RequestMethod.POST))
-    fun default(): ResponseEntity<List<OAuthServer>> {
+    fun default(): ResponseEntity<OAuthServerListDto> {
         val entities = arrayOf(
                 OAuthServer(
                         name = "Github",
@@ -84,6 +86,7 @@ class OAuthServerController {
                         clientSecret = "asdasd"
                 )
         ).map { repo.save(it) }
-        return Response.buildJsonObjectOK(entities)
+        val dto = OAuthServerListDto(entities)
+        return Response.buildJsonObjectOK(dto)
     }
 }

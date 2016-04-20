@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component
 
 @Component
 class OAuthServerRepoImpl: OAuthServerRepo {
-
     @Autowired
     private lateinit var datastore: Datastore
 
