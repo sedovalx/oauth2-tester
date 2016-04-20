@@ -1,7 +1,12 @@
 package com.github.sedovalx.oauth2
 
 import com.fasterxml.jackson.module.kotlin.KotlinModule
+import com.github.sedovalx.oauth2.storage.MorphiaStorage
 import com.github.sedovalx.oauth2.utils.web.HttpRequestLoggingInterceptor
+import com.mongodb.MongoClient
+import org.mongodb.morphia.Datastore
+import org.mongodb.morphia.Morphia
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
 import org.springframework.context.annotation.Bean
@@ -15,9 +20,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @EnableAutoConfiguration
 @ComponentScan(basePackages = arrayOf(
         "com.github.sedovalx.oauth2.controllers",
-        "com.github.sedovalx.oauth2.repos"
+        "com.github.sedovalx.oauth2.storage"
 ))
 open class Oauth2TesterApplication: WebMvcConfigurerAdapter() {
+
+    @Autowired
+    private lateinit var morphiaStorage: MorphiaStorage
+
     override fun addInterceptors(registry: InterceptorRegistry) {
         registry.addInterceptor(HttpRequestLoggingInterceptor())
         super.addInterceptors(registry)
@@ -26,6 +35,11 @@ open class Oauth2TesterApplication: WebMvcConfigurerAdapter() {
     @Bean
     open fun objectMapperBuilder(): Jackson2ObjectMapperBuilder =
             Jackson2ObjectMapperBuilder().modulesToInstall(KotlinModule())
+
+    @Bean
+    open fun datastore(): Datastore {
+        return morphiaStorage.connect()
+    }
 }
 
 fun main(args: Array<String>) {

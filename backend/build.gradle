@@ -3,7 +3,9 @@ buildscript {
 		commonsLoggingVersion = '1.2'
 		log4jVersion = '2.5'
 		jacksonVersion = '2.7.3'
+        kotlinNosqlVersion = '0.1-SNAPSHOT'
 		kotlinVersion = '1.0.1-2'
+        morphiaVersion = '1.1.1'
 		springBootVersion = '1.3.3.RELEASE'
 	}
 	repositories {
@@ -45,7 +47,9 @@ dependencies {
 
 	compile("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
 
-	compile('org.springframework.boot:spring-boot-devtools')
+    compile("org.mongodb.morphia:morphia:$morphiaVersion")
+
+    compile('org.springframework.boot:spring-boot-devtools')
 	compile('org.springframework.boot:spring-boot-starter-web') {
 		exclude(group: 'ch.qos.logback', module: 'logback-classic')
 	}

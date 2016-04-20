@@ -1,29 +1,22 @@
 package com.github.sedovalx.oauth2.domain
 
-import com.github.sedovalx.oauth2.dto.OAuthServerDto
+import org.mongodb.morphia.annotations.Entity
+import org.mongodb.morphia.annotations.Id
+import javax.validation.constraints.NotNull
 
 /**
  * Created by Alexander
  * on 18.04.2016.
  */
+@Entity("servers")
 class OAuthServer(
-        val id: Long,
-        name: String,
-        authEndpoint: String,
-        tokenEndpoint: String?,
-        clientID: String,
-        clientSecret: String
-): OAuthServerDto(name, authEndpoint, tokenEndpoint, clientID, clientSecret) {
-    companion object {
-        fun fromDto(id: Long, dto: OAuthServerDto): OAuthServer {
-            return OAuthServer(
-                    id = id,
-                    name = dto.name,
-                    authEndpoint = dto.authEndpoint,
-                    tokenEndpoint = dto.tokenEndpoint,
-                    clientID = dto.clientID,
-                    clientSecret = dto.clientSecret
-            )
-        }
-    }
-}
+        @Id
+        @NotNull
+        var name: String = "",
+        var authEndpoint: String? = null,
+        var tokenEndpoint: String? = null,
+        @NotNull
+        var clientID: String = "",
+        @NotNull
+        var clientSecret: String = ""
+)

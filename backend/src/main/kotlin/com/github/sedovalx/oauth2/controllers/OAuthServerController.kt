@@ -1,12 +1,10 @@
 package com.github.sedovalx.oauth2.controllers
 
 import com.github.sedovalx.oauth2.domain.OAuthServer
-import com.github.sedovalx.oauth2.dto.OAuthServerDto
-import com.github.sedovalx.oauth2.repos.OAuthServerRepo
+import com.github.sedovalx.oauth2.storage.repos.OAuthServerRepo
 import com.github.sedovalx.oauth2.utils.web.Response
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
-import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
@@ -29,83 +27,63 @@ class OAuthServerController {
         // todo: remove it
         Thread.sleep(100)
 
-        return Response.buildJsonObjectOK(repo.get(limit))
+        return Response.buildJsonObjectOK(repo.getAll(limit))
     }
 
     /**
-     * Создание нового
+     * Сохранение данных сервера
      */
-    @RequestMapping(value = "", method = arrayOf(RequestMethod.POST))
-    fun create(@Validated @RequestBody dto: OAuthServerDto): ResponseEntity<OAuthServer> {
-        // todo: remove it
-        Thread.sleep(1000)
-
-        val entity = repo.create(dto)
-        return Response.buildJsonObjectOK(entity)
-    }
-
-    /**
-     * Редактирование существующего
-     */
-    @RequestMapping(value = "{id}", method = arrayOf(RequestMethod.POST))
-    fun edit(@PathVariable id: Long, @Validated @RequestBody dto: OAuthServerDto): ResponseEntity<OAuthServer?> {
-        // todo: remove it
-        Thread.sleep(1000)
-
-        val entity = repo.edit(id, dto)
-        return if (entity != null)
-            Response.buildJsonObjectOK(entity)
-        else
-            Response.buildJsonObject<OAuthServer?>(HttpStatus.NOT_FOUND, null);
+    @RequestMapping(method = arrayOf(RequestMethod.POST))
+    fun save(@Validated @RequestBody entity: OAuthServer): ResponseEntity<OAuthServer> {
+        val saved = repo.save(entity)
+        return Response.buildJsonObjectOK(saved)
     }
 
     /**
      * Удаление существующего
      */
-    @RequestMapping(value = "{id}", method = arrayOf(RequestMethod.DELETE))
-    fun delete(@PathVariable id: Long): ResponseEntity<String?> {
+    @RequestMapping(value = "{name}", method = arrayOf(RequestMethod.DELETE))
+    fun delete(@PathVariable name: String): ResponseEntity<String?> {
         // todo: remove it
         Thread.sleep(1000)
 
-        val wasFound = repo.delete(id)
-        val idJson = "{id: $id}"
-        return if (wasFound)
-            Response.buildJsonOK(idJson)
+        return if (repo.delete(name))
+            Response.buildJsonOK()
         else
-            Response.buildJsonResponse(HttpStatus.NOT_FOUND, idJson)
+            Response.buildJsonResponse(HttpStatus.NOT_FOUND, "{ 'name': '$name' }")
     }
 
     /**
      * Создание дефолтного списка
      */
-    @RequestMapping(value = "/default", method = arrayOf(RequestMethod.POST))
+    @RequestMapping(value = "/create-test-data", method = arrayOf(RequestMethod.POST))
     fun default(): ResponseEntity<List<OAuthServer>> {
         val entities = arrayOf(
-                OAuthServerDto(
+                OAuthServer(
                         name = "Github",
                         authEndpoint = "https://github.com/login/oauth/authorize",
                         clientID = "123123",
                         clientSecret = "asdasd"
                 ),
-                OAuthServerDto(
+                OAuthServer(
                         name = "Facebook",
                         authEndpoint = "https://www.facebook.com/dialog/oauth",
                         clientID = "123123",
                         clientSecret = "asdasd"
                 ),
-                OAuthServerDto(
+                OAuthServer(
                         name = "LinkedIn",
                         authEndpoint = "https://www.linkedin.com/uas/oauth2/authorization",
                         clientID = "123123",
                         clientSecret = "asdasd"
                 ),
-                OAuthServerDto(
+                OAuthServer(
                         name = "Google",
                         authEndpoint = "https://www.googleapis.com/oauth2/v4/token",
                         clientID = "123123",
                         clientSecret = "asdasd"
                 )
-        ).map { repo.create(it) }
+        ).map { repo.save(it) }
         return Response.buildJsonObjectOK(entities)
     }
 }
