@@ -15,6 +15,8 @@ import spock.lang.Specification
 import java.util.function.Function
 
 import static org.hamcrest.Matchers.hasSize
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
@@ -48,6 +50,20 @@ abstract class MvcControllerBaseSpec extends Specification {
             }
         }
         mockMvc.perform(requestBuilder)
+    }
+
+    protected def performJsonPost(String url, String json) {
+        mockMvc.perform(post(url).contentType(MediaType.APPLICATION_JSON).content(json))
+    }
+
+    protected def performDelete(String url) {
+        mockMvc.perform(delete(url))
+    }
+
+    protected static ResultActions assertJsonIsNotFound(ResultActions actions){
+        return actions.andDo(print())
+                .andExpect(status().isNotFound())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
     }
 
     protected static ResultActions assertJsonIsOk(ResultActions actions){

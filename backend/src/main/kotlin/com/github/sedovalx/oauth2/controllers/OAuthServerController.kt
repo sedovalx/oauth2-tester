@@ -5,6 +5,7 @@ import com.github.sedovalx.oauth2.domain.OAuthServer
 import com.github.sedovalx.oauth2.storage.repos.OAuthServerRepo
 import com.github.sedovalx.oauth2.utils.web.Response
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated
@@ -19,14 +20,15 @@ import org.springframework.web.bind.annotation.*
 class OAuthServerController {
     @Autowired
     private lateinit var repo: OAuthServerRepo
+    @Value("\${app.web.debug.timeouts:0}")
+    private var imitateTimeouts: Long = 0
 
     /**
      * Get list of saved servers
      */
     @RequestMapping(value = "", method = arrayOf(RequestMethod.GET))
     fun getAll(@RequestParam(required = false) limit: Int? = 100): ResponseEntity<OAuthServerListDto> {
-        // todo: remove it
-        Thread.sleep(100)
+        imitateTimeouts()
 
         val dto = OAuthServerListDto(repo.getAll(limit))
         return Response.buildJsonObjectOK(dto)
@@ -37,6 +39,8 @@ class OAuthServerController {
      */
     @RequestMapping(value = "", method = arrayOf(RequestMethod.POST))
     fun save(@Validated @RequestBody entity: OAuthServer): ResponseEntity<OAuthServer> {
+        imitateTimeouts()
+
         val saved = repo.save(entity)
         return Response.buildJsonObjectOK(saved)
     }
@@ -46,8 +50,7 @@ class OAuthServerController {
      */
     @RequestMapping(value = "{name}", method = arrayOf(RequestMethod.DELETE))
     fun delete(@PathVariable name: String): ResponseEntity<String?> {
-        // todo: remove it
-        Thread.sleep(1000)
+        imitateTimeouts()
 
         return if (repo.delete(name))
             Response.buildJsonOK()
@@ -88,5 +91,11 @@ class OAuthServerController {
         ).map { repo.save(it) }
         val dto = OAuthServerListDto(entities)
         return Response.buildJsonObjectOK(dto)
+    }
+
+    private fun imitateTimeouts(){
+        if (imitateTimeouts != 0L){
+            Thread.sleep(imitateTimeouts)
+        }
     }
 }

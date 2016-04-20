@@ -1,5 +1,6 @@
 package com.github.sedovalx.oauth2.controllers
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.github.sedovalx.oauth2.base.MvcControllerBaseSpec
 import com.github.sedovalx.oauth2.domain.OAuthServer
 import com.github.sedovalx.oauth2.storage.repos.OAuthServerRepo
@@ -15,6 +16,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class OAuthServerControllerSpec extends MvcControllerBaseSpec {
     @Autowired
     private OAuthServerRepo repository
+
+    private final generator = new Generator()
+    private final jacksonMapper = new ObjectMapper()
 
     void cleanup() {
         repository.getAll(null).forEach {
@@ -37,7 +41,7 @@ class OAuthServerControllerSpec extends MvcControllerBaseSpec {
     def "Should return correct list of server info"(){
         given: "N servers in the storage"
         final n = 10
-        final expected = generateServers(n)
+        final expected = generator.createServers(n)
 
         when: "try query servers without limit"
         final actions = performGet('/api/servers')
@@ -51,7 +55,7 @@ class OAuthServerControllerSpec extends MvcControllerBaseSpec {
 
     def "Should return list of servers with respect to the limit"(){
         given: "10 servers in the storage"
-        generateServers(10)
+        generator.createServers(10)
 
         when: "try query servers with limit of 5"
         final actions = performGet('/api/servers?limit=5')
@@ -59,6 +63,77 @@ class OAuthServerControllerSpec extends MvcControllerBaseSpec {
         then: "returns 200 and 5 server infos"
         assertJsonIsOk(actions)
                 .andExpect(jsonPath('$.items', hasSize(5)))
+    }
+
+    def "Should save a server info"() {
+        given: "2 servers in the storage"
+        final serverCount = 2
+        generator.createServers(serverCount)
+
+        when: "save new server info"
+        final expected = generator.generateServers(1).find()
+        final actions = performJsonPost('/api/servers', jacksonMapper.writeValueAsString(expected))
+
+        then: "returns 200 and the server appears in the storage"
+        assertJsonIsOk(actions)
+        final items = repository.getAll(null)
+        items.size() == serverCount + 1
+        final actual = items.find { it.name == expected.name }
+        actual != null
+        actual.authEndpoint == expected.authEndpoint
+        actual.tokenEndpoint == expected.tokenEndpoint
+        actual.clientID == expected.clientID
+        actual.clientSecret == expected.clientSecret
+    }
+
+    def "Should update existing server"(){
+        given: "3 servers in the storage"
+        final serverCount = 3
+        final name = generator.createServers(serverCount).get(2).name
+
+        when: "try save server info for existing name"
+        final expected = generator.generateServers(1).find()
+        expected.name = name
+        final actions = performJsonPost('/api/servers', jacksonMapper.writeValueAsString(expected))
+
+        then: "returns 200 and updates existing server in the storage"
+        assertJsonIsOk(actions)
+        final items = repository.getAll(null)
+        items.size() == serverCount
+        final actual = items.find { it.name == expected.name }
+        actual != null
+        actual.authEndpoint == expected.authEndpoint
+        actual.tokenEndpoint == expected.tokenEndpoint
+        actual.clientID == expected.clientID
+        actual.clientSecret == expected.clientSecret
+    }
+
+    def "Should delete existing server"(){
+        given: "3 servers in the storage"
+        final serverCount = 3
+        final name = generator.createServers(serverCount).get(2).name
+
+        when: "try to delete server"
+        final actions = performDelete("/api/servers/$name")
+
+        then: "returns 200 and the server is deleted"
+        assertJsonIsOk(actions)
+        final items = repository.getAll(null)
+        items.size() == serverCount - 1
+        items.find { it.name == name } == null
+    }
+
+    def "Should return 404 if can't find server to delete"(){
+        given: "3 servers in the storage"
+        final serverCount = 3
+        generator.createServers(serverCount)
+
+        when: "try to delete non existing server"
+        final actions = performDelete("/api/servers/${UUID.randomUUID()}")
+
+        then: "returns 404 and no servers are deleted"
+        assertJsonIsNotFound(actions)
+        repository.getAll(null).size() == serverCount
     }
 
     private static ResultActions assertJsonServerList(ResultActions actions, List<OAuthServer> expected) {
@@ -71,17 +146,28 @@ class OAuthServerControllerSpec extends MvcControllerBaseSpec {
         })
     }
 
-    private List<OAuthServer> generateServers(int count) {
-        final servers = (1..count).collect {
-            new OAuthServer(
-                    name: UUID.randomUUID().toString(),
-                    authEndpoint: UUID.randomUUID().toString(),
-                    tokenEndpoint: UUID.randomUUID().toString(),
-                    clientID: UUID.randomUUID().toString(),
-                    clientSecret: UUID.randomUUID().toString()
-            )
+    class Generator {
+        List<OAuthServer> generateServers(int count) {
+            final servers = (1..count).collect {
+                new OAuthServer(
+                        name: UUID.randomUUID().toString(),
+                        authEndpoint: UUID.randomUUID().toString(),
+                        tokenEndpoint: UUID.randomUUID().toString(),
+                        clientID: UUID.randomUUID().toString(),
+                        clientSecret: UUID.randomUUID().toString()
+                )
+            }
+            return servers
         }
-        servers.forEach { repository.save(it) }
-        return servers
+
+        List<OAuthServer> save(List<OAuthServer> servers) {
+            return servers.collect { repository.save(it) }
+        }
+
+        List<OAuthServer> createServers(int count) {
+            return save(generateServers(count))
+        }
     }
+
+
 }
