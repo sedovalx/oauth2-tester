@@ -17,7 +17,7 @@ const ServerItem = React.createClass({
             onSelected
         } = this.props;
         const server = this.props.server;
-        const isSelected = selected && selected.id === server.id;
+        const isSelected = selected && selected.name === server.name;
         const buttonStyle = "btn-" + (isSelected ? "primary" : "default");
         return (
             <a href="#" className={classNames("list-group-item", "server-item", { "is-busy": isBusy }, { "active": isSelected })} onClick={() => onSelected(server)}>

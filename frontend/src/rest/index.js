@@ -8,7 +8,7 @@ export function fetchServers(limit) {
     return fetch(uri);
 }
 
-export function createServer(server) {
+export function saveServer(server) {
     return fetch('/api/servers', {
         method: 'POST',
         headers: {
@@ -20,30 +20,13 @@ export function createServer(server) {
 }
 
 export function deleteServer(server) {
-    return fetch(`/api/servers/${server.id}`, {
+    return fetch(`/api/servers/${server.name}`, {
         method: 'DELETE'
     })
 }
 
-export function updateServer(server) {
-    return fetch(`/api/servers/${server.id}`, {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            name: server.name,
-            authEndpoint: server.authEndpoint,
-            tokenEndpoint: server.tokenEndpoint,
-            clientID: server.clientID,
-            clientSecret: server.clientSecret
-        })
-    })
-}
-
 export function createDefaultServers() {
-    return fetch('/api/servers/default', {
+    return fetch('/api/servers/create-test-data', {
         method: 'POST'
     })
 }

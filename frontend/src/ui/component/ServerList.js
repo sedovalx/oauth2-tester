@@ -15,8 +15,8 @@ const ServerList = React.createClass({
             <div className="server-list">
                 <Loader loaded={!isFetching} scale={0.5}>
                     <div className="list-group">
-                        {servers.map(s => {
-                            return <ServerItemContainer key={s.id} server={s} />
+                        {servers.map((s, idx) => {
+                            return <ServerItemContainer key={idx} server={s} />
                         })}
                         <a href="#" className="list-group-item btn-add-server" onClick={this.props.onAdd}>
                             <div>

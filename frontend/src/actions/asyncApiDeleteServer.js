@@ -6,9 +6,9 @@ export default function(server) {
         types: [actionTypes.DELETE_SERVER_START, actionTypes.DELETE_SERVER_END],
         callAPI: () => deleteServer(server),
         actionBody: {
-            payload: server.id
+            payload: server.name
         },
         contentType: null,
-        handleResponse: () => { return {deletedId: server.id} }
+        handleResponse: () => { return {deletedId: server.name} }
     }
 }

@@ -1,10 +1,10 @@
 import actionTypes from 'actions/actionTypes'
-import { createServer } from 'rest/index'
+import { saveServer } from 'rest/index'
 
-export default function(serverDto) {
+export default function(server) {
     return {
         types: [actionTypes.SAVE_SERVER_START, actionTypes.SAVE_SERVER_END],
-        callAPI: () => createServer(serverDto)
+        callAPI: () => saveServer(server)
     }
 }
 
