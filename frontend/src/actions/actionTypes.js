@@ -7,6 +7,9 @@ let types = keyMirror({
     FETCH_SERVERS_START: null,
     FETCH_SERVERS_END: null,
 
+    FETCH_SETTINGS_START: null,
+    FETCH_SETTINGS_END: null,
+
     SAVE_SERVER_START: null,
     SAVE_SERVER_END: null,
     

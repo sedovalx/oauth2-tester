@@ -5,6 +5,10 @@ import PhaseListContainer from 'container/PhaseListContainer';
 import 'styles/main.scss';
 
 class App extends React.Component {
+    componentDidMount() {
+        this.props.onInit();        
+    }
+
     render() {
         return (
             <div>

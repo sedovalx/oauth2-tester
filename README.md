@@ -9,3 +9,11 @@ Pet application aimed to try a few frameworks/tools:
 * [Kotlin](https://kotlinlang.org/)
 
 The base of the project is greatly influenced by the awesome https://github.com/geowarin/boot-react. 
+
+## Prerequisites
+* Install Java SE 8
+* Install NodeJS 4.4.2
+* Install MongoDB 3.2.5
+    * [Windows](http://stackoverflow.com/questions/2438055/how-to-run-mongodb-as-windows-service) (as administrator)
+        * Install it as service `>mongod --dbpath=D:\mongodb --logpath=D:\mongodb\log.txt --install`
+        * Run it `net start MongoDB`

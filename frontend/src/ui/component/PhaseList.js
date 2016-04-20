@@ -8,8 +8,6 @@ import ServerEditorModalContainer from 'container/editors/ServerEditorModalConta
 const PhaseList = React.createClass({
     render(){
         const phases = this.props.phases;
-        const availablePhases = this.props.availablePhases;
-        const flows = this.props.flows;
         return (
             <div className="phase-list">
                 <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -33,7 +31,7 @@ const PhaseList = React.createClass({
 });
 PhaseList.propTypes = {
     flows: React.PropTypes.arrayOf(React.PropTypes.shape({
-        name: React.PropTypes.string.isRequired,
+        code: React.PropTypes.string.isRequired,
         desc: React.PropTypes.string.isRequired
     })).isRequired,
     availablePhases: React.PropTypes.arrayOf(React.PropTypes.string.isRequired).isRequired,

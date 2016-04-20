@@ -24,7 +24,8 @@ module.exports = {
         }),
         new HtmlWebpackPlugin({
             title: 'OAuth 2.0 tester (DEV)',
-            template: path.join(__dirname, 'assets/index-template.html')
+            template: path.join(__dirname, 'assets/index-template.html'),
+            favicon: 'assets/oauth-2-sm.png'
         })
     ],
     resolve: {

@@ -3,9 +3,7 @@ package com.github.sedovalx.oauth2
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.github.sedovalx.oauth2.storage.MorphiaStorage
 import com.github.sedovalx.oauth2.utils.web.HttpRequestLoggingInterceptor
-import com.mongodb.MongoClient
 import org.mongodb.morphia.Datastore
-import org.mongodb.morphia.Morphia
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration

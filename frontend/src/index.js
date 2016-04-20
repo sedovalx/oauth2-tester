@@ -3,7 +3,7 @@ import React from 'react';
 import DevTools from 'config/devtools';
 import { Provider } from 'react-redux';
 import initStore from 'config/store';
-import App from 'component/App';
+import AppContainer from 'container/AppContainer';
 
 const devTools = process.env.NODE_ENV === 'development' ? <DevTools /> : null;
 
@@ -12,7 +12,7 @@ const store = initStore();
 ReactDOM.render(
     <Provider store={store}>
         <div>
-            <App />
+            <AppContainer />
             {devTools}
         </div>
     </Provider>,

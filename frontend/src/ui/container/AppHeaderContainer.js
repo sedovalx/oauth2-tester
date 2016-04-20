@@ -1,9 +1,9 @@
-import { connect } from 'react-redux';
-import AppHeader from 'component/AppHeader';
+import { connect } from 'react-redux'
+import AppHeader from 'component/AppHeader'
 
 const mapStateToProps = (state) => {
     return {
-        title: state.commons.title
+        title: state.settings.title
     };
 };
 

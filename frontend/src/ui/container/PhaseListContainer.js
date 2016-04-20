@@ -5,7 +5,7 @@ const mapStateToProps = (state) => {
     return {
         phases: state.phases,
         availablePhases: state.availablePhases,
-        flows: state.commons.flows
+        flows: state.settings.flows.items
     }
 };
 

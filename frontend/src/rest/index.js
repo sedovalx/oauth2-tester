@@ -30,3 +30,7 @@ export function createDefaultServers() {
         method: 'POST'
     })
 }
+
+export function fetchSettings() {
+    return fetch('/api/settings')
+}
