@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/sedovalx/oauth2-tester.svg?branch=master)](https://travis-ci.org/sedovalx/oauth2-tester)
+
 # oauth2-tester
 Pet application aimed to try a few frameworks/tools:
 * [ECMAScript 2015](https://babeljs.io/docs/learn-es2015/)
