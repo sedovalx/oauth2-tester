@@ -1,11 +1,13 @@
 buildscript {
 	ext {
 		commonsLoggingVersion = '1.2'
-		log4jVersion = '2.5'
+        groovyVersion = '2.4.4'
 		jacksonVersion = '2.7.3'
+        log4jVersion = '2.5'
         kotlinNosqlVersion = '0.1-SNAPSHOT'
 		kotlinVersion = '1.0.1-2'
         morphiaVersion = '1.1.1'
+        spockVersion = '1.0-groovy-2.4'
 		springBootVersion = '1.3.3.RELEASE'
 	}
 	repositories {
@@ -18,6 +20,7 @@ buildscript {
 }
 
 apply plugin: 'kotlin'
+apply plugin: 'groovy'
 apply plugin: 'idea'
 apply plugin: 'spring-boot' 
 
@@ -54,7 +57,10 @@ dependencies {
 		exclude(group: 'ch.qos.logback', module: 'logback-classic')
 	}
 
-	testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile("org.codehaus.groovy:groovy-all:$groovyVersion")
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile("org.spockframework:spock-core:$spockVersion")
+    testCompile("org.spockframework:spock-spring:$spockVersion")
 }
 
 jar {

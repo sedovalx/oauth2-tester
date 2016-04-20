@@ -20,7 +20,7 @@ class OAuthServerController {
     private lateinit var repo: OAuthServerRepo
 
     /**
-     * Получение списка сохраненных OAuth серверов
+     * Get list of saved servers
      */
     @RequestMapping(value = "", method = arrayOf(RequestMethod.GET))
     fun getAll(@RequestParam(required = false) limit: Int? = 100): ResponseEntity<List<OAuthServer>> {
@@ -31,16 +31,16 @@ class OAuthServerController {
     }
 
     /**
-     * Сохранение данных сервера
+     * Upsert server data
      */
-    @RequestMapping(method = arrayOf(RequestMethod.POST))
+    @RequestMapping(value = "", method = arrayOf(RequestMethod.POST))
     fun save(@Validated @RequestBody entity: OAuthServer): ResponseEntity<OAuthServer> {
         val saved = repo.save(entity)
         return Response.buildJsonObjectOK(saved)
     }
 
     /**
-     * Удаление существующего
+     * Delete server data by name
      */
     @RequestMapping(value = "{name}", method = arrayOf(RequestMethod.DELETE))
     fun delete(@PathVariable name: String): ResponseEntity<String?> {
@@ -54,7 +54,7 @@ class OAuthServerController {
     }
 
     /**
-     * Создание дефолтного списка
+     * Create test data
      */
     @RequestMapping(value = "/create-test-data", method = arrayOf(RequestMethod.POST))
     fun default(): ResponseEntity<List<OAuthServer>> {
