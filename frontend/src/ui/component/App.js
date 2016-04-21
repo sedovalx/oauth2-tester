@@ -1,6 +1,7 @@
-import React from 'react';
-import AppHeaderContainer from 'container/AppHeaderContainer';
-import PhaseListContainer from 'container/PhaseListContainer';
+import React from 'react'
+import AppHeaderContainer from 'container/AppHeaderContainer'
+import PhaseListContainer from 'container/PhaseListContainer'
+import ServerEditorModalContainer from 'container/editors/ServerEditorModalContainer'
 
 import 'styles/main.scss';
 
@@ -19,8 +20,8 @@ class App extends React.Component {
                             <PhaseListContainer />
                         </div>
                     </div>
-
                 </div>
+                <ServerEditorModalContainer />
             </div>
         )
     }

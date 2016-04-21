@@ -53,12 +53,14 @@ ServerEditor.propTypes = {
     fields: React.PropTypes.object.isRequired,
     handleSubmit: React.PropTypes.func.isRequired,
     resetForm: React.PropTypes.func.isRequired,
-    submitting: React.PropTypes.bool.isRequired
+    submitting: React.PropTypes.bool.isRequired,
+    onCancel: React.PropTypes.func.isRequired,
+    error: React.PropTypes.string
 };
 
 export default reduxForm({
         form: 'server-editor',
-        fields: ['id', 'name', 'authEndpoint', 'tokenEndpoint', 'clientID', 'clientSecret']
+        fields: ['name', 'authEndpoint', 'tokenEndpoint', 'clientID', 'clientSecret']
     },
     state => {
         const server = state.modals.editor.server;

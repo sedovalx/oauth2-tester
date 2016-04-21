@@ -5,6 +5,8 @@ import { Provider } from 'react-redux';
 import initStore from 'config/store';
 import AppContainer from 'container/AppContainer';
 
+import { polyfill } from 'es6-promise'; polyfill();
+
 const devTools = process.env.NODE_ENV === 'development' ? <DevTools /> : null;
 
 const store = initStore();

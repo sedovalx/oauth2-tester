@@ -4,6 +4,9 @@ let types = keyMirror({
     SERVER_MODAL_SHOW: null,
     SERVER_MODAL_CLOSE: null,
 
+    SETTINGS_MODAL_SHOW: null,
+    SETTINGS_MODAL_CLOSE: null,
+
     FETCH_SERVERS_START: null,
     FETCH_SERVERS_END: null,
 

@@ -3,7 +3,6 @@ import PhaseType from 'props/PhaseType'
 import PhaseItem from 'component/PhaseItem'
 import ServerListContainer from 'container/ServerListContainer'
 import AuthApiInitializerContainer from 'container/AuthApiInitializerContainer'
-import ServerEditorModalContainer from 'container/editors/ServerEditorModalContainer'
 
 const PhaseList = React.createClass({
     render(){
@@ -11,7 +10,6 @@ const PhaseList = React.createClass({
         return (
             <div className="phase-list">
                 <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                    <ServerEditorModalContainer />
                     <PhaseItem key={phases.selectServer.name} phase={phases.selectServer} isActive={true}>
                         <div className="phase-item phase-select-server">
                             <ServerListContainer />

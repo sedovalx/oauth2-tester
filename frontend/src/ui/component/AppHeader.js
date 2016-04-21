@@ -1,22 +1,34 @@
-import React from 'react';
+import React from 'react'
+import SettingsType from 'props/SettingsType'
 
-const AppHeader = ({title}) => (
-    <div className="app-header page-header">
-        <div className="container-fluid">
-            <div className="row">
-                <div className="col-md-11">
-                    <h1>{title}</h1>
-                </div>
-                <div className="col-md-1">
-                    <button type="button" className="app-settings btn btn-link">Settings</button>
+const AppHeader = React.createClass({
+    render() {
+        const {
+            settings: {
+                title
+            },
+            onSettingsClick
+        } = this.props;
+        return (
+            <div className="app-header page-header">
+                <div className="container-fluid">
+                    <div className="row">
+                        <div className="col-md-5">
+                            <h1>{title}</h1>
+                        </div>
+                        <div className="col-md-7">
+                            <button type="button" className="app-settings btn btn-link" onClick={onSettingsClick}>Settings</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-);
+        ); 
+    }
+});
 
 AppHeader.propTypes = {
-    title: React.PropTypes.string.isRequired
+    settings: React.PropTypes.shape(SettingsType).isRequired,
+    onSettingsClick: React.PropTypes.func.isRequired
 };
 
 export default AppHeader;
