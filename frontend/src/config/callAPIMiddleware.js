@@ -66,7 +66,8 @@ export default function (options = defaultOptions) {
                 dispatch(Object.assign({}, actionBody, {
                     type: responseType,
                     payload: result
-                }))
+                }));
+                return result;
             }).catch(error => {
                 logOptions && logOptions.enabled && logOptions.error && console.error(error);
                 dispatch(Object.assign({}, actionBody, {

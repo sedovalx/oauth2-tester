@@ -10,6 +10,11 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     onExecute: (name, scope) => {
         return dispatch(asyncApiFetchUriCodeFlow(name, scope, JSON.stringify({ serverName: name })))
+            .then(result => {
+                if (result.success) {
+                    window.location.href = result.uri;
+                }
+            })
     }
 });
 

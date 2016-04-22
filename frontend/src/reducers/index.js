@@ -5,7 +5,6 @@ import availablePhases from 'reducers/availablePhases'
 import errors from 'reducers/errors'
 import servers from 'reducers/servers'
 import modals from 'reducers/modals' 
-import auth from 'reducers/auth'
 import exchangeLog from 'reducers/exchangeLog'
 
 import {reducer as form} from 'redux-form'
@@ -18,6 +17,5 @@ export default combineReducers({
     servers,
     modals,
     form,
-    auth,
     exchangeLog
 });
