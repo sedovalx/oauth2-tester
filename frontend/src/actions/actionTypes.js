@@ -19,7 +19,10 @@ let types = keyMirror({
     DELETE_SERVER_START: null,
     DELETE_SERVER_END: null,
 
-    SERVER_SELECTED: null
+    SERVER_SELECTED: null,
+    
+    FETCH_AUTH_URI_CODE_START: null,
+    FETCH_AUTH_URI_CODE_END: null
 });
 types.INIT = "@@INIT";
 
