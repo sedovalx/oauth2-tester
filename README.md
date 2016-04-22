@@ -17,5 +17,5 @@ The base of the project is greatly influenced by the awesome https://github.com/
 * Install NodeJS 4.4.2
 * Install MongoDB 3.2.5
     * [Windows](http://stackoverflow.com/questions/2438055/how-to-run-mongodb-as-windows-service) (as administrator)
-        * Install it as service `>mongod --dbpath=D:\mongodb --logpath=D:\mongodb\log.txt --install`
+        * Install it as service `>mongod --install --dbpath=D:\mongodb --logpath=D:\mongodb\log.txt`
         * Run it `net start MongoDB`
