@@ -7,3 +7,7 @@
 .no-borders {
   border: 0 solid transparent;
 }
+
+.input-group-btn .btn {
+  height: 34px; // иначе в хроме кнопка на 1px короче чем инпут
+}

@@ -1,7 +1,13 @@
 import u from 'updeep'
 import actionTypes from 'actions/actionTypes'
 
-export default function(state = { isFetching: false, selected: null, items: [] }, action) {
+const defaultState = {
+    isFetching: false,
+    selected: null,
+    items: []
+};
+
+export default function(state = defaultState, action) {
     switch (action.type) {
         case actionTypes.FETCH_SERVERS_START:
             return fetchServerStart(state);

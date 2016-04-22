@@ -2,17 +2,19 @@ import yup from 'yup'
 import validator from 'validation/validator'
 
 export const settingsSchema = yup.object({
-    flows: yup.object().shape({
-        current: yup.object().shape({
-            code: yup.string().required(),
-            desc: yup.string().required()
-        }).nullable(),
-        items: yup.array().required()
-    }).required(),
-    credentials: yup.object().shape({
-        username: yup.string().nullable(),
-        password: yup.string().nullable()
-    }).required()
+    currentFlow: yup.string().required().label("Selected flow type"),
+    username: yup.string()
+        .when('currentFlow', {
+            is: 'RESOURCE_FLOW',
+            then: yup.string().required().min(1).max(500).label("User login"),
+            otherwise: yup.string().nullable()
+        }),
+    password: yup.string()
+        .when('currentFlow', {
+            is: 'RESOURCE_FLOW',
+            then: yup.string().required().min(1).max(500).label("User password"),
+            otherwise: yup.string().nullable()
+        })
 });
 
 export default validator(settingsSchema)

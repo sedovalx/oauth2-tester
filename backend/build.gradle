@@ -23,7 +23,7 @@ buildscript {
 apply plugin: 'kotlin'
 apply plugin: 'groovy'
 apply plugin: 'idea'
-apply plugin: 'spring-boot' 
+apply plugin: 'spring-boot'
 
 jar {
 	baseName = 'oauth2tester'

@@ -5,18 +5,19 @@ import validateSettings from 'validation/settings'
 
 const mapStateToProps = state => ({
     initialValues: {
-        currentFlow: state.settings.flows.current,
-        username: state.settings.credentials.username,
-        password: state.settings.credentials.password,
-        callbackUri: state.settings.callbackUri
+        currentFlow: state.settings.flows.current ? state.settings.flows.current.code : null,
+        username: state.settings.credentials.username || "",
+        password: state.settings.credentials.password || ""
     },
+    callbackUri: state.settings.callbackUri,
     flows: state.settings.flows.items
 });
 
 const mapDispatchToProps = dispatch => ({
     onCancel: () => dispatch(settingsModalClose()),
     onSubmit: (fields) => {
-        console.log(fields);
+        return validateSettings(fields)
+            .then(() => dispatch(settingsModalClose(fields)))
     }
 });
 
