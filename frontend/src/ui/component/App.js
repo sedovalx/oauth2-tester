@@ -2,6 +2,7 @@ import React from 'react'
 import AppHeaderContainer from 'container/AppHeaderContainer'
 import PhaseListContainer from 'container/PhaseListContainer'
 import ServerEditorModalContainer from 'container/editors/ServerEditorModalContainer'
+import SettingsEditorModalContainer from 'container/editors/SettingsEditorModalContainer'
 
 import 'styles/main.scss';
 
@@ -22,6 +23,7 @@ class App extends React.Component {
                     </div>
                 </div>
                 <ServerEditorModalContainer />
+                <SettingsEditorModalContainer />
             </div>
         )
     }

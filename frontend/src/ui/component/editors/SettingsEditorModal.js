@@ -1,6 +1,6 @@
 import React from 'react'
 import Modal from 'react-modal'
-import ServerEditorContainer from 'container/editors/ServerEditorContainer'
+import SettingsEditorContainer from 'container/editors/SettingsEditorContainer'
 
 const customStyles = {
     content: {
@@ -16,7 +16,7 @@ const customStyles = {
     }
 };
 
-const ServerEditorModal = React.createClass({
+const SettingsEditorModal = React.createClass({
     render(){
         const {
             data,
@@ -24,14 +24,14 @@ const ServerEditorModal = React.createClass({
         } = this.props;
         return (
             <Modal isOpen={data != null} style={customStyles} onRequestClose={onCancel}>
-                <ServerEditorContainer />
+                <SettingsEditorContainer />
             </Modal>
         );
     }
 });
-ServerEditorModal.propTypes = {
+SettingsEditorModal.propTypes = {
     data: React.PropTypes.object,
     onCancel: React.PropTypes.func.isRequired
 };
 
-export default ServerEditorModal;
+export default SettingsEditorModal;

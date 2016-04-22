@@ -1,6 +1,5 @@
 import React from 'react'
 import Icon from 'react-fa'
-import { reduxForm } from 'redux-form'
 import classNames from 'classnames'
 
 const ServerEditor = React.createClass({
@@ -58,23 +57,4 @@ ServerEditor.propTypes = {
     error: React.PropTypes.string
 };
 
-export default reduxForm({
-        form: 'server-editor',
-        fields: ['name', 'authEndpoint', 'tokenEndpoint', 'clientID', 'clientSecret']
-    },
-    state => {
-        const server = state.modals.editor.server;
-        const initialValues = {};
-        // отфильтровываем пустые свойства, на них ругаются инпуты в redux-form
-        if (server) {
-            Object.keys(server).forEach(key => {
-                if (server[key] != null){
-                    initialValues[key] = server[key];
-                }
-            });
-        }
-        return {
-            initialValues
-        };
-    }
-)(ServerEditor);
+export default ServerEditor;
