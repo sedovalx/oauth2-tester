@@ -13,10 +13,10 @@ const AppHeader = React.createClass({
             <div className="app-header page-header">
                 <div className="container-fluid">
                     <div className="row">
-                        <div className="col-md-5">
+                        <div className="col-md-3">
                             <h1>{title}</h1>
                         </div>
-                        <div className="col-md-7">
+                        <div className="col-md-8">
                             <button type="button" className="app-settings btn btn-link" onClick={onSettingsClick}>Settings</button>
                         </div>
                     </div>

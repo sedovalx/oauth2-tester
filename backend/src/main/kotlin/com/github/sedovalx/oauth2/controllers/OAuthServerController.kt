@@ -5,7 +5,6 @@ import com.github.sedovalx.oauth2.domain.OAuthServer
 import com.github.sedovalx.oauth2.storage.repos.OAuthServerRepo
 import com.github.sedovalx.oauth2.utils.web.Response
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated
@@ -17,11 +16,9 @@ import org.springframework.web.bind.annotation.*
  */
 @RestController
 @RequestMapping(value = "**/api/servers")
-class OAuthServerController {
+class OAuthServerController: ControllerBase() {
     @Autowired
     private lateinit var repo: OAuthServerRepo
-    @Value("\${app.web.debug.timeouts:0}")
-    private var imitateTimeouts: Long = 0
 
     /**
      * Get list of saved servers
@@ -91,11 +88,5 @@ class OAuthServerController {
         ).map { repo.save(it) }
         val dto = OAuthServerListDto(entities)
         return Response.buildJsonObjectOK(dto)
-    }
-
-    private fun imitateTimeouts(){
-        if (imitateTimeouts != 0L){
-            Thread.sleep(imitateTimeouts)
-        }
     }
 }

@@ -28,4 +28,9 @@ class OAuthServerRepoMock implements OAuthServerRepo {
     boolean delete(String name) {
         items.remove(name)
     }
+
+    @Override
+    OAuthServer get(String s) {
+        return items.get(s)
+    }
 }

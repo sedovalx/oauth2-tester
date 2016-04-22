@@ -3,6 +3,7 @@ package com.github.sedovalx.oauth2.controllers
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.github.sedovalx.oauth2.base.MvcControllerBaseSpec
 import com.github.sedovalx.oauth2.domain.OAuthServer
+import com.github.sedovalx.oauth2.generators.OAuthServerGenerator
 import com.github.sedovalx.oauth2.storage.repos.OAuthServerRepo
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.web.servlet.ResultActions
@@ -16,8 +17,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class OAuthServerControllerSpec extends MvcControllerBaseSpec {
     @Autowired
     private OAuthServerRepo repository
+    @Autowired
+    private OAuthServerGenerator generator
 
-    private final generator = new Generator()
     private final jacksonMapper = new ObjectMapper()
 
     void cleanup() {
@@ -145,29 +147,5 @@ class OAuthServerControllerSpec extends MvcControllerBaseSpec {
                     "&& @.clientSecret == '${it.clientSecret}')]"
         })
     }
-
-    class Generator {
-        List<OAuthServer> generateServers(int count) {
-            final servers = (1..count).collect {
-                new OAuthServer(
-                        name: UUID.randomUUID().toString(),
-                        authEndpoint: UUID.randomUUID().toString(),
-                        tokenEndpoint: UUID.randomUUID().toString(),
-                        clientID: UUID.randomUUID().toString(),
-                        clientSecret: UUID.randomUUID().toString()
-                )
-            }
-            return servers
-        }
-
-        List<OAuthServer> save(List<OAuthServer> servers) {
-            return servers.collect { repository.save(it) }
-        }
-
-        List<OAuthServer> createServers(int count) {
-            return save(generateServers(count))
-        }
-    }
-
-
 }
+

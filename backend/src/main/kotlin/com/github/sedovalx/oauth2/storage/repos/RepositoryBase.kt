@@ -7,6 +7,7 @@ package com.github.sedovalx.oauth2.storage.repos
 
 interface RepositoryBase<Entity, Id> {
     fun getAll(limit: Int? = null): List<Entity>
+    fun get(id: Id): Entity?
     fun save(entity: Entity): Entity
     fun delete(id: Id): Boolean
 }

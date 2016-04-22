@@ -29,4 +29,7 @@ class OAuthServerRepoImpl: OAuthServerRepo {
         return query.asList()
     }
 
+    override fun get(id: String): OAuthServer? {
+        return datastore.get(OAuthServer::class.java, id)
+    }
 }
