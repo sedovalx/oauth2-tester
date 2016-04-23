@@ -1,4 +1,4 @@
-import keyMirror from 'keymirror';
+import keyMirror from 'keymirror'
 
 let types = keyMirror({
     SERVER_MODAL_SHOW: null,

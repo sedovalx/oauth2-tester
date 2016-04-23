@@ -1,7 +1,7 @@
 import React from 'react'
 import AppHeaderContainer from 'container/AppHeaderContainer'
 import SectionListContainer from 'container/SectionListContainer'
-import RequestEditor from 'component/request/RequestEditor'
+import RequestEditorContainer from 'container/request/RequestEditorContainer'
 import ServerEditorModalContainer from 'container/editors/ServerEditorModalContainer'
 import SettingsEditorModalContainer from 'container/editors/SettingsEditorModalContainer'
 
@@ -24,7 +24,7 @@ class App extends React.Component {
                             <SectionListContainer />
                         </div>
                         <div className="app-pane right">
-                            <RequestEditor />
+                            <RequestEditorContainer />
                         </div>
                     </div>
                 </div>

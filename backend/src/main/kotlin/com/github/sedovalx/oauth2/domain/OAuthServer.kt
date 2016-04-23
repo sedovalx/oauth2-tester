@@ -13,8 +13,7 @@ class OAuthServer(
         @Id
         @NotNull
         var name: String = "",
-        @NotNull
-        var authEndpoint: String = "",
+        var authEndpoint: String? = null,
         var tokenEndpoint: String? = null,
         @NotNull
         var clientID: String = "",

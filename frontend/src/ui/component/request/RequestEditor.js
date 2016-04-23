@@ -1,25 +1,35 @@
 import React from 'react'
 import Icon from 'react-fa'
 import classNames from 'classnames'
-import AddressBlock from 'component/request/AddressBlock'
+import AddressBlockContainer from 'container/request/AddressBlockContainer'
+import ParamsBlock from 'component/request/ParamsBlock';
 
 const RequestEditor = React.createClass({
     render() {
+        const {
+            fields: {
+                method,
+                endpoint,
+                params,
+                headers,
+                body
+            }
+        } = this.props;
         return (
             <div className="request-editor">
-                <AddressBlock />
-                <div className="params">
+                <form className="form-horizontal">
+                    <AddressBlockContainer method={method} endpoint={endpoint} />
+                    <ParamsBlock items={params}/>
+                    <div className="headers">
 
-                </div>
-                <div className="headers">
+                    </div>
+                    <div className="body">
 
-                </div>
-                <div className="body">
+                    </div>
+                    <div className="commands">
 
-                </div>
-                <div className="commands">
-
-                </div>
+                    </div>
+                </form>
             </div>
         );
     }

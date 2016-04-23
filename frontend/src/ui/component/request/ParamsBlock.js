@@ -1,4 +1,5 @@
 import React from 'react'
+import Icon from 'react-fa'
 
 const ParamsBlock = React.createClass({
     render() {
