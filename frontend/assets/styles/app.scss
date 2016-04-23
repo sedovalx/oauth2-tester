@@ -1,6 +1,7 @@
 $header-height: 100px;
 $left-pane-min-width: 300px;
 $left-pane-width: 25%;
+$app-side-margin: 20px;
 
 html, body, .app-container, .app-main, #root, #root>div {
   height: 100%;
@@ -13,6 +14,7 @@ html, body, .app-container, .app-main, #root, #root>div {
   top: $header-height;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  padding: 0 $app-side-margin;
 
   .app-main-row {
     height: 100%;
@@ -27,6 +29,7 @@ html, body, .app-container, .app-main, #root, #root>div {
       }
 
       &.right {
+        padding-left: $app-side-margin;
         float: none;
       }
     }

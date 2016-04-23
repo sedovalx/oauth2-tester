@@ -1,6 +1,7 @@
 import React from 'react'
 import AppHeaderContainer from 'container/AppHeaderContainer'
-import PhaseListContainer from 'container/PhaseListContainer'
+import SectionListContainer from 'container/SectionListContainer'
+import RequestEditor from 'component/request/RequestEditor'
 import ServerEditorModalContainer from 'container/editors/ServerEditorModalContainer'
 import SettingsEditorModalContainer from 'container/editors/SettingsEditorModalContainer'
 
@@ -20,10 +21,10 @@ class App extends React.Component {
                 <div className="app-main">
                     <div className="app-main-row">
                         <div className="app-pane left">
-                            <PhaseListContainer />  
+                            <SectionListContainer />
                         </div>
                         <div className="app-pane right">
-
+                            <RequestEditor />
                         </div>
                     </div>
                 </div>

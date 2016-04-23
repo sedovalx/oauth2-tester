@@ -1,8 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
-import PhaseType from 'props/PhaseType';
+import SectionType from 'props/SectionType';
 
-var PhaseItem = React.createClass({
+var SectionItem = React.createClass({
     getDefaultProps() {
         return {
             parentId: "#accordion",
@@ -10,24 +10,24 @@ var PhaseItem = React.createClass({
         };
     },
     render(){
-        const phase = this.props.phase;
+        const section = this.props.section;
         const parentId = this.props.parentId;
         const isActive = this.props.isActive;
         return (
             <div className="panel panel-default">
-                <div className="panel-heading" role="tab" id={"heading" + phase.name}>
+                <div className="panel-heading" role="tab" id={"heading" + section.name}>
                     <h4 className="panel-title">
                         <a role="button"
                            className={classNames({'collapsed': !isActive})}
                            data-toggle="collapse" data-parent={parentId}
-                           href={"#collapse" + phase.name}
+                           href={"#collapse" + section.name}
                            aria-expanded={isActive ? "true" : "false"}
-                           aria-controls={"collapse" + phase.name}>
-                            {phase.desc}
+                           aria-controls={"collapse" + section.name}>
+                            {section.desc}
                         </a>
                     </h4>
                 </div>
-                <div id={"collapse" + phase.name} className={classNames('panel-collapse', 'collapse', {'in': isActive})} role="tabpanel" aria-labelledby={"heading" + phase.name}>
+                <div id={"collapse" + section.name} className={classNames('panel-collapse', 'collapse', {'in': isActive})} role="tabpanel" aria-labelledby={"heading" + section.name}>
                     <div className="panel-body">
                         {this.props.children}
                     </div>
@@ -35,12 +35,12 @@ var PhaseItem = React.createClass({
                 </div>
             </div>
         )
-    }
+    }  
 });
-PhaseItem.propTypes = {
+SectionItem.propTypes = {
     parentId: React.PropTypes.string,
     isActive: React.PropTypes.bool,
-    phase: React.PropTypes.shape(PhaseType).isRequired
+    section: React.PropTypes.shape(SectionType).isRequired
 };
 
-export default PhaseItem;
+export default SectionItem;

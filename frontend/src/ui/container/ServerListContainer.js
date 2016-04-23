@@ -6,7 +6,7 @@ import ServerList from 'component/ServerList'
 
 const mapStateToProps = (state) => {
     return {
-        servers: state.servers.items,
+        servers: state.refs.servers.items,
         isFetching: state.servers.isFetching
     }
 };

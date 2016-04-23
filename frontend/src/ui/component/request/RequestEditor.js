@@ -1,14 +1,13 @@
 import React from 'react'
 import Icon from 'react-fa'
 import classNames from 'classnames'
+import AddressBlock from 'component/request/AddressBlock'
 
-const UriEditor = React.createClass({
+const RequestEditor = React.createClass({
     render() {
         return (
             <div className="request-editor">
-                <div className="address">
-
-                </div>
+                <AddressBlock />
                 <div className="params">
 
                 </div>
@@ -25,3 +24,5 @@ const UriEditor = React.createClass({
         );
     }
 });
+
+export default RequestEditor;

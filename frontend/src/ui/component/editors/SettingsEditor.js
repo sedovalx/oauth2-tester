@@ -3,8 +3,6 @@ import Icon from 'react-fa'
 import classNames from 'classnames'
 import Clipboard from 'clipboard'
 
-
-
 const SettingsEditor = React.createClass({
     componentDidMount() {
         this.clipboardBtnId = "settings-editor-clipboard-btn-id";
@@ -18,7 +16,7 @@ const SettingsEditor = React.createClass({
     render() {
         const {
             fields: {
-                currentFlow,
+                currentFlowStr,
                 username,
                 password
             },
@@ -29,6 +27,7 @@ const SettingsEditor = React.createClass({
             submitting,
             onCancel
         } = this.props;
+        const currentFlow = JSON.parse(currentFlowStr.value || currentFlowStr.initialValue);
         return (
             <div className="settings-editor">
                 <form className="form-horizontal" onSubmit={handleSubmit}>
@@ -49,12 +48,12 @@ const SettingsEditor = React.createClass({
                     <div className="form-group">
                         <label className="col-md-3 control-label">Selected flow type</label>
                         <div className="col-md-9">
-                            <select className="form-control" {...currentFlow}>
-                                {flows.map(f => <option value={f.code} key={f.code}>{f.desc}</option>)}
+                            <select className="form-control" {...currentFlowStr}>
+                                {flows.map(f => <option value={JSON.stringify(f)} key={f.code}>{f.desc}</option>)}
                             </select>
                         </div>
                     </div>
-                    {currentFlow && currentFlow.value === "RESOURCE_FLOW" && ( 
+                    {currentFlow && currentFlow.code === "RESOURCE_FLOW" && (
                         <div>
                             <p>You should provide your credentials to use the password credentials flow type</p>
                             <div className={classNames('form-group', {'has-error': username.touched && username.error})}>

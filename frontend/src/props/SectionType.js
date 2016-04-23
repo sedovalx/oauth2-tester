@@ -1,8 +1,8 @@
 import React from 'react';
 
-const PhaseType = {
+const SectionType = {
     name: React.PropTypes.string.isRequired,
     desc: React.PropTypes.string.isRequired
 };
 
-export default PhaseType;
+export default SectionType;
