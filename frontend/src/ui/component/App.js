@@ -9,7 +9,7 @@ import 'styles/main.scss';
 
 class App extends React.Component {
     componentDidMount() {
-        this.props.onInit();        
+        this.props.onInit(this.props.state);        
     }
 
     render() {

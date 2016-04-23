@@ -1,12 +1,15 @@
 import { connect } from 'react-redux'
+import { createAction } from 'redux-actions'
 import App from 'component/App'
-import asyncApiFetchSettings from 'actions/asyncApiFetchSettings'
+import actionTypes from 'actions/actionTypes'
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+    state
+});
 
 const mapDispatchToProps = dispatch => ({
-    onInit: () => {
-        return dispatch(asyncApiFetchSettings())
+    onInit: (state) => {
+        return dispatch(createAction(actionTypes.DEFAULT_STATE)(state))
     }
 });
 

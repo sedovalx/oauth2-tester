@@ -14,8 +14,8 @@ const defaultState = {
 
 export default function(state = defaultState, action) {
     switch (action.type) {
-        case actionTypes.FETCH_SETTINGS_END:
-            const flows = action.payload.flows;
+        case actionTypes.DEFAULT_STATE:
+            const flows = action.payload.refs.flows.items;
             return u({flow: () => flows && flows.length ? flows[0] : null}, state);
         case actionTypes.SERVER_SELECTED:
             return u({server: action.payload}, state);

@@ -1,6 +1,4 @@
-import u from 'updeep'
 import keyMirror from 'keymirror'
-import actionTypes from 'actions/actionTypes'
 
 export const flowTypes = keyMirror({
     CODE_FLOW: null,
@@ -20,9 +18,6 @@ const defaultState = {
 
 export default function(state = defaultState, action) {
     switch (action.type) {
-        case actionTypes.FETCH_SETTINGS_END:
-            const flows = action.payload.flows;
-            return u({items: flows}, state);
         default:
             return state;
     }
