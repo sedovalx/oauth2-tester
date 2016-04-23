@@ -4,7 +4,6 @@ import PhaseList from 'component/PhaseList';
 const mapStateToProps = (state) => {
     return {
         phases: state.phases,
-        availablePhases: state.availablePhases,
         flows: state.settings.flows.items
     }
 };

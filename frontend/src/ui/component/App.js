@@ -13,12 +13,17 @@ class App extends React.Component {
 
     render() {
         return (
-            <div>
-                <AppHeaderContainer />
-                <div className="app-main container-fluid">
-                    <div className="row">
-                        <div className="col-md-4">
-                            <PhaseListContainer />
+            <div className="app-container">
+                <div className="app-header">
+                    <AppHeaderContainer />
+                </div>
+                <div className="app-main">
+                    <div className="app-main-row">
+                        <div className="app-pane left">
+                            <PhaseListContainer />  
+                        </div>
+                        <div className="app-pane right">
+
                         </div>
                     </div>
                 </div>

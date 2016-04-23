@@ -10,7 +10,7 @@ const AppHeader = React.createClass({
             onSettingsClick
         } = this.props;
         return (
-            <div className="app-header page-header">
+            <div className="page-header">
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-md-3">

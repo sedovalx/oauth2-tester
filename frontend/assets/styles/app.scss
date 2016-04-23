@@ -1,0 +1,51 @@
+$header-height: 100px;
+$left-pane-min-width: 300px;
+$left-pane-width: 25%;
+
+html, body, .app-container, .app-main, #root, #root>div {
+  height: 100%;
+}
+
+.app-main {
+  display:table;
+  width: 100%;
+  position: absolute;
+  top: $header-height;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+
+  .app-main-row {
+    height: 100%;
+    display: table-row;
+
+    .app-pane {
+      display: table-cell;
+
+      &.left {
+        width: $left-pane-width;
+        min-width: $left-pane-min-width;
+      }
+
+      &.right {
+        float: none;
+      }
+    }
+  }
+}
+
+.app-header {
+  height: $header-height;
+
+  .page-header {
+    margin-top: 0;
+  }
+
+  .app-settings.btn {
+    margin-top: $header-height - 67px;
+  }
+}
+
+
+
+
+

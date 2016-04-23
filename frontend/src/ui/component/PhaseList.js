@@ -32,7 +32,6 @@ PhaseList.propTypes = {
         code: React.PropTypes.string.isRequired,
         desc: React.PropTypes.string.isRequired
     })).isRequired,
-    availablePhases: React.PropTypes.arrayOf(React.PropTypes.string.isRequired).isRequired,
     phases: React.PropTypes.shape({
         selectServer: React.PropTypes.shape(PhaseType).isRequired,
         queryToken: React.PropTypes.shape(PhaseType).isRequired,
