@@ -4,7 +4,7 @@ import SettingsEditorModal from 'component/editors/SettingsEditorModal'
 
 const mapStateToProps = (state) => {
     return {
-        data: state.modals.editor.settings
+        isOpen: state.modals.editor.settings
     }
 };
 

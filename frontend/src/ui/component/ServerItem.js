@@ -33,7 +33,7 @@ const ServerItem = React.createClass({
                             <div className="btn-group pull-right" role="group">
                                 <button type="button" className={classNames("btn", "no-borders", buttonStyle)}
                                         data-toggle="tooltip" data-placement="left" title="Edit"
-                                        onClick={() => onEdit(server)}
+                                        onClick={onEdit}
                                         disabled={isBusy}>
                                     <Icon name="pencil"/>
                                 </button>
@@ -43,7 +43,7 @@ const ServerItem = React.createClass({
                                         disabled={isBusy}>
                                     <Icon name="trash-o"/>
                                 </button>
-                            </div>
+                            </div>  
                         </div>
                     </div>
                 </div>

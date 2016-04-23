@@ -3,8 +3,8 @@ import AuthApiInitializer from 'component/AuthApiInitializer'
 import asyncApiFetchUriCodeFlow from 'actions/asyncApiFetchUriCodeFlow'
 
 const mapStateToProps = state => ({
-    isServerSelected: state.servers.selected != null,
-    selectedServerName: state.servers.selected ? state.servers.selected.name : null
+    isServerSelected: state.current.server != null,
+    selectedServerName: state.current.server ? state.current.server.name : null
 });
 
 const mapDispatchToProps = dispatch => ({

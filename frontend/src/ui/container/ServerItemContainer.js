@@ -6,16 +6,14 @@ import { serverSelected } from 'actions/serverSelected'
 
 const mapStateToProps = (state) => { 
     return {
-        selected: state.servers.selected
+        selected: state.current.server
     } 
 };
 
-
-
 const mapDispatchToProps = (dispatch) => {
     return {
-        onEdit: (server) => {
-            dispatch(serverModalShow(server))
+        onEdit: () => {
+            dispatch(serverModalShow())
         },
         onDelete: (server) => {
             dispatch(asyncApiDeleteServer(server))

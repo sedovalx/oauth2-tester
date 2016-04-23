@@ -4,7 +4,7 @@ import ServerEditorModal from 'component/editors/ServerEditorModal'
 
 const mapStateToProps = (state) => {
     return {
-        data: state.modals.editor.server
+        isOpen: state.modals.editor.server
     }
 };
 

@@ -19,11 +19,11 @@ const customStyles = {
 const SettingsEditorModal = React.createClass({
     render(){
         const {
-            data,
+            isOpen,
             onCancel
         } = this.props;
         return (
-            <Modal isOpen={data != null} style={customStyles} onRequestClose={onCancel}>
+            <Modal isOpen={isOpen} style={customStyles} onRequestClose={onCancel}>
                 <SettingsEditorContainer />
             </Modal>
         );

@@ -2,20 +2,31 @@ import u from 'updeep'
 import actionTypes from 'actions/actionTypes'
 
 const defaultState = {
-    items: []
+    items: [],
+    isFetching: false
 };
 
 export default function(state = defaultState, action) {
     switch (action.type) {
+        case actionTypes.FETCH_SERVERS_START:
+            return u({ isFetching: true }, state);
         case actionTypes.FETCH_SERVERS_END:
             return fetchServerEnd(state, action);
         case actionTypes.SAVE_SERVER_END:
             return saveServerEnd(state, action);
+        case actionTypes.DELETE_SERVER_START:
+            return deleteServerStart(state, action);
         case actionTypes.DELETE_SERVER_END:
             return deleteServerEnd(state, action);
         default:
             return state;
     }
+}
+
+function deleteServerStart(state, action) {
+    const serverId = action.payload;
+    const arrayIdx = state.items.map(s => s.name).indexOf(serverId);
+    return u({items: { [arrayIdx]: { isBusy: true } }}, state);
 }
 
 function addServers(servers){
@@ -32,7 +43,9 @@ function addServers(servers){
 }
 
 function fetchServerEnd(state, action) {
-    return action.error ? state : u({items: addServers(action.payload.items)}, state);
+    return action.error
+        ? state
+        : u({items: addServers(action.payload.items), isFetching: false}, state);
 }
 
 function saveServerEnd(state, action) {

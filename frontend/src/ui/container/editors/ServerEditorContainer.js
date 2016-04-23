@@ -5,7 +5,7 @@ import validateServer from 'validation/server'
 import asyncApiSaveServer from 'actions/asyncApiSaveServer'
 
 const mapStateToProps = state => {
-    const server = state.modals.editor.server;
+    const server = state.current.server;
     const initialValues = {};
     // отфильтровываем пустые свойства, на них ругаются инпуты в redux-form
     if (server) {

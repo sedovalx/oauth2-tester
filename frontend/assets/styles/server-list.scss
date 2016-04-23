@@ -4,6 +4,10 @@ $icon-size: 33px;
   overflow: auto;
   position: relative;
 
+  .loader {
+    min-height: 30px;
+  }
+
   .server-item {
     padding: 3px;
 

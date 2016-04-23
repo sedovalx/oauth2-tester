@@ -5,12 +5,12 @@ import validateSettings from 'validation/settings'
 
 const mapStateToProps = state => ({
     initialValues: {
-        currentFlowStr: JSON.stringify(state.settings.flows.current),
-        username: state.settings.credentials.username || "",
-        password: state.settings.credentials.password || ""
+        currentFlowStr: JSON.stringify(state.current.flow),
+        username: state.current.auth.username || "",
+        password: state.current.auth.password || ""
     },
-    callbackUri: state.settings.callbackUri,
-    flows: state.refs.flows.items
+    flows: state.refs.flows.items,
+    callbackUri: state.settings.callbackUri
 });
 
 const mapDispatchToProps = dispatch => ({
