@@ -37,7 +37,9 @@ const AddressBlock = React.createClass({
                             {methods.map(m => <option value={m} key={m}>{m}</option>)}
                         </select>
                     </div>
-                    <input type="text" className="form-control" title={uriWithParams.value} {...uriWithParams}/>
+                    <input type="text" className="form-control"
+                           title={uriWithParams.value}
+                           {...uriWithParams} />
                 </div>
             </div>
         )

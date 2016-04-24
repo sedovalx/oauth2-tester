@@ -26,7 +26,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     updateUri: (endpoint, params) => {
         return dispatch(createAction(actionTypes.REQUEST_URI_REBUILD)(buildUri(endpoint.value || endpoint.initialValue, params)))
-    }     
+    }
 });
 
 export default reduxForm({

@@ -22,14 +22,14 @@ const KeyValueList = React.createClass({
                                placeholder={keyPlaceholder}
                                onClick={() => addElement(items, idx)}
                                onFocus={event => {
-                                         pair.key.onFocus(event);
+                                         pair.key && pair.key.onFocus(event);
                                          addElement(items, idx);
                                        }}/>
                         <input type="text" className="form-control value" {...pair.value}
                                placeholder="Value"
                                onClick={() => addElement(items, idx)}
                                onFocus={event => {
-                                         pair.value.onFocus(event);
+                                         pair.value && pair.value.onFocus(event);
                                          addElement(items, idx);
                                        }}
                         />
