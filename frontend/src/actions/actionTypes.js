@@ -23,7 +23,8 @@ let types = keyMirror({
     FETCH_AUTH_URI_CODE_START: null,
     FETCH_AUTH_URI_CODE_END: null,
     
-    REQUEST_PARAMS_CHANGED: null
+    REQUEST_PARAMS_CHANGED: null,
+    REQUEST_URI_REBUILD: null
 });
 types.INIT = "@@INIT";
 

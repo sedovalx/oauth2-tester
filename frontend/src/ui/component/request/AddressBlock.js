@@ -1,39 +1,34 @@
 import React from 'react'
 
-function buildUri(endpoint, params) {
-    let uri = endpoint;
-    let filteredParams = params.filter(p => p.key.value);
-    if (filteredParams.length) {
-        uri += '?';
-        filteredParams.forEach(p => {
-            uri += `${encodeURIComponent(p.key.value)}=${encodeURIComponent(p.value.value)}&`;
-        });
-        uri = uri.slice(0, -1);
-    }
-    return uri;
-}
-
 const AddressBlock = React.createClass({
+    componentDidMount(){
+        this.props.updateUri(this.props.endpoint, this.props.params);
+    },
+    componentWillReceiveProps(newParams){
+        this.props.updateUri(newParams.endpoint, newParams.params);
+    },
     shouldComponentUpdate(nextProps){
-        const {
-            method,
-            endpoint,
-            params,
-            lastParamsUpdate
+        const { 
+            fields: {
+                uriWithParams 
+            }, 
+            method, 
+            params, 
+            lastParamsUpdate 
         } = this.props;
         return method !== nextProps.method
-            || endpoint !== nextProps.endpoint
+            || uriWithParams !== nextProps.uriWithParams
             || JSON.stringify(params) !== JSON.stringify(nextProps.params)
             || lastParamsUpdate !== nextProps.lastParamsUpdate;
     },
     render() {
         const {
+            fields: {
+                uriWithParams
+            },
             method,
-            endpoint,
-            params,
             methods
         } = this.props;
-        const uri = buildUri(endpoint.value || endpoint.initialValue, params);
         return (
             <div className="address-block">
                 <div className="input-group">
@@ -42,7 +37,7 @@ const AddressBlock = React.createClass({
                             {methods.map(m => <option value={m} key={m}>{m}</option>)}
                         </select>
                     </div>
-                    <input type="text" className="form-control" value={uri} title={uri}/>
+                    <input type="text" className="form-control" title={uriWithParams.value} {...uriWithParams}/>
                 </div>
             </div>
         )

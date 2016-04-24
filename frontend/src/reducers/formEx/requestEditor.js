@@ -1,7 +1,9 @@
 import u from 'updeep'
+import actionTypes from 'actions/actionTypes'
 
 const defaultState = {
-    lastParamsUpdate: null
+    lastParamsUpdate: null,
+    uriWithParams: ""
 };
 
 export default function(state = defaultState, action) {
@@ -12,6 +14,8 @@ export default function(state = defaultState, action) {
             } else {
                 return state;
             }
+        case actionTypes.REQUEST_URI_REBUILD:
+            return u({uriWithParams: action.payload}, state);
         default:
             return state;
     }
