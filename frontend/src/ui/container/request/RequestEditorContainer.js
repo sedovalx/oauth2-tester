@@ -2,6 +2,12 @@ import { reduxForm } from 'redux-form'
 import RequestEditor from 'component/request/RequestEditor'
 import { flowTypes } from 'reducers/refs/flows'
 
+function addEmptyParameter(elements) {
+    if (!elements.length || elements[elements.length - 1].value) {
+        elements.push({});
+    }
+}
+
 const mapStateToProps = state => {
     const initialValues = {
         method: 'GET',
@@ -67,6 +73,10 @@ const mapStateToProps = state => {
             initialValues.params.push({ key: 'password', value: password });
         }
     }
+
+    addEmptyParameter(initialValues.params);
+    addEmptyParameter(initialValues.headers);
+
     return {
         initialValues
     };
@@ -74,7 +84,15 @@ const mapStateToProps = state => {
 
 export default reduxForm({
         form: 'request-editor',
-        fields: ['method', 'endpoint', 'params', 'headers', 'body']
+        fields: [
+            'method',
+            'endpoint',
+            'params[].key',
+            'params[].value',
+            'headers[].key',
+            'headers[].key',
+            'body'
+        ]
     },
     mapStateToProps
 )(RequestEditor)

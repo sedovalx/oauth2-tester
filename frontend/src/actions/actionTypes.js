@@ -21,7 +21,9 @@ let types = keyMirror({
     SERVER_SELECTED: null,
     
     FETCH_AUTH_URI_CODE_START: null,
-    FETCH_AUTH_URI_CODE_END: null
+    FETCH_AUTH_URI_CODE_END: null,
+    
+    REQUEST_URI_UPDATE: null
 });
 types.INIT = "@@INIT";
 

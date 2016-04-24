@@ -1,5 +1,6 @@
 .request-editor {
   .address-block {
+    margin-bottom: 15px;
     .input-group .input-group-btn select {
       margin-right: -1px;
       border-bottom-left-radius: 3px;
@@ -8,6 +9,28 @@
     }
   }
 
-  .params-block {
+  .commands {
+    margin-bottom: 15px;
+
+    &>.btn {
+      margin-right: 5px;
+    }
+  }
+
+  .request-params {
+    margin-bottom: 5px;
+  }
+
+  .key, .value {
+    box-shadow: none;
+    width: 300px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-radius: 0;
+  }
+
+  .key {
+    margin-right: 10px;
   }
 }
