@@ -3,6 +3,7 @@ import Icon from 'react-fa'
 import u from 'updeep'
 import classNames from 'classnames'
 import AddressBlockContainer from 'container/request/AddressBlockContainer'
+import KeyValueList from 'component/request/KeyValueList'
 
 function addElement(elements, clickedIdx) {
     if (clickedIdx === elements.length - 1) {
@@ -74,68 +75,14 @@ const RequestEditor = React.createClass({
                         </button>
                     </div>
                     
-                    {this.state.showParams && (
-                        <div className="request-params">
-                            {params.map((p, idx) => {
-                                return (
-                                    <div key={idx} className="form-inline param-line">
-                                        <input type="text" className="form-control key" {...p.key}
-                                               placeholder="URL Parameter Key"
-                                               onClick={() => addElement(params, idx)}
-                                               onFocus={event => {
-                                                 p.key.onFocus(event);
-                                                 addElement(params, idx);
-                                               }}/>
-                                        <input type="text" className="form-control value" {...p.value}
-                                               placeholder="Value"
-                                               onClick={() => addElement(params, idx)}
-                                               onFocus={event => {
-                                                 p.value.onFocus(event);
-                                                 addElement(params, idx);
-                                               }} />
-                                        {idx !== params.length - 1 && (
-                                            <button className="btn btn-default no-borders" type="button" title="Remove" onClick={() => params.removeField(idx)}>
-                                                <Icon name="trash-o" />
-                                            </button>
-                                        )}
-                                    </div>
-                                )
-                            })}
-                        </div>    
-                    )}
-                    
-                    {this.state.showHeaders && (
-                        <div className="request-headers">
-                            {headers.map((h, idx) => (
-                                <div key={idx} className="form-inline param-line">
-                                    <input type="text" className="form-control key" {...h.key}
-                                           placeholder="Header"
-                                           onClick={() => addElement(headers, idx)}
-                                           onFocus={event => {
-                                             h.key.onFocus(event);
-                                             addElement(headers, idx);
-                                           }}/>
-                                    <input type="text" className="form-control value" {...h.value}
-                                           placeholder="Value"
-                                           onClick={() => addElement(headers, idx)}
-                                           onFocus={event => {
-                                             h.value.onFocus(event);
-                                             addElement(headers, idx);
-                                           }}
-                                         />
-                                    {idx !== params.length - 1 && (
-                                        <button className="btn btn-default no-borders" type="button" title="Remove" onClick={() => headers.removeField(idx)}>
-                                            <Icon name="trash-o" />
-                                        </button>
-                                    )}
-                                </div>
-                            ))}
-                        </div>
-                    )}
-
-                    <div className="headers">
-
+                    <div className="request-params">
+                        <KeyValueList items={params} keyPlaceholder="URL Parameter Key" isVisible={this.state.showParams} />
                     </div>
+
+                    <div className="request-headers">
+                        <KeyValueList items={headers} keyPlaceholder="Header" isVisible={this.state.showHeaders} />
+                    </div>
+
                     <div className="body">
 
                     </div>
