@@ -1,6 +1,7 @@
 import React from 'react'
 import Icon from 'react-fa'
 import u from 'updeep'
+import classNames from 'classnames'
 import AddressBlockContainer from 'container/request/AddressBlockContainer'
 import KeyValueList from 'component/request/KeyValueList'
 
@@ -45,11 +46,10 @@ const RequestEditor = React.createClass({
                             </button>
                         </div>
                         <div className="btn-group">
-                            {method.value === 'GET' && (
-                                <button className="btn btn-primary" type="button" onClick={() => onNavigate(uriWithParams, currentState)}>
-                                    Navigate
-                                </button>
-                            )}
+                            <button className={classNames('btn', 'btn-primary', { 'hidden': method.value !== 'GET' })} type="button"
+                                    onClick={() => onNavigate(uriWithParams, currentState)}>
+                                Navigate
+                            </button>
                             <button className="btn btn-primary" type="button" >
                                 Send
                             </button>

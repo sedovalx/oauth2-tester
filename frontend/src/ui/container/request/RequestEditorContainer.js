@@ -20,13 +20,9 @@ const mapStateToProps = state => {
     const {
         flow,
         server,
-        auth: {
-            code,
-            token,
-            username,
-            password
-        }
     } = state.current;
+    const code = server ? server.authCode : null;
+    const token = server ? server.authToken : null;
     const callbackUri = state.settings.callbackUri;
 
     if (server && flow) {
@@ -35,7 +31,7 @@ const mapStateToProps = state => {
         }
 
         if (flow.code === flowTypes.CODE_FLOW) {
-            if (!(code && token)) {
+            if (!(code || token)) {
                 initialValues.method = 'GET';
                 initialValues.endpoint = server.authEndpoint;
                 initialValues.params.push({ key: 'response_type', value: 'code' });
