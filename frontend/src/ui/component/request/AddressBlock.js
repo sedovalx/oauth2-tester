@@ -2,9 +2,10 @@ import React from 'react'
 
 function buildUri(endpoint, params) {
     let uri = endpoint;
-    if (params && params.length) {
+    let filteredParams = params.filter(p => p.key.value);
+    if (filteredParams.length) {
         uri += '?';
-        params.forEach(p => {
+        filteredParams.forEach(p => {
             uri += `${encodeURIComponent(p.key.value)}=${encodeURIComponent(p.value.value)}&`;
         });
         uri = uri.slice(0, -1);
@@ -17,9 +18,13 @@ const AddressBlock = React.createClass({
         const {
             method,
             endpoint,
-            params
+            params,
+            lastParamsUpdate
         } = this.props;
-        return method !== nextProps.method || endpoint !== nextProps.endpoint || JSON.stringify(params) != JSON.stringify(nextProps.params);
+        return method !== nextProps.method
+            || endpoint !== nextProps.endpoint
+            || JSON.stringify(params) !== JSON.stringify(nextProps.params)
+            || lastParamsUpdate !== nextProps.lastParamsUpdate;
     },
     render() {
         const {

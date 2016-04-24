@@ -1,6 +1,8 @@
 import { reduxForm } from 'redux-form'
+import { createAction } from 'redux-actions'
 import RequestEditor from 'component/request/RequestEditor'
 import { flowTypes } from 'reducers/refs/flows'
+import actionTypes from 'actions/actionTypes'
 
 function addEmptyParameter(elements) {
     if (!elements.length || elements[elements.length - 1].value) {
@@ -82,6 +84,14 @@ const mapStateToProps = state => {
     };
 };
 
+const mapDispatchToProps = dispatch => ({
+    onParamsChange: () => {
+        return dispatch(createAction(actionTypes.REQUEST_PARAMS_CHANGED)());
+    }
+});
+
+
+
 export default reduxForm({
         form: 'request-editor',
         fields: [
@@ -94,6 +104,7 @@ export default reduxForm({
             'body'
         ]
     },
-    mapStateToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(RequestEditor)
 
