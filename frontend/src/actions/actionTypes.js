@@ -4,8 +4,7 @@ let types = keyMirror({
     /** Notify with default store state */
     DEFAULT_STATE: null,
 
-    /** Notify with the state from the uri */
-    CURRENT_STATE: null,
+    CURRENT_FLOW_UPDATE: null,
 
     /** Asks server modal editor to open */
     SERVER_MODAL_SHOW: null,

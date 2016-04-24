@@ -2,10 +2,7 @@ import React from 'react'
 
 const AuthInfo = React.createClass({
     render(){
-        const {
-            code,
-            token
-        } = this.props;
+        const { code, token } = this.props;
         return (
             <div className="auth-into">
                 {code && (

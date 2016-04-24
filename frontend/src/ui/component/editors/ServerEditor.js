@@ -5,7 +5,7 @@ import classNames from 'classnames'
 const ServerEditor = React.createClass({
     render(){
         const {
-            fields: { name, authEndpoint, tokenEndpoint, clientID, clientSecret },
+            fields: { name, authEndpoint, tokenEndpoint, clientID, clientSecret, authCode, authToken },
             error,
             handleSubmit,
             submitting,
@@ -16,7 +16,9 @@ const ServerEditor = React.createClass({
             { obj: authEndpoint, desc: "Authorization endpoint" },
             { obj: tokenEndpoint, desc: "Token endpoint" },
             { obj: clientID, desc: "Client ID" },
-            { obj: clientSecret, desc: "Client secret" }
+            { obj: clientSecret, desc: "Client secret" },
+            { obj: authCode, desc: "Auth code" },
+            { obj: authToken, desc: "Auth token" }
         ];
         return (
             <div className="server-editor ">

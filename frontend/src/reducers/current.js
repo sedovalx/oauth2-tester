@@ -13,32 +13,30 @@ const defaultState = {
 };
 
 export default function(state = defaultState, action) {
+    if (action.error) return state;
+
     switch (action.type) {
         case actionTypes.DEFAULT_STATE:
             const flows = action.payload.refs.flows.items;
             return u({flow: () => flows && flows.length ? flows[0] : null}, state);
-        case actionTypes.CURRENT_STATE:
-            if (action.error) return state;
-            let newState = u({}, state);
-            if (action.payload.server) {
-                newState = u({server: action.payload.server}, newState);
-            }
-            if (action.payload.flow) {
-                newState = u({flow: action.payload.flow}, newState);
-            }
-            if (action.payload.auth) {
-                newState = u({auth: action.payload.auth}, newState);
-            }
-            return newState;
+        case actionTypes.CURRENT_FLOW_UPDATE:
+            return u({flow: action.payload}, state);
         case actionTypes.FETCH_SERVERS_END:
-            if (state.server && typeof state.server !== 'object' && !action.error) {
+            if (state.server && typeof state.server !== 'object') {
                 // try find server by its restored from url name
                 const name = state.server;
                 const loadedServers = action.payload.items;
-                return u({
-                    server: () => loadedServers.filter(s => s.name === name)[0]
-                }, state);
-            }  
+                let targetServer = loadedServers.filter(s => s.name === name)[0];
+                if (targetServer) {
+                    targetServer = u({authCode: state.auth.code, authToken: state.auth.token}, targetServer);
+                }
+                return u({ server: () => targetServer }, state);
+            }
+            return state;
+        case actionTypes.SAVE_SERVER_END:
+            if (state.server && state.server.name === action.payload.name) {
+                return u({server: action.payload}, state);
+            }
             return state;
         case actionTypes.SERVER_SELECTED:
             return u({server: action.payload}, state);

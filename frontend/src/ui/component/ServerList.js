@@ -5,9 +5,6 @@ import ServerItemContainer from 'container/ServerItemContainer'
 import ServerType from 'props/ServerType'
 
 const ServerList = React.createClass({
-    componentDidMount() {
-        this.props.onInit()
-    },
     render() {
         const servers = this.props.servers;
         const isFetching = this.props.isFetching;

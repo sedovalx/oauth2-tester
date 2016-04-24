@@ -34,7 +34,7 @@ const mapDispatchToProps = dispatch => ({
 
 export default reduxForm({
         form: 'server-editor',
-        fields: ['name', 'authEndpoint', 'tokenEndpoint', 'clientID', 'clientSecret']
+        fields: ['name', 'authEndpoint', 'tokenEndpoint', 'clientID', 'clientSecret', 'authCode', 'authToken']
     },
     mapStateToProps,
     mapDispatchToProps

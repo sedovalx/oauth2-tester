@@ -1,6 +1,8 @@
 import { connect } from 'react-redux'
 import { createAction } from 'redux-actions'
 import u from 'updeep'
+import asyncApiFetchServers from 'actions/asyncApiFetchServers'
+import asyncApiSaveServer from 'actions/asyncApiSaveServer'
 import App from 'component/App'
 import actionTypes from 'actions/actionTypes'
 import stateService from 'services/state'
@@ -12,15 +14,44 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     onInit: (state) => {
         dispatch(createAction(actionTypes.DEFAULT_STATE)(state));
-        try {
-            const parsedState = parseUri();
-            const current = buildCurrentState(state, parsedState);
-            return dispatch(createAction(actionTypes.CURRENT_STATE)(current));
-        } catch (e) {
-            dispatch(createAction(actionTypes.LOCAL_ERROR)(e));
-        }
+        return dispatch(asyncApiFetchServers())
+            .then(servers => {
+                const parsedState = parseUri();
+                // update current state
+                if (parsedState) {
+                    updateCurrentFlow(dispatch, state.refs.flows.items, parsedState.flow);
+                    const currentServer = updateServerAuthInfo(servers.items, parsedState.server, parsedState.auth.code, parsedState.auth.token);
+                    if (currentServer){
+                        // select server in the list
+                        dispatch(createAction(actionTypes.SERVER_SELECTED)(currentServer));
+                        // save updated server data
+                        return dispatch(asyncApiSaveServer(currentServer));
+                    }
+                }
+            })
+            .catch(err => dispatch(createAction(actionTypes.LOCAL_ERROR)(err)));
     }
 });
+
+
+function updateCurrentFlow(dispatch, flows, flowCode) {
+    if (flowCode != null) {
+        const currentFlow = flows.filter(f => f.code === flowCode)[0];
+        dispatch(createAction(actionTypes.CURRENT_FLOW_UPDATE)(currentFlow));
+    }
+}
+
+function updateServerAuthInfo(servers, serverName, authCode, authToken) {
+    let currentServer = servers.filter(s => s.name === serverName)[0];
+    if ((authCode || authToken) && !currentServer) {
+        throw new Error(
+            `Got an auth [code: ${authCode}] [authToken: ${authToken}] from URI but have no idea for witch server it was :( Server name: [${serverName}]`)
+    } else if (currentServer) {
+        currentServer.authCode = authCode;
+        currentServer.authToken = authToken;
+    }
+    return currentServer;
+}
 
 function parseUri() {
     let state = stateService.deserialize(getParameterByName('state'));
