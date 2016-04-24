@@ -13,7 +13,8 @@
       { "src": "./assets/styles", "expose": "styles" },
       { "src": "./assets/lang", "expose": "lang" },
       { "src": "./src/props", "expose": "props" },
-      { "src": "./src/validation", "expose": "validation" }
+      { "src": "./src/validation", "expose": "validation" },
+      { "src": "./src/services", "expose": "services" }
     ]]
   ],
   "env": {

@@ -23,7 +23,10 @@ const RequestEditor = React.createClass({
                 params,
                 headers,
                 body
-            }
+            },
+            uriWithParams,
+            currentState,
+            onNavigate
         } = this.props;
         const paramsCount = params.length > 0 ? params.length - 1 : 0;
         const headersCount = headers.length > 0 ? headers.length - 1 : 0;
@@ -32,13 +35,25 @@ const RequestEditor = React.createClass({
                 <form className="form-horizontal">
                     <AddressBlockContainer method={method} endpoint={endpoint} params={params} />
                     
-                    <div className="commands">
-                        <button className="btn btn-info" type="button" onClick={() => switchBoolState(this, 'showParams')}>
-                            <Icon name={this.state.showParams ? 'eye' : 'eye-slash'} /> URL Parameters ({paramsCount})
-                        </button>
-                        <button className="btn btn-success" type="button" onClick={() => switchBoolState(this, 'showHeaders')}>
-                            <Icon name={this.state.showHeaders ? 'eye' : 'eye-slash'} /> Headers ({headersCount})
-                        </button>
+                    <div className="commands btn-toolbar">
+                        <div className="btn-group">
+                            <button className="btn btn-default" type="button" onClick={() => switchBoolState(this, 'showParams')}>
+                                <Icon name={this.state.showParams ? 'eye' : 'eye-slash'} /> URL Parameters ({paramsCount})
+                            </button>
+                            <button className="btn btn-default" type="button" onClick={() => switchBoolState(this, 'showHeaders')}>
+                                <Icon name={this.state.showHeaders ? 'eye' : 'eye-slash'} /> Headers ({headersCount})
+                            </button>
+                        </div>
+                        <div className="btn-group">
+                            {method.value === 'GET' && (
+                                <button className="btn btn-primary" type="button" onClick={() => onNavigate(uriWithParams, currentState)}>
+                                    Navigate
+                                </button>
+                            )}
+                            <button className="btn btn-primary" type="button" >
+                                Send
+                            </button>
+                        </div>
                     </div>
                     
                     <div className="request-params">
@@ -49,11 +64,14 @@ const RequestEditor = React.createClass({
                         <KeyValueList items={headers} keyPlaceholder="Header" isVisible={this.state.showHeaders} />
                     </div>
 
-                    <div className="body">
+                    {method.value === 'POST' && (
+                        <div className="body">
+                            <textarea className="form-control" rows="10" placeholder="Request body" {...body} />
+                        </div>
+                    )}
 
-                    </div>
                     <div className="commands">
-
+                        
                     </div>
                 </form>
             </div>

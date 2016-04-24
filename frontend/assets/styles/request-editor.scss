@@ -12,12 +12,16 @@
   .commands {
     margin-bottom: 15px;
 
-    &>.btn {
-      margin-right: 5px;
-    }
+    //&>.btn {
+    //  margin-right: 5px;
+    //}
   }
 
   .request-params {
+    margin-bottom: 10px;
+  }
+
+  .request-headers {
     margin-bottom: 10px;
   }
 

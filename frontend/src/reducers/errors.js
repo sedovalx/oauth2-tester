@@ -1,8 +1,18 @@
 import u from 'updeep'
 
-export default function(state = { last: null }, action) {
+const addError = err => items => [].concat(items, [err]);
+
+const defaultState = {
+    items: [],
+    last: null
+};
+
+export default function(state = defaultState, action) {
     if (action.error){
-        return u({last: action.payload}, state);
+        return u({
+            last: action.payload,
+            items: addError(action.payload)
+        }, state);
     } else {
         return state;
     }

@@ -2,7 +2,6 @@ import React from 'react'
 import SectionType from 'props/SectionType'
 import SectionItem from 'component/SectionItem'
 import ServerListContainer from 'container/ServerListContainer'
-import AuthApiInitializerContainer from 'container/AuthApiInitializerContainer'
 
 const SectionList = React.createClass({
     render(){
@@ -13,7 +12,6 @@ const SectionList = React.createClass({
                     <SectionItem key={sections.selectServer.name} section={sections.selectServer} isActive={true}>
                         <div className="section-item section-select-server">
                             <ServerListContainer />
-                            <AuthApiInitializerContainer />
                         </div>
                     </SectionItem>
                     <SectionItem key={sections.queryToken.name} section={sections.queryToken}>

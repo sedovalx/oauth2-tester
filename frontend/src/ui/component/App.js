@@ -4,6 +4,7 @@ import SectionListContainer from 'container/SectionListContainer'
 import RequestEditorContainer from 'container/request/RequestEditorContainer'
 import ServerEditorModalContainer from 'container/editors/ServerEditorModalContainer'
 import SettingsEditorModalContainer from 'container/editors/SettingsEditorModalContainer'
+import ErrorNotificationContainer from 'container/ErrorNotificationContainer'
 
 import 'styles/main.scss';
 
@@ -30,6 +31,7 @@ class App extends React.Component {
                 </div>
                 <ServerEditorModalContainer />
                 <SettingsEditorModalContainer />
+                <ErrorNotificationContainer />
             </div>
         )
     }
