@@ -1,8 +1,8 @@
-import React from 'react';
-import Loader from 'react-loader';
+import React from 'react'
+import Loader from 'react-loader'
 import Icon from 'react-fa'
-import ServerItemContainer from 'container/ServerItemContainer';
-import ServerType from 'props/ServerType';
+import ServerItemContainer from 'container/ServerItemContainer'
+import ServerType from 'props/ServerType'
 
 const ServerList = React.createClass({
     componentDidMount() {
