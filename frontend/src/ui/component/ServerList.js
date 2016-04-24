@@ -14,21 +14,27 @@ const ServerList = React.createClass({
         return (
             <div className="server-list">
                 <Loader loaded={!isFetching} scale={0.5}>
-                    <div className="list-group">
-                        {servers.map((s, idx) => {
-                            return <ServerItemContainer key={idx} server={s} />
-                        })}
-                        <a href="#" className="list-group-item btn-add-server" onClick={this.props.onAdd}>
-                            <div>
-                                <Icon name="plus" />{' '}<strong>Add server</strong>
-                            </div>
-                        </a>
-                        <a href="#" className="list-group-item btn-add-server" onClick={this.props.onAddDefault}>
-                            <div>
-                                <Icon name="rocket" />{' '}<strong>Add test data</strong>
-                            </div>
-                        </a>
+                    <div className="servers panel panel-default">
+                        <div className="panel-heading">
+                            <h3 className="panel-title">Select a server <Icon name="hand-o-down"/> Then push the blue button <Icon name="hand-o-right"/></h3>
+                        </div>
+                        <div className="list-group">
+                            {servers.map((s, idx) => {
+                                return <ServerItemContainer key={idx} server={s} />
+                            })}
+                            <a href="#" className="list-group-item btn-add-server" onClick={this.props.onAdd}>
+                                <div>
+                                    <Icon name="plus" />{' '}<strong>Add server</strong>
+                                </div>
+                            </a>
+                            <a href="#" className="list-group-item btn-add-server" onClick={this.props.onAddDefault}>
+                                <div>
+                                    <Icon name="rocket" />{' '}<strong>Add test data</strong>
+                                </div>
+                            </a>
+                        </div>
                     </div>
+
                 </Loader>
             </div>
         );
