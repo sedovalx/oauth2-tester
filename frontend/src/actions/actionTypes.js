@@ -46,6 +46,8 @@ let types = keyMirror({
     /** Notify that error has been read by user */
     ERROR_HAS_BEEN_READ: null,
 
+    REQUEST_DATA_CHANGED: null,
+    
     EXCHANGE_REQUEST_START: null,
     EXCHANGE_REQUEST_END: null
 });

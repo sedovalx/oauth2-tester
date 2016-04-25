@@ -24,7 +24,7 @@ class Request {
         }
         return uri.toString();
     }
-
+    
     static buildFromState(server, flow, callbackUri, username, password) {
         let request = new Request();
         if (server && flow && flow.code) {

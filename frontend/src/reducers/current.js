@@ -48,6 +48,8 @@ export default function(state = defaultState, action) {
                     password: password
                 }
             }, state);
+        case actionTypes.REQUEST_DATA_CHANGED:
+            return u({request: action.payload}, state);
         default:
             return state;
     }

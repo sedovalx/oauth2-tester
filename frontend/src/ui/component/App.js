@@ -7,6 +7,7 @@ import ErrorNotificationContainer from 'container/ErrorNotificationContainer'
 import ServerListContainer from 'container/ServerListContainer'
 import AuthInfoContainer from 'container/AuthInfoContainer'
 import ExchangeLogContainer from 'container/ExchangeLogContainer'
+import RequestUpdater from 'container/utils/RequestUpdater'
 
 import 'styles/main.scss';
 
@@ -14,10 +15,10 @@ class App extends React.Component {
     componentDidMount() {
         this.props.onInit(this.props.state);        
     }
-
     render() {
         return (
             <div className="app-container">
+                <RequestUpdater />
                 <div className="app-header">
                     <AppHeaderContainer />
                 </div>
