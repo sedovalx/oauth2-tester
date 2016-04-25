@@ -6,6 +6,7 @@ const defaultState = {
     flow: null,
     server: null,
     request: new Request(),
+    requestUri: "",
     auth: {
         username: null,
         password: null
@@ -49,14 +50,26 @@ export default function(state = defaultState, action) {
                 }
             }, state);
         case actionTypes.REQUEST_UPDATE_FULL:
-            return u({request: action.payload}, state);
+            return u({
+                request: action.payload,
+                requestUri: action.payload.fullUri
+            }, state);
         case actionTypes.REQUEST_UPDATE_METHOD:
             return u({request: state.request.clone({method: action.payload})}, state);
         case actionTypes.REQUEST_UPDATE_URI:
-            const fullUri = action.payload;
-            return u({request: state.request.cloneWithUri(fullUri)}, state);
+            const fullUri = action.payload.uri;
+            let newState = u({request: state.request.cloneWithUri(fullUri)}, state);
+            if (action.payload.commit) {
+                // change it only on blur to smooth the typing experience
+                newState = u({requestUri: newState.request.fullUri}, newState);
+            }
+            return newState;
         case actionTypes.REQUEST_UPDATE_PARAMS:
-            return u({request: state.request.clone({queryParams: action.payload})}, state);
+            const newRequest = state.request.clone({queryParams: action.payload});
+            return u({
+                request: newRequest,
+                requestUri: newRequest.fullUri
+            }, state);
         case actionTypes.REQUEST_UPDATE_HEADERS:
             return u({request: state.request.clone({headers: action.payload})}, state);
         case actionTypes.REQUEST_UPDATE_BODY:

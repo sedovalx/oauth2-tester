@@ -9,10 +9,7 @@ const getMethod = createSelector(
     (method) => method
 );
 
-const getFullUri = createSelector(
-    [state => state.current.request, state => state.current.request.queryParams],
-    (request) => request.fullUri
-);
+const getFullUri = createSelector([state => state.current.requestUri], _ => _);
 
 const mapStateToProps = state => ({
     methods: state.refs.httpMethods.items,

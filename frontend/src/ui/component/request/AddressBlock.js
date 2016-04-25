@@ -5,7 +5,7 @@ const AddressBlock = React.createClass({
         const {
             fields: {
                 fullUri,
-                method
+                method,
             },
             methods,
             onChangeMethod,
@@ -27,7 +27,13 @@ const AddressBlock = React.createClass({
                            title={fullUri.value}
                            onChange={event => {
                                fullUri.onChange(event);
-                               onChangeUri(event.target.value);
+                               const message = {uri: event.target.value};
+                               onChangeUri(message);
+                           }} 
+                           onBlur={event => {
+                              fullUri.onBlur(event);
+                              const message = { uri: event.target.value, commit: true };
+                              onChangeUri(message); 
                            }} />
                 </div>
             </div>
