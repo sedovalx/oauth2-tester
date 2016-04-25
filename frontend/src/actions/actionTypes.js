@@ -4,6 +4,7 @@ let types = keyMirror({
     /** Notify with default store state */
     DEFAULT_STATE: null,
 
+    /** Request to update the current flow type */
     CURRENT_FLOW_UPDATE: null,
 
     /** Asks server modal editor to open */
@@ -43,7 +44,10 @@ let types = keyMirror({
     /**  Local error occured */
     LOCAL_ERROR: null,
     /** Notify that error has been read by user */
-    ERROR_HAS_BEEN_READ: null
+    ERROR_HAS_BEEN_READ: null,
+
+    EXCHANGE_REQUEST_START: null,
+    EXCHANGE_REQUEST_END: null
 });
 types.INIT = "@@INIT";
 

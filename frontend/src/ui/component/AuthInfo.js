@@ -21,5 +21,9 @@ const AuthInfo = React.createClass({
         );
     }
 });
+AuthInfo.propTypes = {
+    code: React.PropTypes.string,
+    token: React.PropTypes.string
+};
 
 export default AuthInfo;

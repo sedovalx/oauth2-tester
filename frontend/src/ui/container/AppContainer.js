@@ -5,7 +5,7 @@ import asyncApiFetchServers from 'actions/asyncApiFetchServers'
 import asyncApiSaveServer from 'actions/asyncApiSaveServer'
 import App from 'component/App'
 import actionTypes from 'actions/actionTypes'
-import stateService from 'services/state'
+import { deserializeState } from 'services/stateService'
 
 const mapStateToProps = state => ({
     state
@@ -54,7 +54,7 @@ function updateServerAuthInfo(servers, serverName, authCode, authToken) {
 }
 
 function parseUri() {
-    let state = stateService.deserialize(getParameterByName('state'));
+    let state = deserializeState(getParameterByName('state'));
 
     const code = getParameterByName('code');
     if (code) {
@@ -83,23 +83,6 @@ function parseUri() {
 }
 
 const noop = item => item;
-
-function buildCurrentState(state, parsedState) {
-    let current = u({}, state.current);
-    if (parsedState != null && typeof parsedState === 'object') {
-        if (parsedState.flow) {
-            current = u({ flow: state.refs.flows.items.filter(i => i.code === parsedState.flow).pop() || noop }, current);
-        }
-        if (parsedState.server) {
-            // servers ref could be empty
-            current = u({ server: state.refs.servers.items.filter(s => s.name === parsedState.server).pop() || parsedState.server }, current);
-        }
-        if (parsedState.auth) {
-            current = u({ auth: parsedState.auth }, current);
-        }
-    }
-    return current;
-}
 
 //http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
 function getParameterByName(name, url) {

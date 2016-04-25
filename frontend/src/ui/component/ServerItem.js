@@ -23,12 +23,12 @@ const ServerItem = React.createClass({
             <a href="#" className={classNames("list-group-item", "server-item", { "is-busy": isBusy }, { "active": isSelected })} onClick={() => onSelected(server)}>
                 <div className="container-fluid">
                     <div className="row">
-                        <div className="col-md-2">
+                        <div className="col-md-1">
                             <div className="img-container">
                                 <img src={`http://www.google.com/s2/favicons?domain=${authEndpoint}`} alt={name}/>
                             </div>
                         </div>
-                        <div className="col-md-7 name">{name}</div>
+                        <div className="col-md-8 name">{name}</div>
                         <div className="col-md-3 actions">
                             <div className="btn-group pull-right" role="group">
                                 <button type="button" className={classNames("btn", "no-borders", buttonStyle)}
@@ -53,8 +53,10 @@ const ServerItem = React.createClass({
 });
 ServerItem.propTypes = {
     server: React.PropTypes.shape(ServerType).isRequired,
+    selected: React.PropTypes.shape(ServerType),
     onEdit: React.PropTypes.func.isRequired,
-    onDelete: React.PropTypes.func.isRequired
+    onDelete: React.PropTypes.func.isRequired,
+    onSelected: React.PropTypes.func.isRequired
 };
 
 export default ServerItem;

@@ -6,6 +6,7 @@ import SettingsEditorModalContainer from 'container/editors/SettingsEditorModalC
 import ErrorNotificationContainer from 'container/ErrorNotificationContainer'
 import ServerListContainer from 'container/ServerListContainer'
 import AuthInfoContainer from 'container/AuthInfoContainer'
+import ExchangeLogContainer from 'container/ExchangeLogContainer'
 
 import 'styles/main.scss';
 
@@ -28,11 +29,12 @@ class App extends React.Component {
                         </div>
                         <div className="app-pane right">
                             <RequestEditorContainer />
+                            <ExchangeLogContainer />
                         </div>
                     </div>
                 </div>
                 <ServerEditorModalContainer />
-                <SettingsEditorModalContainer />  
+                <SettingsEditorModalContainer />
                 <ErrorNotificationContainer />
             </div>
         )

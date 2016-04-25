@@ -1,7 +1,7 @@
 import { reduxForm } from 'redux-form'
 import RequestEditor from 'component/request/RequestEditor'
 import { flowTypes } from 'reducers/refs/flows'
-import stateService from 'services/state'
+import { runRequest } from 'services/requestRunner'
 
 function addEmptyParameter(elements) {
     if (!elements.length || elements[elements.length - 1].value) {
@@ -78,11 +78,8 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-    onNavigate: (uri, currentState) => {
-        if (!uri) return;
-        const sState = stateService.serialize(currentState);
-        const separator = uri.indexOf('?') >= 0 ? '&' : '?';
-        window.location.href = uri + separator + 'state=' + sState;
+    onRun: (currentState, method, uri, headers) => {
+        return runRequest({dispatch, currentState, method, uri, headers});
     }
 });
 

@@ -1,7 +1,6 @@
 import React from 'react'
 import Icon from 'react-fa'
 import u from 'updeep'
-import classNames from 'classnames'
 import AddressBlockContainer from 'container/request/AddressBlockContainer'
 import KeyValueList from 'component/request/KeyValueList'
 
@@ -27,10 +26,11 @@ const RequestEditor = React.createClass({
             },
             uriWithParams,
             currentState,
-            onNavigate
+            onRun
         } = this.props;
         const paramsCount = params.length > 0 ? params.length - 1 : 0;
         const headersCount = headers.length > 0 ? headers.length - 1 : 0;
+        const strippedHeaders = headers.filter(h => h.key.value).map(h => ({ key: h.key.value, value: h.value.value }));
         return (
             <div className="request-editor">
                 <form className="form-horizontal">
@@ -46,12 +46,9 @@ const RequestEditor = React.createClass({
                             </button>
                         </div>
                         <div className="btn-group">
-                            <button className={classNames('btn', 'btn-primary', { 'hidden': method.value !== 'GET' })} type="button"
-                                    onClick={() => onNavigate(uriWithParams, currentState)}>
-                                Navigate
-                            </button>
-                            <button className="btn btn-primary" type="button" >
-                                Send
+                            <button className="btn btn-primary" type="button" disabled={!currentState.server}
+                                    onClick={() => onRun(currentState, method.value, uriWithParams, strippedHeaders)}>
+                                <Icon name="rocket" /> Run
                             </button>
                         </div>
                     </div>

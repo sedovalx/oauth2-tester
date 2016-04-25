@@ -2,16 +2,26 @@ import u from 'updeep'
 import actionTypes from 'actions/actionTypes'
 
 const defaultState = {
-    log: [],
+    request: null,
+    response: null,
     isBusy: false
 };
 
 export default function (state = defaultState, action) {
+    if (action.error) return state;
+    
     switch (action.type) {
-        case actionTypes.FETCH_AUTH_URI_CODE_START:
-            return u({isBusy: true}, state);
-        case actionTypes.FETCH_AUTH_URI_CODE_END:
-            return u({isBusy: false}, state);
+        case actionTypes.EXCHANGE_REQUEST_START:
+            return u({
+                isBusy: true,
+                request: action.payload,
+                response: null
+            }, state);
+        case actionTypes.EXCHANGE_REQUEST_END:
+            return u({
+                isBusy: false,
+                response: action.payload
+            });
         default:
             return state;
     }   

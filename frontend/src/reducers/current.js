@@ -26,6 +26,12 @@ export default function(state = defaultState, action) {
             return state;
         case actionTypes.SERVER_SELECTED:
             return u({server: action.payload}, state);
+        case actionTypes.DELETE_SERVER_END:
+            if (state.server && state.server.name === action.payload.deletedId) {
+                return u({server: null}, state);
+            } else {
+                return state;
+            }
         case actionTypes.SETTINGS_MODAL_CLOSE:
             if (!action.payload) return state;
             const {

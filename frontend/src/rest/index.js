@@ -30,18 +30,3 @@ export function createDefaultServers() {
         method: 'POST'
     })
 }
-
-export function fetchUriCodeFlow(serverName, scope, state) {
-    return fetch('/api/auth/build-uri/code', {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            serverName,
-            scope,
-            state
-        })
-    })
-}
