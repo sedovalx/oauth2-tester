@@ -51,7 +51,13 @@ const KeyValueList = React.createClass({
                                }}
                         />
                         {idx !== items.length - 1 && (
-                            <button className="btn btn-default no-borders" type="button" title="Remove" onClick={() => items.removeField(idx)}>
+                            <button className="btn btn-default no-borders" type="button" title="Remove"
+                                    onClick={() => {
+                                        items.removeField(idx);
+                                        const stripped = stripItems(items);
+                                        stripped.splice(idx, 1);
+                                        onItemsChange(stripped);
+                                    }}>
                                 <Icon name="trash-o" />
                             </button>
                         )}

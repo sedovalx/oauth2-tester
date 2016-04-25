@@ -31,7 +31,6 @@ const RequestEditor = React.createClass({
         } = this.props;
         const paramsCount = params.length > 0 ? params.length - 1 : 0;
         const headersCount = headers.length > 0 ? headers.length - 1 : 0;
-        const strippedHeaders = headers.filter(h => h.key.value).map(h => ({ key: h.key.value, value: h.value.value }));
         return (
             <div className="request-editor">
                 <form className="form-horizontal">
@@ -62,7 +61,7 @@ const RequestEditor = React.createClass({
                         <KeyValueList items={headers} keyPlaceholder="Header" isVisible={this.state.showHeaders} onItemsChange={onChangeHeaders} />
                     </div>
 
-                    {method.value === 'POST' && (
+                    {method === 'POST' && (
                         <div className="body">
                             <textarea className="form-control" rows="10" {...body}
                                       placeholder="Request body" 
@@ -72,7 +71,7 @@ const RequestEditor = React.createClass({
                                       }}/>
                         </div>
                     )}
-
+  
                     <div className="commands">
                         
                     </div>

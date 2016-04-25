@@ -34,8 +34,7 @@ class Request {
             return this.clone({baseUri: "", queryParams: []});
         }
         const uri = URI(uriString).normalize();
-        console.log(uri.protocol() + "  " + uri.host() + "  " + uri.path());
-        
+
         if (!(uri.protocol() && uri.host())) {
             return this.clone({baseUri: uriString, queryParams: []});
         }
