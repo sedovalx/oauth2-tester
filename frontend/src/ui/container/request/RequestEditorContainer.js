@@ -2,6 +2,7 @@ import { reduxForm } from 'redux-form'
 import RequestEditor from 'component/request/RequestEditor'
 import { flowTypes } from 'reducers/refs/flows'
 import { runRequest } from 'services/requestRunner'
+import Request from 'services/Request'
 
 function addEmptyParameter(elements) {
     if (!elements.length || elements[elements.length - 1].value) {
@@ -24,6 +25,8 @@ const mapStateToProps = state => {
     const code = server ? server.authCode : null;
     const token = server ? server.authToken : null;
     const callbackUri = state.settings.callbackUri;
+    
+    const request = Request.buildFromState(server, flow, callbackUri, state.settings.username, state.settings.password);
 
     if (server && flow) {
         if (token) {

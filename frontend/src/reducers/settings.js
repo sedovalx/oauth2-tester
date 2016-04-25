@@ -1,6 +1,8 @@
 const defaultState = {
     callbackUri: location.origin + '/',
-    title: 'OAuth 2.0 Tester'
+    title: 'OAuth 2.0 Tester',
+    username: null,
+    password: null
 };
 
 export default function(state = defaultState, action) {
