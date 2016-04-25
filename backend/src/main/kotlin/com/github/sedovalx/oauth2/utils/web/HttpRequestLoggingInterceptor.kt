@@ -49,22 +49,26 @@ class HttpRequestLoggingInterceptor : HandlerInterceptorAdapter() {
         val format = SimpleDateFormat("yyyy.MM.dd HH:mm:ss.SSS Z")
 
         val parameters = LinkedHashMap<String, String>()
-        parameters.put("URL", getFullUrl(request))
-        parameters.put("Remote host", String.format("%s [%s]", request.remoteHost, request.remoteAddr))
-        parameters.put("Content length", request.contentLengthLong.toString())
-        parameters.put("Start time", format.format(startDate))
-        parameters.put("Elapsed time", elapsedTime.toString() + " ms")
-        parameters.put("Response status", response.status.toString())
+        with (parameters) {
+            put("URL", getFullUrl(request))
+            put("Remote host", String.format("%s [%s]", request.remoteHost, request.remoteAddr))
+            put("Content length", request.contentLengthLong.toString())
+            put("Start time", format.format(startDate))
+            put("Elapsed time", elapsedTime.toString() + " ms")
+            put("Response status", response.status.toString())
+        }
         return parameters
     }
 
     private fun getAdditionalParameters(request: HttpServletRequest): Map<String, String> {
         val parameters = LinkedHashMap<String, String>()
-        parameters.put("Content type", request.contentType)
-        parameters.put("Encoding", request.characterEncoding)
-        parameters.put("Protocol", request.protocol)
-        parameters.put("Headers", collectSomething(request.headerNames, { request.getHeader(it) }))
-        parameters.put("Cookies", collectCookies(request.cookies))
+        with (parameters) {
+            put("Content type", request.contentType)
+            put("Encoding", request.characterEncoding)
+            put("Protocol", request.protocol)
+            put("Headers", collectSomething(request.headerNames, { request.getHeader(it) }))
+            put("Cookies", collectCookies(request.cookies))
+        }
         return parameters
     }
 

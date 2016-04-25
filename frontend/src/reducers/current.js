@@ -1,9 +1,11 @@
 import u from 'updeep'
 import actionTypes from 'actions/actionTypes'
+import Request from 'services/Request'
 
 const defaultState = {
     flow: null,
     server: null,
+    request: new Request(),
     auth: {
         username: null,
         password: null

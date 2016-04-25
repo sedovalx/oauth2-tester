@@ -2,17 +2,10 @@ import { reduxForm } from 'redux-form'
 import { createAction } from 'redux-actions'
 import actionTypes from 'actions/actionTypes'
 import AddressBlock from 'component/request/AddressBlock'
+import Request from 'services/Request'
 
 function buildUri(uri, params) {
-    let filteredParams = params.filter(p => p.key.value);
-    if (filteredParams.length) {
-        uri += '?';
-        filteredParams.forEach(p => {
-            uri += `${encodeURIComponent(p.key.value)}=${encodeURIComponent(p.value.value)}&`;
-        });
-        uri = uri.slice(0, -1);
-    }
-    return uri;
+    return new Request({baseUri: uri, queryParams: params.filter(p => p.key.value).map(p => ({ key: p.key.value, value: p.value.value }))}).fullUri;
 }
 
 const mapStateToProps = state => ({
