@@ -5,7 +5,9 @@ import { createAction } from 'redux-actions'
 import Request from 'services/Request'
 import actionTypes from 'actions/actionTypes'
 
-
+/**
+ * Dummy component for updating of the current request in the store
+ */
 const RequestUpdaterComponent = React.createClass({
     componentDidMount(){
         this.props.onChange(this.props.request);
@@ -33,7 +35,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     onChange: (request) => {
-        return dispatch(createAction(actionTypes.REQUEST_DATA_CHANGED)(request));
+        return dispatch(createAction(actionTypes.REQUEST_UPDATE_FULL)(request));
     }    
 });
 

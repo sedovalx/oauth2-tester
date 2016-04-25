@@ -1,30 +1,39 @@
 import { reduxForm } from 'redux-form'
 import { createAction } from 'redux-actions'
+import { createSelector } from 'reselect'
 import actionTypes from 'actions/actionTypes'
 import AddressBlock from 'component/request/AddressBlock'
-import Request from 'services/Request'
 
-function buildUri(uri, params) {
-    return new Request({baseUri: uri, queryParams: params.filter(p => p.key.value).map(p => ({ key: p.key.value, value: p.value.value }))}).fullUri;
-}
+const getMethod = createSelector(
+    [state => state.current.request.method],
+    (method) => method
+);
+
+const getFullUri = createSelector(
+    [state => state.current.request, state => state.current.request.queryParams],
+    (request) => request.fullUri
+);
 
 const mapStateToProps = state => ({
     methods: state.refs.httpMethods.items,
-    lastParamsUpdate: state.formEx.requestEditor.lastParamsUpdate,
     initialValues: {
-        uriWithParams: state.formEx.requestEditor.uriWithParams
+        fullUri: getFullUri(state),
+        method: getMethod(state)
     }
 });
 
 const mapDispatchToProps = dispatch => ({
-    updateUri: (endpoint, params) => {
-        return dispatch(createAction(actionTypes.REQUEST_URI_REBUILD)(buildUri(endpoint.value || endpoint.initialValue, params)))
+    onChangeMethod: (newMethod) => {
+        return dispatch(createAction(actionTypes.REQUEST_UPDATE_METHOD)(newMethod));
+    },
+    onChangeUri: (newUri) => {
+        return dispatch(createAction(actionTypes.REQUEST_UPDATE_URI)(newUri));
     }
 });
 
 export default reduxForm({
         form: 'address-editor',
-        fields: ['uriWithParams']
+        fields: ['fullUri', 'method']
     },
     mapStateToProps,
     mapDispatchToProps

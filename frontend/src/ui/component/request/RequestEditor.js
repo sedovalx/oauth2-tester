@@ -18,15 +18,16 @@ const RequestEditor = React.createClass({
     render() {
         const {
             fields: {
-                method,
-                endpoint,
                 params,
                 headers,
                 body
             },
-            uriWithParams,
+            method,
             currentState,
-            onRun
+            onRun,
+            onChangeParams,
+            onChangeHeaders,
+            onChangeBody
         } = this.props;
         const paramsCount = params.length > 0 ? params.length - 1 : 0;
         const headersCount = headers.length > 0 ? headers.length - 1 : 0;
@@ -34,7 +35,7 @@ const RequestEditor = React.createClass({
         return (
             <div className="request-editor">
                 <form className="form-horizontal">
-                    <AddressBlockContainer method={method} endpoint={endpoint} params={params} />
+                    <AddressBlockContainer />
                     
                     <div className="commands btn-toolbar">
                         <div className="btn-group">
@@ -47,23 +48,28 @@ const RequestEditor = React.createClass({
                         </div>
                         <div className="btn-group">
                             <button className="btn btn-primary" type="button" disabled={!currentState.server}
-                                    onClick={() => onRun(currentState, method.value, uriWithParams, strippedHeaders)}>
+                                    onClick={() => onRun(currentState)}>
                                 <Icon name="rocket" /> Run
                             </button>
                         </div>
                     </div>
                     
                     <div className="request-params">
-                        <KeyValueList items={params} keyPlaceholder="URL Parameter Key" isVisible={this.state.showParams} />
+                        <KeyValueList items={params} keyPlaceholder="URL Parameter Key" isVisible={this.state.showParams} onItemsChange={onChangeParams} />
                     </div>
 
                     <div className="request-headers">
-                        <KeyValueList items={headers} keyPlaceholder="Header" isVisible={this.state.showHeaders} />
+                        <KeyValueList items={headers} keyPlaceholder="Header" isVisible={this.state.showHeaders} onItemsChange={onChangeHeaders} />
                     </div>
 
                     {method.value === 'POST' && (
                         <div className="body">
-                            <textarea className="form-control" rows="10" placeholder="Request body" {...body} />
+                            <textarea className="form-control" rows="10" {...body}
+                                      placeholder="Request body" 
+                                      onChange={event => {
+                                         body.onChange(event);
+                                         onChangeBody(event.target.value);
+                                      }}/>
                         </div>
                     )}
 

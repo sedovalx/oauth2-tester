@@ -1,45 +1,34 @@
 import React from 'react'
 
 const AddressBlock = React.createClass({
-    componentDidMount(){
-        this.props.updateUri(this.props.endpoint, this.props.params);
-    },
-    componentWillReceiveProps(newParams){
-        this.props.updateUri(newParams.endpoint, newParams.params);
-    },
-    shouldComponentUpdate(nextProps){
-        const { 
-            fields: {
-                uriWithParams 
-            }, 
-            method, 
-            params, 
-            lastParamsUpdate 
-        } = this.props;
-        return method !== nextProps.method
-            || uriWithParams !== nextProps.uriWithParams
-            || JSON.stringify(params) !== JSON.stringify(nextProps.params)
-            || lastParamsUpdate !== nextProps.lastParamsUpdate;
-    },
     render() {
         const {
             fields: {
-                uriWithParams
+                fullUri,
+                method
             },
-            method,
-            methods
+            methods,
+            onChangeMethod,
+            onChangeUri
         } = this.props;
         return (
             <div className="address-block">
                 <div className="input-group">
                     <div className="input-group-btn">
-                        <select className="form-control" {...method}>
+                        <select className="form-control" {...method}
+                                onChange={event => {
+                                    method.onChange(event);
+                                    onChangeMethod(event.target.value);
+                                }}>
                             {methods.map(m => <option value={m} key={m}>{m}</option>)}
                         </select>
                     </div>
-                    <input type="text" className="form-control"
-                           title={uriWithParams.value}
-                           {...uriWithParams} />
+                    <input type="text" className="form-control" {...fullUri}
+                           title={fullUri.value}
+                           onChange={event => {
+                               fullUri.onChange(event);
+                               onChangeUri(event.target.value);
+                           }} />
                 </div>
             </div>
         )

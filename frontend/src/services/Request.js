@@ -1,4 +1,3 @@
-import u from 'updeep'
 import URI from 'urijs'
 import { flowTypes } from 'reducers/refs/flows'
 
@@ -23,6 +22,38 @@ class Request {
             });
         }
         return uri.toString();
+    }
+
+    /**
+     * Parses passed uri string and updates current baseUri and parameters
+     * @param uriString full uri string
+     * @returns { Request } clone with updated fields
+     */
+    cloneWithUri(uriString) {
+        if (!uriString) {
+            return this.clone({baseUri: "", queryParams: []});
+        }
+        const uri = URI(uriString).normalize();
+        console.log(uri.protocol() + "  " + uri.host() + "  " + uri.path());
+        
+        if (!(uri.protocol() && uri.host())) {
+            return this.clone({baseUri: uriString, queryParams: []});
+        }
+
+        const baseUri = uri.protocol() + "://" + uri.host() + uri.path();
+        const paramsObj = URI.parseQuery(uri.query());
+        const params = Object.keys(paramsObj).map(key => ({ key: key, value: paramsObj[key] || "" }));
+        return this.clone({baseUri, queryParams: params});
+    }
+
+    clone({method, baseUri, queryParams, headers, body} = {}) {
+        return new Request({
+            method: method === undefined ? this.method : method,
+            baseUri: baseUri === undefined ? this.baseUri : baseUri,
+            queryParams: queryParams === undefined ? this.queryParams : queryParams,
+            headers: headers === undefined ? this.headers : headers,
+            body: body === undefined ? this.body : body
+        });
     }
     
     static buildFromState(server, flow, callbackUri, username, password) {
@@ -72,15 +103,6 @@ class Request {
             }
         }
         return request;
-    }
-
-    /**
-     * Creates a deep clone of the original request and updates its properties according to passed full uri
-     * @param uri uri with query parameters
-     * @returns {Request} new Request instance
-     */
-    cloneWithUri(uri) {
-
     }
 }
 

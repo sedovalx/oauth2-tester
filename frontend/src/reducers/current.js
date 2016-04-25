@@ -48,8 +48,19 @@ export default function(state = defaultState, action) {
                     password: password
                 }
             }, state);
-        case actionTypes.REQUEST_DATA_CHANGED:
+        case actionTypes.REQUEST_UPDATE_FULL:
             return u({request: action.payload}, state);
+        case actionTypes.REQUEST_UPDATE_METHOD:
+            return u({request: state.request.clone({method: action.payload})}, state);
+        case actionTypes.REQUEST_UPDATE_URI:
+            const fullUri = action.payload;
+            return u({request: state.request.cloneWithUri(fullUri)}, state);
+        case actionTypes.REQUEST_UPDATE_PARAMS:
+            return u({request: state.request.clone({queryParams: action.payload})}, state);
+        case actionTypes.REQUEST_UPDATE_HEADERS:
+            return u({request: state.request.clone({headers: action.payload})}, state);
+        case actionTypes.REQUEST_UPDATE_BODY:
+            return u({request: state.request.clone({body: action.payload})}, state);
         default:
             return state;
     }

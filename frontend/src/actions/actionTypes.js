@@ -38,15 +38,18 @@ let types = keyMirror({
     FETCH_AUTH_URI_CODE_START: null,
     FETCH_AUTH_URI_CODE_END: null,
 
-    /** Notify that current request uri should be rebuilded */
-    REQUEST_URI_REBUILD: null,
-
     /**  Local error occured */
     LOCAL_ERROR: null,
+
     /** Notify that error has been read by user */
     ERROR_HAS_BEEN_READ: null,
-
-    REQUEST_DATA_CHANGED: null,
+    
+    REQUEST_UPDATE_METHOD: null,
+    REQUEST_UPDATE_URI: null,
+    REQUEST_UPDATE_PARAMS: null,
+    REQUEST_UPDATE_HEADERS: null,
+    REQUEST_UPDATE_BODY: null,
+    REQUEST_UPDATE_FULL: null,
     
     EXCHANGE_REQUEST_START: null,
     EXCHANGE_REQUEST_END: null
