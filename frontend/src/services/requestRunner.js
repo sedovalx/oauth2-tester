@@ -33,7 +33,7 @@ export function runRequest(dispatch, currentState, navigate) {
                 charset: 'UTF-8'
             })
         }).then(response => {
-            return response.json().then(body => ({ response, body }));
+            return response.json().then(body => body);
         }).then(response => {
             console.log(response);
             return dispatch(createAction(actionTypes.EXCHANGE_REQUEST_END)(response));

@@ -10,5 +10,5 @@ data class KeyValueDto(
         @NotNull
         val key: String = "",
         @NotNull
-        val value: String = ""
+        val value: String? = null
 )

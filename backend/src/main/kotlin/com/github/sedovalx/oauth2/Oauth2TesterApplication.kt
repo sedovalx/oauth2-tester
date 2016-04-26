@@ -7,9 +7,7 @@ import org.mongodb.morphia.Datastore
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
-import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.ComponentScan
-import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.*
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
@@ -21,6 +19,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
         "com.github.sedovalx.oauth2.services",
         "com.github.sedovalx.oauth2.storage"
 ))
+@EnableAspectJAutoProxy
+@ImportResource("classpath:aspects.xml")
 open class Oauth2TesterApplication: WebMvcConfigurerAdapter() {
 
     @Autowired

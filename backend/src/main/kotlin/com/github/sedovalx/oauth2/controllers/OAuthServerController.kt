@@ -3,6 +3,7 @@ package com.github.sedovalx.oauth2.controllers
 import com.github.sedovalx.oauth2.controllers.dto.OAuthServerListDto
 import com.github.sedovalx.oauth2.domain.OAuthServer
 import com.github.sedovalx.oauth2.storage.repos.OAuthServerRepo
+import com.github.sedovalx.oauth2.utils.logging.Loggable
 import com.github.sedovalx.oauth2.utils.web.Response
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
@@ -16,15 +17,16 @@ import org.springframework.web.bind.annotation.*
  */
 @RestController
 @RequestMapping(value = "**/api/servers")
-class OAuthServerController: ControllerBase() {
+open class OAuthServerController: ControllerBase() {
     @Autowired
     private lateinit var repo: OAuthServerRepo
 
     /**
      * Get list of saved servers
      */
+    @Loggable
     @RequestMapping(value = "", method = arrayOf(RequestMethod.GET))
-    fun getAll(@RequestParam(required = false) limit: Int? = 100): ResponseEntity<OAuthServerListDto> {
+    open fun getAll(@RequestParam(required = false) limit: Int? = 100): ResponseEntity<OAuthServerListDto> {
         imitateTimeouts()
 
         val dto = OAuthServerListDto(repo.getAll(limit))
@@ -34,8 +36,9 @@ class OAuthServerController: ControllerBase() {
     /**
      * Upsert server data
      */
+    @Loggable
     @RequestMapping(value = "", method = arrayOf(RequestMethod.POST))
-    fun save(@Validated @RequestBody entity: OAuthServer): ResponseEntity<OAuthServer> {
+    open fun save(@Validated @RequestBody entity: OAuthServer): ResponseEntity<OAuthServer> {
         imitateTimeouts()
 
         val saved = repo.save(entity)
@@ -45,8 +48,9 @@ class OAuthServerController: ControllerBase() {
     /**
      * Delete server data by name
      */
+    @Loggable
     @RequestMapping(value = "{name}", method = arrayOf(RequestMethod.DELETE))
-    fun delete(@PathVariable name: String): ResponseEntity<String?> {
+    open fun delete(@PathVariable name: String): ResponseEntity<String?> {
         imitateTimeouts()
 
         return if (repo.delete(name))
@@ -58,8 +62,9 @@ class OAuthServerController: ControllerBase() {
     /**
      * Create test data
      */
+    @Loggable
     @RequestMapping(value = "/create-test-data", method = arrayOf(RequestMethod.POST))
-    fun default(): ResponseEntity<OAuthServerListDto> {
+    open fun default(): ResponseEntity<OAuthServerListDto> {
         val entities = arrayOf(
                 OAuthServer(
                         name = "Github",
