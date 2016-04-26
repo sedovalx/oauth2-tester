@@ -18,16 +18,19 @@ export function runRequest(dispatch, currentState, navigate) {
     if (navigate) {
         window.location.href = req.fullUri;
     } else {
-        fetch('/api/auth/exchange-code-for-token', {
+        fetch('/api/request', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
+                method: req.method,
                 uri: req.fullUri,
                 headers: req.headers,
-                body: req.body
+                body: req.body,
+                mimeType: 'application/json',
+                charset: 'UTF-8'
             })
         }).then(response => {
             return response.json().then(body => ({ response, body }));

@@ -18,6 +18,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @EnableAutoConfiguration
 @ComponentScan(basePackages = arrayOf(
         "com.github.sedovalx.oauth2.controllers",
+        "com.github.sedovalx.oauth2.services",
         "com.github.sedovalx.oauth2.storage"
 ))
 open class Oauth2TesterApplication: WebMvcConfigurerAdapter() {

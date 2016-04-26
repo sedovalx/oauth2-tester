@@ -1,17 +1,14 @@
 package com.github.sedovalx.oauth2.controllers.dto
 
-/**
- * Created by Alexander
- * on 26.04.2016.
- */
+import org.springframework.web.bind.annotation.RequestMethod
+import javax.validation.constraints.NotNull
 
-class KeyValue {
-    var key: String = ""
-    var value: String = ""
-}
-
-class RequestDto {
-    var uri: String = ""
-    var body: String? = null
-    var headers: List<KeyValue>? = null
-}
+data class RequestDto(
+        val method: RequestMethod = RequestMethod.GET,
+        @NotNull
+        val uri: String = "",
+        val body: String? = null,
+        val mimeType: String = "application/json",
+        val charset: String = "UTF-8",
+        val headers: List<KeyValueDto> = listOf()
+)
