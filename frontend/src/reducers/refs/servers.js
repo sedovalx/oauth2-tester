@@ -7,8 +7,6 @@ const defaultState = {
 };
 
 export default function(state = defaultState, action) {
-    if (action.error) return state;
-    
     switch (action.type) {
         case actionTypes.FETCH_SERVERS_START:
             return u({ isFetching: true }, state);
@@ -45,10 +43,16 @@ function addServers(servers){
 }
 
 function fetchServerEnd(state, action) {
-    return u({items: addServers(action.payload.items), isFetching: false}, state);
+    const update = { isFetching: false };
+    if (!action.error) {
+        update.items = addServers(action.payload.items);
+    }
+    return u(update, state);
 }
 
 function saveServerEnd(state, action) {
+    if (action.error) return state;
+    
     const serverId = action.payload.name;
     const arrayIdx = state.items.map(s => s.name).indexOf(serverId);
     return arrayIdx >= 0
@@ -57,6 +61,8 @@ function saveServerEnd(state, action) {
 }
 
 function deleteServerEnd(state, action) {
+    if (action.error) return state;
+    
     const newState = u({items: deleteServer(action.payload.deletedId)}, state);
     return state.selected && state.selected.name === action.payload.deletedId
         ? u({selected: null}, newState)

@@ -1,4 +1,4 @@
-import fetch from 'isomorphic-fetch'
+import 'whatwg-fetch'
 
 export function fetchServers(limit) {
     let uri = '/api/servers';

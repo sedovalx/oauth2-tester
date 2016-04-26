@@ -44,7 +44,10 @@ module.exports = {
                 warnings: false
             }
         }),
-        new ExtractTextPlugin('styles.css')
+        new ExtractTextPlugin('styles.css'),
+        new webpack.ProvidePlugin({
+            'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
+        })
     ],
     resolve: {
         extensions: ['', '.js'],

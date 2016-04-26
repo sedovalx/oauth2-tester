@@ -57,6 +57,7 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web') {
 		exclude(group: 'ch.qos.logback', module: 'logback-classic')
 	}
+    compile 'org.apache.httpcomponents:httpclient:4.5.2'
 
     testCompile("com.jayway.jsonpath:json-path:$jsonPathVersion")
     testCompile("org.codehaus.groovy:groovy-all:$groovyVersion")

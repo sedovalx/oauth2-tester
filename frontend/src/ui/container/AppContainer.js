@@ -8,7 +8,8 @@ import actionTypes from 'actions/actionTypes'
 import { deserializeState } from 'services/stateService'
 
 const mapStateToProps = state => ({
-    state
+    state,
+    isBusy: state.exchangeLog.isBusy
 });
 
 const mapDispatchToProps = dispatch => ({

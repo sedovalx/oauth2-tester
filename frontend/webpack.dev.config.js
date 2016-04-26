@@ -26,6 +26,9 @@ module.exports = {
             title: 'OAuth 2.0 tester (DEV)',
             template: path.join(__dirname, 'assets/index-template.html'),
             favicon: 'assets/oauth-2-sm.png'
+        }),
+        new webpack.ProvidePlugin({
+            'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
         })
     ],
     resolve: {

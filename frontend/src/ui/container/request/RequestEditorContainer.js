@@ -18,7 +18,9 @@ const getParams = createSelector(
     params => addEmptyParameter([].concat(params))
 );
 
-const getHeaders = createSelector([state => state.current.request.headers], headers => addEmptyParameter([].concat(headers)));
+const getHeaders = createSelector([state => state.current.request.headers], function(headers){
+    return addEmptyParameter([].concat(headers));
+});
 
 const getBody = createSelector([state => state.current.request.body], _ => _);
 
@@ -47,7 +49,10 @@ const mapDispatchToProps = dispatch => ({
         return dispatch(createAction(actionTypes.REQUEST_UPDATE_BODY)(body));
     },
     onRun: (currentState) => {
-        // return runRequest({dispatch, currentState, method, uri, headers});
+        return runRequest(dispatch, currentState);
+    },
+    onNavigate: (currentState) => {
+        return runRequest(dispatch, currentState, true);
     }
 });
 
@@ -57,7 +62,7 @@ export default reduxForm({
             'params[].key',
             'params[].value',
             'headers[].key',
-            'headers[].key',
+            'headers[].value',
             'body'
         ]
     },

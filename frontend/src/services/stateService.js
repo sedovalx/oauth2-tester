@@ -3,11 +3,7 @@ import { Base64 } from 'js-base64'
 export function serializeState(currentState) {
     const json = {
         server: currentState.server ? currentState.server.name : null,
-        flow: currentState.flow ? currentState.flow.code : null,
-        auth: {
-            code: currentState.auth.code,
-            token: currentState.auth.token
-        }
+        flow: currentState.flow ? currentState.flow.code : null
     };
 
     return Base64.encode(JSON.stringify(json));

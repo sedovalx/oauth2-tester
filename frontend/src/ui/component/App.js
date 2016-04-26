@@ -1,4 +1,5 @@
 import React from 'react'
+import Loader from 'react-loader'
 import AppHeaderContainer from 'container/AppHeaderContainer'
 import RequestEditorContainer from 'container/request/RequestEditorContainer'
 import ServerEditorModalContainer from 'container/editors/ServerEditorModalContainer'
@@ -19,21 +20,23 @@ class App extends React.Component {
         return (
             <div className="app-container">
                 <RequestUpdater />
-                <div className="app-header">
-                    <AppHeaderContainer />
-                </div>
-                <div className="app-main">
-                    <div className="app-main-row">
-                        <div className="app-pane left">
-                            <ServerListContainer />
-                            <AuthInfoContainer />
-                        </div>
-                        <div className="app-pane right">
-                            <RequestEditorContainer />
-                            <ExchangeLogContainer />
+                <Loader loaded={!this.props.isBusy} length={50} width={3} radius={30} trail={60}>
+                    <div className="app-header">
+                        <AppHeaderContainer />
+                    </div>
+                    <div className="app-main">
+                        <div className="app-main-row">
+                            <div className="app-pane left">
+                                <ServerListContainer />
+                                <AuthInfoContainer />
+                            </div>
+                            <div className="app-pane right">
+                                <RequestEditorContainer />
+                                <ExchangeLogContainer />
+                            </div>
                         </div>
                     </div>
-                </div>
+                </Loader>
                 <ServerEditorModalContainer />
                 <SettingsEditorModalContainer />
                 <ErrorNotificationContainer />

@@ -25,6 +25,7 @@ const RequestEditor = React.createClass({
             method,
             currentState,
             onRun,
+            onNavigate,
             onChangeParams,
             onChangeHeaders,
             onChangeBody
@@ -46,6 +47,10 @@ const RequestEditor = React.createClass({
                             </button>
                         </div>
                         <div className="btn-group">
+                            <button className="btn btn-primary" type="button" disabled={!currentState.server}
+                                    onClick={() => onNavigate(currentState)}>
+                                <Icon name="globe" /> Navigate
+                            </button>
                             <button className="btn btn-primary" type="button" disabled={!currentState.server}
                                     onClick={() => onRun(currentState)}>
                                 <Icon name="rocket" /> Run
@@ -71,10 +76,6 @@ const RequestEditor = React.createClass({
                                       }}/>
                         </div>
                     )}
-  
-                    <div className="commands">
-                        
-                    </div>
                 </form>
             </div>
         );

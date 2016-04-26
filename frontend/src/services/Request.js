@@ -45,6 +45,10 @@ class Request {
         return this.clone({baseUri, queryParams: params});
     }
 
+    /**
+     * Clone the instance and update specified parameters of the clone
+     * @returns {Request} updated clone
+     */
     clone({method, baseUri, queryParams, headers, body} = {}) {
         return new Request({
             method: method === undefined ? this.method : method,
@@ -54,13 +58,24 @@ class Request {
             body: body === undefined ? this.body : body
         });
     }
-    
+
+    /**
+     * Build suggested request instance based on the current state of the application
+     * @param server selected OAuth server
+     * @param flow selected flow type
+     * @param callbackUri callback uri for response
+     * @param username user name for the Resource flow
+     * @param password user password for the Resource flow
+     * @returns {Request} new request
+     */
     static buildFromState(server, flow, callbackUri, username, password) {
         let request = new Request();
         if (server && flow && flow.code) {
             if (server.authToken) {
                 request.headers.push({ key: 'Authorization', value: 'Bearer ' + server.authToken });
             }
+
+            request.headers.push({key: 'Accept', value: 'application/json'});
 
             if (flow.code === flowTypes.CODE_FLOW) {
                 if (!(server.authCode && server.authToken)) {
@@ -102,6 +117,12 @@ class Request {
             }
         }
         return request;
+    }
+
+    getHeadersAsObject(){
+        const headersObj = {};
+        this.headers.forEach(h => headersObj[h.key] = h.value);
+        return headersObj;
     }
 }
 

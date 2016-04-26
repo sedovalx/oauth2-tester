@@ -4,12 +4,10 @@ import actionTypes from 'actions/actionTypes'
 const defaultState = {
     request: null,
     response: null,
-    isBusy: false
+    isBusy: false  
 };
 
 export default function (state = defaultState, action) {
-    if (action.error) return state;
-    
     switch (action.type) {
         case actionTypes.EXCHANGE_REQUEST_START:
             return u({
@@ -18,10 +16,11 @@ export default function (state = defaultState, action) {
                 response: null
             }, state);
         case actionTypes.EXCHANGE_REQUEST_END:
-            return u({
-                isBusy: false,
-                response: action.payload
-            });
+            const update = { isBusy: false };
+            if (!action.error) {
+                update.response = action.payload;
+            }
+            return u(update, state);
         default:
             return state;
     }   

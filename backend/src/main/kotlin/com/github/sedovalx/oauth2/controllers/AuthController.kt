@@ -1,54 +1,35 @@
 package com.github.sedovalx.oauth2.controllers
 
-import com.github.sedovalx.oauth2.controllers.dto.BuildUriResultDto
-import com.github.sedovalx.oauth2.controllers.dto.CodeUriParamsDto
-import com.github.sedovalx.oauth2.domain.FlowCode
-import com.github.sedovalx.oauth2.storage.repos.OAuthServerRepo
+import com.github.sedovalx.oauth2.controllers.dto.RequestDto
 import com.github.sedovalx.oauth2.utils.web.Response
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.http.HttpStatus
+import org.apache.http.client.config.CookieSpecs
+import org.apache.http.client.config.RequestConfig
+import org.apache.http.client.methods.HttpPost
+import org.apache.http.impl.client.HttpClients
+import org.apache.http.message.BasicHeader
+import org.apache.http.util.EntityUtils
 import org.springframework.http.ResponseEntity
-import org.springframework.validation.annotation.Validated
-import org.springframework.web.bind.annotation.*
-import java.net.URLEncoder
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestMethod
+import org.springframework.web.bind.annotation.RestController
 
 /**
  * Created by Alexander
- * on 22.04.2016.
+ * on 26.04.2016.
  */
 @RestController
-@RequestMapping(value = "**/api/auth")
-class AuthController : ControllerBase() {
-    @Autowired
-    private lateinit var serverRepo: OAuthServerRepo
-
-    @Suppress("IfNullToElvis")
-    @RequestMapping(value = "build-uri/code", method = arrayOf(RequestMethod.POST))
-    fun buildUri(@Validated @RequestBody params: CodeUriParamsDto): ResponseEntity<BuildUriResultDto> {
-        imitateTimeouts()
-
-        if (params.serverName == null) {
-            return Response.buildJsonObject(HttpStatus.BAD_REQUEST, BuildUriResultDto.error("OAuth server name expected"))
+@RequestMapping(value = "**/api/auth/")
+class AuthController {
+    @RequestMapping(value = "exchange-code-for-token", method = arrayOf(RequestMethod.POST))
+    fun getToken(@RequestBody request: RequestDto): ResponseEntity<String> {
+        val httpClient = HttpClients.custom().setDefaultRequestConfig(RequestConfig.custom().setCookieSpec(CookieSpecs.STANDARD).build()).build()
+        val httpPost = HttpPost(request.uri)
+        request.headers?.forEach {
+            httpPost.addHeader(BasicHeader(it.key, it.value))
         }
-
-        val server = serverRepo.get(params.serverName)
-        if (server == null) {
-            return Response.buildJsonObject(
-                    HttpStatus.NOT_FOUND,
-                    BuildUriResultDto.error("OAuth server with name [${params.serverName}] not found")
-            )
-        };
-
-        var uri = "${server.authEndpoint}?response_type=code&client_id=${encodeUtf8(server.clientID)}"
-        if (params.scope != null) {
-            uri += "&scope=${encodeUtf8(params.scope)}"
+        httpClient.execute(httpPost).use { response ->
+            return Response.buildJsonObjectOK(EntityUtils.toString(response.entity))
         }
-        if (params.state != null) {
-            uri += "&state=${encodeUtf8(params.state)}"
-        }
-
-        return Response.buildJsonObjectOK(BuildUriResultDto.uri(uri))
     }
-
-    private fun encodeUtf8(s: String) = URLEncoder.encode(s, "UTF-8")
 }
