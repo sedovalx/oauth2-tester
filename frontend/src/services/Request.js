@@ -40,8 +40,7 @@ class Request {
         }
 
         const baseUri = uri.protocol() + "://" + uri.host() + uri.path();
-        const paramsObj = URI.parseQuery(uri.query());
-        const params = Object.keys(paramsObj).map(key => ({ key: key, value: paramsObj[key] || "" }));
+        const params = Request.getQueryParams(uri);
         return this.clone({baseUri, queryParams: params});
     }
 
@@ -123,6 +122,14 @@ class Request {
         const headersObj = {};
         this.headers.forEach(h => headersObj[h.key] = h.value);
         return headersObj;
+    }
+
+    static getQueryParams(uri) {
+        if (typeof uri ===  'string') {
+            uri = URI(uri).normalize();
+        }
+        const paramsObj = URI.parseQuery(uri.query());
+        return Object.keys(paramsObj).map(key => ({ key: key, value: paramsObj[key] || "" }));
     }
 }
 

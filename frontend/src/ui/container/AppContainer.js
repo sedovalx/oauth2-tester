@@ -6,6 +6,8 @@ import asyncApiSaveServer from 'actions/asyncApiSaveServer'
 import App from 'component/App'
 import actionTypes from 'actions/actionTypes'
 import { deserializeState } from 'services/stateService'
+import { restoreRequest } from 'services/clientRequestHistory'
+import Request from 'services/Request'
 
 const mapStateToProps = state => ({
     state,
@@ -21,6 +23,7 @@ const mapDispatchToProps = dispatch => ({
                 // update current state
                 if (parsedState) {
                     updateCurrentFlow(dispatch, state.refs.flows.items, parsedState.flow);
+                    restoreCodeRequest(dispatch, parsedState.auth.code);
                     const currentServer = updateServerAuthInfo(servers.items, parsedState.server, parsedState.auth.code, parsedState.auth.token);
                     if (currentServer){
                         // select server in the list
@@ -33,6 +36,23 @@ const mapDispatchToProps = dispatch => ({
             .catch(err => dispatch(createAction(actionTypes.LOCAL_ERROR)(err)));
     }
 });
+
+function restoreCodeRequest(dispatch, code){
+    if (!code) return;
+
+    dispatch(createAction(actionTypes.EXCHANGE_REQUEST_END)({
+        request: restoreRequest(),
+        response: {
+            status: {
+                code: 200,
+                reasonPhrase: "OK"
+            },
+            headers: [],
+            uri: window.location.href,
+            queryParams: Request.getQueryParams(window.location.href)
+        }
+    }));
+}
 
 
 function updateCurrentFlow(dispatch, flows, flowCode) {
@@ -55,16 +75,12 @@ function updateServerAuthInfo(servers, serverName, authCode, authToken) {
 }
 
 function parseUri() {
-    let state = deserializeState(getParameterByName('state'));
-
-    const code = getParameterByName('code');
-    if (code) {
-       state = u({ auth: { code: code } }, state);
-    }
-
-    const token = getParameterByName('token');
-    if (token) {
-        state = u({ auth: { token: token } }, state);
+    const state = deserializeState(getParameterByName('state'));
+    if (state) {
+        state.auth = {
+            code: getParameterByName('code'),
+            token: getParameterByName('token')
+        };
     }
 
     const errorCode = getParameterByName('error');
@@ -82,8 +98,6 @@ function parseUri() {
     }
     return state;
 }
-
-const noop = item => item;
 
 //http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
 function getParameterByName(name, url) {
