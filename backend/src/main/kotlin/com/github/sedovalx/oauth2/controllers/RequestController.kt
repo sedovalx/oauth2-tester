@@ -8,7 +8,6 @@ import com.github.sedovalx.oauth2.utils.web.Response
 import org.apache.http.client.config.CookieSpecs
 import org.apache.http.client.config.RequestConfig
 import org.apache.http.impl.client.HttpClients
-import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
@@ -48,7 +47,7 @@ open class RequestController {
             return Response.buildObjectResponse(
                     HttpStatus.BAD_REQUEST,
                     MediaType.APPLICATION_JSON,
-                    ResponsePackDto(clientReq, error = e)
+                    ResponsePackDto.error(clientReq, e)
             )
         }
 
@@ -56,13 +55,13 @@ open class RequestController {
             httpClient.execute(request).use { response ->
                 val responseDto = httpHelper.parseResponse(response)
                 // OK doesn't mean that the request to outer resource completed successfully
-                return Response.buildJsonObjectOK(ResponsePackDto(clientReq, response = responseDto))
+                return Response.buildJsonObjectOK(ResponsePackDto.success(clientReq, responseDto))
             }
         } catch (e: Exception) {
             return Response.buildObjectResponse(
                     HttpStatus.INTERNAL_SERVER_ERROR,
                     MediaType.APPLICATION_JSON,
-                    ResponsePackDto(clientReq, error = e)
+                    ResponsePackDto.error(clientReq, e)
             )
         }
     }

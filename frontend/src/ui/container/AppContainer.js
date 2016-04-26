@@ -46,7 +46,7 @@ function updateServerAuthInfo(servers, serverName, authCode, authToken) {
     let currentServer = servers.filter(s => s.name === serverName)[0];
     if ((authCode || authToken) && !currentServer) {
         throw new Error(
-            `Got an auth [code: ${authCode}] [authToken: ${authToken}] from URI but have no idea for witch server it was :( Server name: [${serverName}]`)
+            `Got an auth [code: ${authCode}] [authToken: ${authToken}] from URI but have no idea for witch server it was. Server name: [${serverName}]`)
     } else if (currentServer) {
         currentServer.authCode = authCode;
         currentServer.authToken = authToken;
