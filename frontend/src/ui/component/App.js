@@ -10,6 +10,7 @@ import ServerListContainer          from '/container/ServerListContainer'
 import AuthInfoContainer            from '/container/AuthInfoContainer'
 import ExchangeLogContainer         from '/container/ExchangeLogContainer'
 import RequestUpdater               from '/container/utils/RequestUpdater'
+import TokenListener               from '/container/utils/TokenListener'
 
 import '/styles/main.scss';
 
@@ -21,6 +22,7 @@ class App extends React.Component {
         return (
             <div className="app-container">
                 <RequestUpdater />
+                <TokenListener />
                 <Loader loaded={!this.props.isBusy} length={50} width={3} radius={30} trail={60}>
                     <div className="app-header">
                         <AppHeaderContainer />

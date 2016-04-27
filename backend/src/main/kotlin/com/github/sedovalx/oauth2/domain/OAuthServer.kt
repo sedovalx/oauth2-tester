@@ -20,5 +20,6 @@ class OAuthServer(
         @NotNull
         var clientSecret: String = "",
         var authCode: String? = null,
-        var authToken: String? = null
+        var authToken: String? = null,
+        var tokenType: String? = null
 )

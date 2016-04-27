@@ -25,11 +25,6 @@ const AddressBlock = React.createClass({
                     </div>
                     <input type="text" className="form-control" {...fullUri}
                            title={fullUri.value}
-                           onChange={event => {
-                               fullUri.onChange(event);
-                               const message = {uri: event.target.value};
-                               onChangeUri(message);
-                           }} 
                            onBlur={event => {
                               fullUri.onBlur(event);
                               const message = { uri: event.target.value, commit: true };

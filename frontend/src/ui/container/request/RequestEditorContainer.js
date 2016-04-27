@@ -34,6 +34,11 @@ const mapStateToProps = state => {
             body: getBody(state)
         },
         method: state.current.request.method,
+        requestParams: {
+            shouldNavigate: state.current.request.shouldNavigate,
+            acquireCode: state.current.request.acquireCode,
+            acquireToken: state.current.request.acquireToken
+        },
         currentState: getCurrentState(state)
     };
 };
@@ -50,9 +55,6 @@ const mapDispatchToProps = dispatch => ({
     },
     onRun: (currentState) => {
         return runRequest(dispatch, currentState);
-    },
-    onNavigate: (currentState) => {
-        return runRequest(dispatch, currentState, true);
     }
 });
 

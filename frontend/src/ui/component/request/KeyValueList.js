@@ -30,8 +30,8 @@ const KeyValueList = React.createClass({
                                   pair.key && pair.key.onFocus(event);
                                   addElement(items, idx);
                                }}
-                               onChange={event => {
-                                  pair.key.onChange(event);
+                               onBlur={event => {
+                                  pair.key.onBlur(event);
                                   const stripped = stripItems(items);
                                   stripped[idx].key = event.target.value;
                                   onItemsChange(stripped);
@@ -43,8 +43,8 @@ const KeyValueList = React.createClass({
                                   pair.value && pair.value.onFocus(event);
                                   addElement(items, idx);
                                }}
-                               onChange={event => {
-                                  pair.value.onChange(event);
+                               onBlur={event => {
+                                  pair.value.onBlur(event);
                                   const stripped = stripItems(items);
                                   stripped[idx].value = event.target.value;
                                   onItemsChange(stripped);

@@ -1,3 +1,10 @@
+$max-width: 60%;
+
 .exchange-log {
   position: relative;
+
+  pre {
+    background-color: transparent;
+    border: none;
+  }
 }

@@ -1,6 +1,6 @@
-import should from 'should'
-import { suggestUri } from '/services/requestSuggester'
-import { flowTypes } from '/reducers/refs/flows'
+import should           from 'should'
+import { suggestUri }   from '/services/requestSuggester'
+import { flowTypes }    from '/reducers/refs/flows'
 
 const defs = {
     authEndpoint: 'https://some/address/auth',
@@ -52,32 +52,69 @@ function expectItems(array, items) {
 }
 
 describe('suggestUri()', function(){
-    it('should return GET auth uri for CODE_FLOW and both code and token are absent', function(){
-        const args = prepareArgs();
-        const request = suggestUri(args.server, args.flow, args.callbackUri);
+    describe('CODE_FLOW', function(){
+        it('should return GET request for auth code', function(){
+            const args = prepareArgs();
+            const request = suggestUri(args.server, args.flow, args.callbackUri);
 
-        expectRequestIsOk(request);
-        should(request.method).be.equal('GET');
-        should(request.fullUri).be.equal(`${defs.authEndpoint}?response_type=code&client_id=${defs.clientID}&redirect_uri=${encodeURIComponent(defs.callbackUri)}`);
-        expectItems(request.queryParams, [
-            {key: 'response_type', value: 'code'},
-            {key: 'client_id', value: defs.clientID},
-            {key: 'redirect_uri', value: defs.callbackUri}
-        ]);
-        expectItems(request.headers, [{key: 'Accept', value: 'application/json'}]);
-        should(request.body).be.undefined();
+            expectRequestIsOk(request);
+            should(request.method).be.equal('GET');
+            should(request.fullUri).be.equal(`${defs.authEndpoint}?response_type=code&client_id=${defs.clientID}&redirect_uri=${encodeURIComponent(defs.callbackUri)}`);
+            expectItems(request.queryParams, [
+                {key: 'response_type', value: 'code'},
+                {key: 'client_id', value: defs.clientID},
+                {key: 'redirect_uri', value: defs.callbackUri}
+            ]);
+            should(request.headers).be.empty();
+            should(request.body).be.undefined();
+            should(request.shouldNavigate).be.true();
+            should(request.acquireCode).be.true();
+            should(request.acquireToken).be.false();
+        });
+
+        it('should return POST request for auth token', function(){
+            const authCode = 'code-123';
+            const args = prepareArgs({authCode});
+            const request = suggestUri(args.server, args.flow, args.callbackUri);
+
+            expectRequestIsOk(request);
+            should(request.method).be.equal('POST');
+            should(request.fullUri).be .equal(
+                `${defs.tokenEndpoint}?client_id=${defs.clientID}&client_secret=${defs.clientSecret}&grant_type=authorization_code&code=${authCode}&redirect_uri=${encodeURIComponent(defs.callbackUri)}`
+            );
+            expectItems(request.queryParams, [
+                { key: 'client_id', value: defs.clientID },
+                { key: 'client_secret', value: defs.clientSecret },
+                { key: 'grant_type', value: 'authorization_code' },
+                { key: 'code', value: authCode },
+                { key: 'redirect_uri', value: defs.callbackUri }
+            ]);
+            expectItems(request.headers, [{ key: 'Accept', value: 'application/json' }]);
+            should(request.body).be.undefined();
+            should(request.shouldNavigate).be.false();
+            should(request.acquireCode).be.false();
+            should(request.acquireToken).be.true();
+        });
+
+        it('should return GET request for an API', function(){
+            const authToken = 'token-123';
+            const args = prepareArgs({authToken});
+            const request = suggestUri(args.server, args.flow, args.callbackUri);
+
+            expectRequestIsOk(request);
+            should(request.method).be.equal('GET');
+            should(request.fullUri).be.empty();
+            should(request.queryParams).be.empty();
+            expectItems(request.headers, [
+                { key: 'Authorization', value: `Bearer ${authToken}` }
+            ]);
+            should(request.body).be.undefined();
+            should(request.shouldNavigate).be.false();
+            should(request.acquireCode).be.false();
+            should(request.acquireToken).be.false();
+        });
     });
-
-    it('should return POST token request for CODE_FLOW and code is present but token is absent', function(){
-        const authCode = 'code-123';
-        const args = prepareArgs({authCode: authCode});
-        const request = suggestUri(args.server, args.flow, args.callbackUri);
-
-        // expectRequestIsOk(request);
-        // expect(request.method).to.eql('POST');
-        // expect(request.fullUri).to.eql(`${defs.tokenEndpoint}?client_id=${defs.clientID}&client_secret=${defs.clientSecret}&grant_type=authorization_code&code=${authCode}&redirect_uri=${defs.callbackUri}`);
-        
-    });
+    
 });
 
 /**

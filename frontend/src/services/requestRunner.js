@@ -5,7 +5,7 @@ import { storeRequest }     from '/services/clientRequestHistory'
 import { serializeState }   from '/services/stateService'
 import actionTypes          from '/actions/actionTypes'
 
-export function runRequest(dispatch, currentState, navigate) {
+export function runRequest(dispatch, currentState) {
     if (!(currentState && currentState.request && currentState.server && currentState.flow.code)) {
         return Promise.resolve();
     }
@@ -16,7 +16,7 @@ export function runRequest(dispatch, currentState, navigate) {
     storeRequest(req);
     dispatch(createAction(actionTypes.EXCHANGE_REQUEST_START)(req));
 
-    if (navigate) {
+    if (req.shouldNavigate) {
         window.location.href = req.fullUri;
     } else {
         fetch('/api/request', {
@@ -36,7 +36,6 @@ export function runRequest(dispatch, currentState, navigate) {
         }).then(response => {
             return response.json().then(body => body);
         }).then(response => {
-            console.log(response);
             return dispatch(createAction(actionTypes.EXCHANGE_REQUEST_END)(response));
         }).catch(err => {
             return dispatch(createAction(actionTypes.EXCHANGE_REQUEST_END)(err));

@@ -8,6 +8,34 @@ function switchBoolState(editor, key) {
     editor.setState(u({[key]: !editor.state[key]}, editor.state));
 }
 
+function getRunTitle({shouldNavigate, acquireCode, acquireToken}) {
+    if (shouldNavigate && acquireCode) {
+        return {
+            icon: 'globe',
+            title: 'Request Authorization Code'
+        }
+    }
+
+    if (shouldNavigate && acquireToken) {
+        return {
+            icon: 'globe',
+            title: 'Request Authorization Token'
+        }
+    }
+
+    if (!shouldNavigate && acquireToken) {
+        return {
+            icon: 'rocket',
+            title: 'Request Authorization Token'
+        }
+    }
+
+    return {
+        icon: 'rocket',
+        title: 'Send the request'
+    };
+}
+
 const RequestEditor = React.createClass({
     getInitialState() {
         return {
@@ -23,15 +51,16 @@ const RequestEditor = React.createClass({
                 body
             },
             method,
+            requestParams,
             currentState,
             onRun,
-            onNavigate,
             onChangeParams,
             onChangeHeaders,
             onChangeBody
         } = this.props;
         const paramsCount = params.length > 0 ? params.length - 1 : 0;
         const headersCount = headers.length > 0 ? headers.length - 1 : 0;
+        const titleParams = getRunTitle(requestParams);
         return (
             <div className="request-editor">
                 <form className="form-horizontal">
@@ -48,12 +77,8 @@ const RequestEditor = React.createClass({
                         </div>
                         <div className="btn-group">
                             <button className="btn btn-primary" type="button" disabled={!currentState.server}
-                                    onClick={() => onNavigate(currentState)}>
-                                <Icon name="globe" /> Navigate
-                            </button>
-                            <button className="btn btn-primary" type="button" disabled={!currentState.server}
                                     onClick={() => onRun(currentState)}>
-                                <Icon name="rocket" /> Run
+                                <Icon name={titleParams.icon} /> {titleParams.title}
                             </button>
                         </div>
                     </div>
