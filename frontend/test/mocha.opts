@@ -1,4 +1,4 @@
--u bdd
+--ui bdd
 --recursive
 --full-trace
 --reporter spec

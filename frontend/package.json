@@ -4,7 +4,10 @@
   "description": "Demo project for OAuth 2.0 testing",
   "scripts": {
     "bundle": "cross-env NODE_ENV=production webpack -p --optimize-dedupe --display-error-details",
-    "start": "node server.js"
+    "start": "node server.js",
+    "compile": "cross-env NODE_ENV=test babel --presets react,es2015,stage-0 -d lib/ src/",
+    "mocha": "cross-env NODE_ENV=test mocha",
+    "test": "cross-env NODE_ENV=test npm run compile && mocha"
   },
   "repository": {
     "type": "git",
@@ -13,6 +16,7 @@
   "license": "MIT",
   "devDependencies": {
     "babel": "^6.5.2",
+    "babel-cli": "^6.7.7",
     "babel-loader": "^6.2.4",
     "babel-plugin-module-alias": "^1.2.0",
     "babel-plugin-react-transform": "^2.0.2",
@@ -21,6 +25,7 @@
     "babel-preset-react": "^6.5.0",
     "babel-preset-react-hmre": "^1.1.1",
     "babel-preset-stage-0": "^6.5.0",
+    "babel-register": "^6.7.2",
     "bootstrap-loader": "^1.0.10",
     "bootstrap-sass": "^3.3.6",
     "chai": "^3.5.0",
@@ -28,7 +33,6 @@
     "cross-env": "^1.0.7",
     "css-loader": "^0.23.1",
     "enzyme": "^2.2.0",
-    "expect": "^1.16.0",
     "exports-loader": "^0.6.3",
     "express": "^4.13.4",
     "extract-text-webpack-plugin": "^1.0.1",

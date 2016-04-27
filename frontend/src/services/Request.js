@@ -6,7 +6,7 @@ class Request {
         this.baseUri = baseUri || '';
         this.queryParams = (queryParams || []).filter(p => p.key != null);
         this.headers = (headers || []).filter(h => h.key != null);
-        this.body = body || '';
+        this.body = body;
     }
 
     /**

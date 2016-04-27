@@ -22,7 +22,7 @@ const getHeaders = createSelector([state => state.current.request.headers], func
     return addEmptyParameter([].concat(headers));
 });
 
-const getBody = createSelector([state => state.current.request.body], _ => _);
+const getBody = createSelector([state => state.current.request.body], body => body || '');
 
 const getCurrentState = createSelector([state => state.current], _ => _);
 
