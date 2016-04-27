@@ -1,8 +1,9 @@
 import 'whatwg-fetch'
-import { storeRequest } from 'services/clientRequestHistory'
-import { createAction } from 'redux-actions'
-import { serializeState } from 'services/stateService'
-import actionTypes from 'actions/actionTypes'
+import { createAction }     from 'redux-actions'
+
+import { storeRequest }     from '/services/clientRequestHistory'
+import { serializeState }   from '/services/stateService'
+import actionTypes          from '/actions/actionTypes'
 
 export function runRequest(dispatch, currentState, navigate) {
     if (!(currentState && currentState.request && currentState.server && currentState.flow.code)) {

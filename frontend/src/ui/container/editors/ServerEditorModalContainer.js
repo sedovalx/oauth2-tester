@@ -1,6 +1,7 @@
-import { connect } from 'react-redux'
-import { serverModalClose } from 'actions/serverModal'
-import ServerEditorModal from 'component/editors/ServerEditorModal'
+import { connect }          from 'react-redux'
+
+import { serverModalClose } from '/actions/serverModal'
+import ServerEditorModal    from '/component/editors/ServerEditorModal'
 
 const mapStateToProps = (state) => {
     return {

@@ -1,5 +1,5 @@
-import { connect } from 'react-redux'
-import AuthInfo from 'component/AuthInfo'
+import { connect }  from 'react-redux'
+import AuthInfo     from '/component/AuthInfo'
 
 const mapStateToProps = state => ({
     code: state.current.server ? state.current.server.authCode : null,

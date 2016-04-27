@@ -1,5 +1,5 @@
-import React from 'react'
-import SettingsType from 'props/SettingsType'
+import React        from 'react'
+import SettingsType from '/props/SettingsType'
 
 const AppHeader = React.createClass({
     render() {

@@ -1,5 +1,5 @@
-import yup from 'yup'
-import validator from 'validation/validator'
+import yup          from 'yup'
+import validator    from '/validation/validator'
 
 export const settingsSchema = yup.object({
     currentFlow: yup.object({

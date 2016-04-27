@@ -1,6 +1,6 @@
-import React from 'react'
-import Modal from 'react-modal'
-import SettingsEditorContainer from 'container/editors/SettingsEditorContainer'
+import React                    from 'react'
+import Modal                    from 'react-modal'
+import SettingsEditorContainer  from '/container/editors/SettingsEditorContainer'
 
 const customStyles = {
     content: {

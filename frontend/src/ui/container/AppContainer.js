@@ -1,13 +1,13 @@
-import { connect } from 'react-redux'
-import { createAction } from 'redux-actions'
-import u from 'updeep'
-import asyncApiFetchServers from 'actions/asyncApiFetchServers'
-import asyncApiSaveServer from 'actions/asyncApiSaveServer'
-import App from 'component/App'
-import actionTypes from 'actions/actionTypes'
-import { deserializeState } from 'services/stateService'
-import { restoreRequest } from 'services/clientRequestHistory'
-import Request from 'services/Request'
+import { connect }          from 'react-redux'
+import { createAction }     from 'redux-actions'
+
+import asyncApiFetchServers from '/actions/asyncApiFetchServers'
+import asyncApiSaveServer   from '/actions/asyncApiSaveServer'
+import actionTypes          from '/actions/actionTypes'
+import App                  from '/component/App'
+import { deserializeState } from '/services/stateService'
+import { restoreRequest }   from '/services/clientRequestHistory'
+import Request              from '/services/Request'
 
 const mapStateToProps = state => ({
     state,

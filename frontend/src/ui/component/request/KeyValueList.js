@@ -1,5 +1,5 @@
-import React from 'react'
-import Icon from 'react-fa'
+import React    from 'react'
+import Icon     from 'react-fa'
 
 function addElement(elements, clickedIdx) {
     if (clickedIdx === elements.length - 1) {

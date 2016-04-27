@@ -1,5 +1,5 @@
-import actionTypes from 'actions/actionTypes'
-import { fetchServers } from 'rest/index'
+import actionTypes      from '/actions/actionTypes'
+import { fetchServers } from '/rest/index'
 
 const loadServers = function(limit) {
     return {

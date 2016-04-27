@@ -1,12 +1,12 @@
-import { combineReducers } from 'redux'
-import settings from 'reducers/settings'
-import errors from 'reducers/errors'
-import modals from 'reducers/modals'
-import exchangeLog from 'reducers/exchangeLog'
-import refs from 'reducers/refs'
-import current from 'reducers/current'
+import { combineReducers }  from 'redux'
+import {reducer as form}    from 'redux-form'
 
-import {reducer as form} from 'redux-form'
+import settings             from './settings'
+import errors               from './errors'
+import modals               from './modals'
+import exchangeLog          from './exchangeLog'
+import refs                 from './refs'
+import current              from './current'
 
 export default combineReducers({
     current,

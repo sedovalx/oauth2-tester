@@ -1,8 +1,8 @@
-import React from 'react'
-import Icon from 'react-fa'
-import u from 'updeep'
-import AddressBlockContainer from 'container/request/AddressBlockContainer'
-import KeyValueList from 'component/request/KeyValueList'
+import React                    from 'react'
+import Icon                     from 'react-fa'
+import u                        from 'updeep'
+import AddressBlockContainer    from '/container/request/AddressBlockContainer'
+import KeyValueList             from '/component/request/KeyValueList'
 
 function switchBoolState(editor, key) {
     editor.setState(u({[key]: !editor.state[key]}, editor.state));

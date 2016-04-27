@@ -1,8 +1,9 @@
-import { connect } from 'react-redux'
-import ServerItem from 'component/ServerItem'
-import asyncApiDeleteServer from 'actions/asyncApiDeleteServer'
-import { serverModalShow } from 'actions/serverModal'
-import { serverSelected } from 'actions/serverSelected'
+import { connect }          from 'react-redux'
+
+import asyncApiDeleteServer from '/actions/asyncApiDeleteServer'
+import { serverModalShow }  from '/actions/serverModal'
+import { serverSelected }   from '/actions/serverSelected'
+import ServerItem           from '/component/ServerItem'
 
 const mapStateToProps = (state) => { 
     return {

@@ -1,5 +1,5 @@
-import actionTypes from 'actions/actionTypes'
-import { saveServer } from 'rest/index'
+import actionTypes      from '/actions/actionTypes'
+import { saveServer }   from '/rest/index'
 
 export default function(server) {
     return {

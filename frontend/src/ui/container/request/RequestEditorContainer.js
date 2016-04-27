@@ -1,10 +1,10 @@
-import { reduxForm } from 'redux-form'
-import { createSelector } from 'reselect'
-import { createAction } from 'redux-actions'
-import RequestEditor from 'component/request/RequestEditor'
-import { flowTypes } from 'reducers/refs/flows'
-import { runRequest } from 'services/requestRunner'
-import actionTypes from 'actions/actionTypes'
+import { reduxForm }        from 'redux-form'
+import { createSelector }   from 'reselect'
+import { createAction }     from 'redux-actions'
+
+import actionTypes          from '/actions/actionTypes'
+import RequestEditor        from '/component/request/RequestEditor'
+import { runRequest }       from '/services/requestRunner'
 
 function addEmptyParameter(elements) {
     if (!elements.length || elements[elements.length - 1].value) {

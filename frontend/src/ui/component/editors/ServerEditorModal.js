@@ -1,6 +1,7 @@
-import React from 'react'
-import Modal from 'react-modal'
-import ServerEditorContainer from 'container/editors/ServerEditorContainer'
+import React                    from 'react'
+import Modal                    from 'react-modal'
+
+import ServerEditorContainer    from '/container/editors/ServerEditorContainer'
 
 const customStyles = {
     content: {

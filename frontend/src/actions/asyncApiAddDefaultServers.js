@@ -1,5 +1,5 @@
-import actionTypes from 'actions/actionTypes'
-import { createDefaultServers } from 'rest/index'
+import actionTypes              from '/actions/actionTypes'
+import { createDefaultServers } from '/rest/index'
 
 export default () => {
     return {

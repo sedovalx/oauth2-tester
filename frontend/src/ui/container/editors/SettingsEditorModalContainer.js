@@ -1,6 +1,7 @@
-import { connect } from 'react-redux'
-import { settingsModalClose } from 'actions/settingsModal'
-import SettingsEditorModal from 'component/editors/SettingsEditorModal'
+import { connect }              from 'react-redux'
+
+import { settingsModalClose }   from '/actions/settingsModal'
+import SettingsEditorModal      from '/component/editors/SettingsEditorModal'
 
 const mapStateToProps = (state) => {
     return {

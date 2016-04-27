@@ -1,6 +1,6 @@
-import React from 'react'
-import Icon from 'react-fa'
-import classNames from 'classnames'
+import React        from 'react'
+import Icon         from 'react-fa'
+import classNames   from 'classnames'
 
 const ServerEditor = React.createClass({
     render(){

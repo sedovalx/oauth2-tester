@@ -1,9 +1,10 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { createSelector } from 'reselect'
-import { createAction } from 'redux-actions'
-import Request from 'services/Request'
-import actionTypes from 'actions/actionTypes'
+import React                from 'react'
+import { connect }          from 'react-redux'
+import { createSelector }   from 'reselect'
+import { createAction }     from 'redux-actions'
+
+import actionTypes          from '/actions/actionTypes'
+import { suggestUri }       from '/services/requestSuggester'
 
 /**
  * Dummy component for updating of the current request in the store
@@ -25,7 +26,7 @@ const getRequest = createSelector(
     [ state => state.current.server, state => state.current.flow, state => state.settings ],
     // rebuild request if dependencies changed
     (server, flow, settings) => {
-        return Request.buildFromState(server, flow, settings.callbackUri, settings.username, settings.password);
+        return suggestUri(server, flow, settings.callbackUri, settings.username, settings.password);
     }
 );
 

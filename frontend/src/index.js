@@ -1,11 +1,11 @@
-import ReactDOM from 'react-dom';
-import React from 'react';
-import DevTools from 'config/devtools';
+import ReactDOM     from 'react-dom';
+import React        from 'react';
 import { Provider } from 'react-redux';
-import initStore from 'config/store';
-import AppContainer from 'container/AppContainer';
-
 import { polyfill } from 'es6-promise'; polyfill();
+import DevTools     from '/config/devtools';
+import initStore    from '/config/store';
+import AppContainer from '/container/AppContainer';
+
 
 const devTools = process.env.NODE_ENV === 'development' ? <DevTools /> : null;
 

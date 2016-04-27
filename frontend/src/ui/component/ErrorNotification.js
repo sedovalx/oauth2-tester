@@ -1,6 +1,6 @@
-import React from 'react'
-import NotificationSystem from 'react-notification-system'
-import StackParser from 'stacktrace-js'
+import React                from 'react'
+import NotificationSystem   from 'react-notification-system'
+import StackParser          from 'stacktrace-js'
 
 function printErrorMessage(e, stackFrames) {
     let message = e.toString();

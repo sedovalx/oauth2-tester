@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
-import ExchangeLog from 'component/ExchangeLog'
+
+import ExchangeLog from '/component/ExchangeLog'
 
 const mapStateToProps = state => ({
     request: state.exchangeLog.request,    

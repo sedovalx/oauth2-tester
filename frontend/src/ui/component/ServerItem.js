@@ -1,7 +1,8 @@
-import React from 'react'
-import Icon from 'react-fa'
-import ServerType from 'props/ServerType'
-import classNames from 'classnames'
+import React        from 'react'
+import Icon         from 'react-fa'
+import classNames   from 'classnames'
+
+import ServerType   from '/props/ServerType'
 
 const ServerItem = React.createClass({
     render(){

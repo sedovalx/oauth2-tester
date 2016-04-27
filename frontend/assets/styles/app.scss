@@ -1,5 +1,5 @@
 $header-height: 100px;
-$left-pane-min-width: 370px;
+$left-pane-width: 370px;
 $left-pane-width: 25%;
 $app-side-margin: 20px;
 
@@ -20,7 +20,6 @@ $app-side-margin: 20px;
 
       &.left {
         width: $left-pane-width;
-        min-width: $left-pane-min-width;
       }
 
       &.right {

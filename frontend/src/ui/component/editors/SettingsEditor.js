@@ -1,7 +1,7 @@
-import React from 'react'
-import Icon from 'react-fa'
-import classNames from 'classnames'
-import Clipboard from 'clipboard'
+import React            from 'react'
+import Icon             from 'react-fa'
+import classNames       from 'classnames'
+import Clipboard        from 'clipboard'
 
 const SettingsEditor = React.createClass({
     componentDidMount() {

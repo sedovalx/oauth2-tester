@@ -1,6 +1,7 @@
-import { connect } from 'react-redux'
-import { settingsModalShow } from 'actions/settingsModal'
-import AppHeader from 'component/AppHeader'
+import { connect }              from 'react-redux'
+
+import { settingsModalShow }    from '/actions/settingsModal'
+import AppHeader                from '/component/AppHeader'
 
 const mapStateToProps = (state) => {
     return {

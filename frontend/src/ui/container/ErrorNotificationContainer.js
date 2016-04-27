@@ -1,7 +1,8 @@
-import { connect } from 'react-redux'
-import { createAction } from 'redux-actions'
-import actionTypes from 'actions/actionTypes'
-import ErrorNotification from 'component/ErrorNotification'
+import { connect }          from 'react-redux'
+import { createAction }     from 'redux-actions'
+
+import actionTypes          from '/actions/actionTypes'
+import ErrorNotification    from '/component/ErrorNotification'
 
 const mapStateToProps = state => ({
     lastError: state.errors.last

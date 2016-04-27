@@ -1,5 +1,5 @@
-import u from 'updeep'
-import actionTypes from 'actions/actionTypes'
+import u            from 'updeep'
+import actionTypes  from '/actions/actionTypes'
 
 const defaultState = {
     request: null,

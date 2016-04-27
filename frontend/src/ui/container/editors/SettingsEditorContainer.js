@@ -1,7 +1,8 @@
-import { reduxForm } from 'redux-form'
-import SettingsEditor from 'component/editors/SettingsEditor'
-import { settingsModalClose } from 'actions/settingsModal'
-import validateSettings from 'validation/settings'
+import { reduxForm }            from 'redux-form'
+
+import { settingsModalClose }   from '/actions/settingsModal'
+import SettingsEditor           from '/component/editors/SettingsEditor'
+import validateSettings         from '/validation/settings'
 
 const mapStateToProps = state => ({
     initialValues: {

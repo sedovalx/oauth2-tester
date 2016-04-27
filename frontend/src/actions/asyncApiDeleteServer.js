@@ -1,5 +1,5 @@
-import actionTypes from 'actions/actionTypes'
-import { deleteServer } from 'rest/index'
+import actionTypes      from '/actions/actionTypes'
+import { deleteServer } from '/rest/index'
 
 export default function(server) {
     return {

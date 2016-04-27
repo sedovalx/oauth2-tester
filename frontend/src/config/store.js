@@ -1,11 +1,11 @@
-import React from 'react'
-import thunkMiddleware from 'redux-thunk'
-import { createStore, applyMiddleware, compose } from 'redux'
-import createLogger from 'redux-logger'
+import React                                        from 'react'
+import thunkMiddleware                              from 'redux-thunk'
+import { createStore, applyMiddleware, compose }    from 'redux'
+import createLogger                                 from 'redux-logger'
 
-import reducer from '../reducers'
-import DevTools from 'config/devtools'
-import callAPIMiddleware from 'config/callAPIMiddleware'
+import reducer                                      from '/reducers/index'
+import DevTools                                     from '/config/devtools'
+import callAPIMiddleware                            from '/config/callAPIMiddleware'
 
 const loggerMiddleware = createLogger();
 

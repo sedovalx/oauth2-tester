@@ -1,8 +1,9 @@
-import { reduxForm } from 'redux-form'
-import { createAction } from 'redux-actions'
-import { createSelector } from 'reselect'
-import actionTypes from 'actions/actionTypes'
-import AddressBlock from 'component/request/AddressBlock'
+import { reduxForm }        from 'redux-form'
+import { createAction }     from 'redux-actions'
+import { createSelector }   from 'reselect'
+
+import actionTypes          from '/actions/actionTypes'
+import AddressBlock         from '/component/request/AddressBlock'
 
 const getMethod = createSelector(
     [state => state.current.request.method],

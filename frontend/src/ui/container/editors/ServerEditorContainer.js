@@ -1,8 +1,9 @@
-import { reduxForm } from 'redux-form'
-import ServerEditor from 'component/editors/ServerEditor'
-import { serverModalClose } from 'actions/serverModal'
-import validateServer from 'validation/server'
-import asyncApiSaveServer from 'actions/asyncApiSaveServer'
+import { reduxForm }        from 'redux-form'
+
+import { serverModalClose } from '/actions/serverModal'
+import asyncApiSaveServer   from '/actions/asyncApiSaveServer'
+import ServerEditor         from '/component/editors/ServerEditor'
+import validateServer       from '/validation/server'
 
 const mapStateToProps = state => {
     const server = state.current.server;
