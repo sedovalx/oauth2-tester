@@ -24,7 +24,7 @@ const mapDispatchToProps = dispatch => ({
                 if (parsedState) {
                     updateCurrentFlow(dispatch, state.refs.flows.items, parsedState.flow);
                     restoreCodeRequest(dispatch, parsedState.auth.code);
-                    const currentServer = updateServerAuthInfo(servers.items, parsedState.server, parsedState.auth.code, parsedState.auth.token);
+                    const currentServer = updateServerAuthInfo(servers.items, parsedState.server, parsedState.auth);
                     if (currentServer){
                         // select server in the list
                         dispatch(createAction(actionTypes.SERVER_SELECTED)(currentServer));
@@ -62,16 +62,19 @@ function updateCurrentFlow(dispatch, flows, flowCode) {
     }
 }
 
-function updateServerAuthInfo(servers, serverName, authCode, authToken) {
+function updateServerAuthInfo(servers, serverName, auth) {
     let currentServer = servers.filter(s => s.name === serverName)[0];
-    if ((authCode || authToken) && !currentServer) {
+    if ((auth.code || auth.token) && !currentServer) {
         throw new Error(
-            `Got an auth [code: ${authCode}] [authToken: ${authToken}] from URI but have no idea for witch server it was. Server name: [${serverName}]`)
+            `Got an auth [code: ${auth.authCode}] [authToken: ${auth.authToken}] from URI but have no idea for witch server it was. Server name: [${serverName}]`)
     } else if (currentServer) {
-        currentServer.authCode = authCode;
-        currentServer.authToken = authToken;
+        currentServer.authCode = auth.code;
+        currentServer.authToken = auth.token;
+        currentServer.tokenType = auth.tokenType;
     }
     return currentServer;
+
+
 }
 
 function parseUri() {
@@ -79,7 +82,8 @@ function parseUri() {
     if (state) {
         state.auth = {
             code: getParameterByName('code'),
-            token: getParameterByName('token')
+            token: getParameterByName('access_token'),
+            tokenType: getParameterByName('token_type')
         };
     }
 
@@ -100,10 +104,11 @@ function parseUri() {
 }
 
 //http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
+//fixed to support hash values
 function getParameterByName(name, url) {
     if (!url) url = window.location.href;
     name = name.replace(/[\[\]]/g, "\\$&");
-    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+    var regex = new RegExp("[?&#]" + name + "(=([^&#]*)|&|#|$)"),
         results = regex.exec(url);
     if (!results) return null;
     if (!results[2]) return '';

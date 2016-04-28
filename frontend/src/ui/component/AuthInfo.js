@@ -4,7 +4,7 @@ const AuthInfo = React.createClass({
     render(){
         const { code, token } = this.props;
         return (
-            <div className="auth-into">
+            <div className="auth-info">
                 {code && (
                     <div className="alert alert-info" role="alert">
                         <strong>Auth code: </strong>
