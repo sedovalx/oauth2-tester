@@ -3,8 +3,30 @@ $max-width: 60%;
 .exchange-log {
   position: relative;
 
-  pre {
-    background-color: transparent;
-    border: none;
+  .bold {
+    font-weight: bold;
   }
+
+  pre {
+    display: block;
+    //background-color: transparent;
+    //border: none;
+  }
+
+  span {
+    display: block;
+  }
+
+  .header-block {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .body-block {
+    margin-top: 20px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+
 }

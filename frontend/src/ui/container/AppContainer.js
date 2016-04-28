@@ -24,7 +24,7 @@ const mapDispatchToProps = dispatch => ({
                 // update current state
                 if (parsedState) {
                     updateCurrentFlow(dispatch, state.refs.flows.items, parsedState.flow);
-                    restoreCodeRequest(dispatch, parsedState.auth.code);
+                    restoreCodeRequest(dispatch, parsedState.auth);
                     const currentServer = updateServerAuthInfo(servers.items, parsedState.server, parsedState.auth);
                     if (currentServer){
                         // select server in the list
@@ -38,15 +38,16 @@ const mapDispatchToProps = dispatch => ({
     }
 });
 
-function restoreCodeRequest(dispatch, code){
-    if (!code) return;
+function restoreCodeRequest(dispatch, auth){
+    if (!(auth.code || auth.token)) return;
 
     dispatch(createAction(actionTypes.EXCHANGE_REQUEST_END)({
         request: restoreRequest(),
         response: {
             status: {
                 code: 200,
-                reasonPhrase: "OK"
+                reasonPhrase: 'OK',
+                protocolVersion: 'HTTP/1.1' // ooops!
             },
             headers: [],
             uri: window.location.href,

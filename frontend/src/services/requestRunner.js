@@ -1,9 +1,11 @@
 import 'whatwg-fetch'
 import { createAction }     from 'redux-actions'
-
 import { storeRequest }     from '/services/clientRequestHistory'
 import { serializeState }   from '/services/stateService'
 import actionTypes          from '/actions/actionTypes'
+import Request              from '/rest/Request'
+import Response             from '/rest/Response'
+import ErrorResponse        from '/rest/ErrorResponse'
 
 export function runRequest(dispatch, currentState) {
     if (!(currentState && currentState.request && currentState.server && currentState.flow.code)) {
@@ -35,8 +37,21 @@ export function runRequest(dispatch, currentState) {
             })
         }).then(response => {
             return response.json().then(body => body);
-        }).then(response => {
-            return dispatch(createAction(actionTypes.EXCHANGE_REQUEST_END)(response));
+        }).then(result => {
+            const { request, response, error } = result;
+            // restore Request, Response, ErrorResponse objects from the server result
+            return dispatch(createAction(actionTypes.EXCHANGE_REQUEST_END)({
+                request: new Request({
+                    method: request.method,
+                    headers: request.headers,
+                    body: request.body,
+                    shouldNavigate: originalRequest.shouldNavigate,
+                    acquireCode: originalRequest.acquireCode, 
+                    acquireToken: originalRequest.acquireToken
+                }).cloneWithUri(request.uri),
+                response: response && new Response(response),
+                error: error && new ErrorResponse(error)
+            }));  
         }).catch(err => {
             return dispatch(createAction(actionTypes.EXCHANGE_REQUEST_END)(err));
         });
