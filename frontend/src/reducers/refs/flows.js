@@ -11,7 +11,7 @@ const defaultState = {
     items: [
         { code: flowTypes.CODE_FLOW, desc: "Authorization Code" },
         { code: flowTypes.IMPLICIT_FLOW, desc: "Implicit" },
-        { code: flowTypes.RESOURCE_FLOW, desc: "Resource Owner Password Credentials" },
+        { code: flowTypes.RESOURCE_FLOW, desc: "Password Credentials" },
         { code: flowTypes.CLIENT_FLOW, desc: "Client Credentials" }
     ]
 };

@@ -7,8 +7,8 @@ import validateSettings         from '/validation/settings'
 const mapStateToProps = state => ({
     initialValues: {
         currentFlowStr: JSON.stringify(state.current.flow),
-        username: state.current.auth.username || "",
-        password: state.current.auth.password || ""
+        username: state.settings.username || "",
+        password: state.settings.password || ""
     },
     flows: state.refs.flows.items,
     callbackUri: state.settings.callbackUri

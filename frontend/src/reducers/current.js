@@ -1,5 +1,4 @@
 import u            from 'updeep'
-
 import actionTypes  from '/actions/actionTypes'
 import Request      from '/rest/Request'
 
@@ -7,11 +6,7 @@ const defaultState = {
     flow: null,
     server: null,
     request: new Request(),
-    requestUri: "",
-    auth: {
-        username: null,
-        password: null
-    }
+    requestUri: ""
 };
 
 export default function(state = defaultState, action) {
@@ -38,18 +33,8 @@ export default function(state = defaultState, action) {
             }
         case actionTypes.SETTINGS_MODAL_CLOSE:
             if (!action.payload) return state;
-            const {
-                currentFlow,
-                username,
-                password
-            } = action.payload;
-            return u({
-                flow: currentFlow,
-                auth: {
-                    username: username,
-                    password: password
-                }
-            }, state);
+            const { currentFlow } = action.payload;
+            return u({ flow: currentFlow }, state);
         case actionTypes.REQUEST_UPDATE_FULL:
             return u({
                 request: action.payload,
