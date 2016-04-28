@@ -9,7 +9,7 @@ export function storeRequest(request) {
 
 export function restoreRequest() {
     const restored = store.get(lastRequestKey);
-    store.remove(lastRequestKey);
+    // store.remove(lastRequestKey);
     if (restored) {
         return new Request(restored);
     } else {
