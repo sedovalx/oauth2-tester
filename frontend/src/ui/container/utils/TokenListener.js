@@ -3,6 +3,7 @@ import { connect }          from 'react-redux'
 import { createSelector }   from 'reselect'
 
 import asyncApiSaveServer   from '/actions/asyncApiSaveServer'
+import Response             from '/rest/Response'
 import TokenParser          from '/services/TokenParser'
 
 const TokenListenerComponent = React.createClass({
@@ -31,8 +32,9 @@ const mapStateToProps = state => ({
 
 export const mapDispatchToProps = dispatch => ({
     onResponseUpdate: (request, response, server) => {
-        if (server && request && request.acquireToken && response && response.body){
-            const bodyObj = TokenParser.parseBody(response.headers.get('Content-Type'), response.body);
+        const isResponse = response instanceof Response;
+        if (server && request && request.acquireToken && isResponse && response.body){
+            const bodyObj = TokenParser.parseBody(response.getContentType(), response.body);
             if (bodyObj && bodyObj.access_token){
                 server.authToken = bodyObj.access_token;
                 server.tokenType = bodyObj.token_type;

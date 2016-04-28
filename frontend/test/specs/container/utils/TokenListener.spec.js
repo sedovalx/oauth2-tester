@@ -1,5 +1,6 @@
 import should                   from 'should'
 import { mapDispatchToProps }   from '/container/utils/TokenListener'
+import Response                 from '/rest/Response'
 
 describe('TokenListener', function(){
     describe('# mapDispatchToProps', function(){
@@ -8,14 +9,11 @@ describe('TokenListener', function(){
         const responseBody = `{"access_token": "${expectedToken}", "token_type": "${expectedTokenType}"}`;
         
         function createResponseStub(body, contentType) {
-            return {
-                body,
-                headers: {
-                    get(headerName){
-                        return headerName === 'Content-Type' ? contentType : undefined;
-                    }
-                }
-            };
+            const response = new Response({body});
+            if (contentType) {
+                response.headers.push({key: 'Content-Type', value: contentType});
+            }
+            return response;
         }
 
         const dispatchExpect = callback => action => {
@@ -26,10 +24,17 @@ describe('TokenListener', function(){
             callback();
         };
 
-        it('should call dispatch server save action if acquire token and response body contains token', function(){
+        it('should call dispatch server save action if acquire token and response JSON body contains token', function(){
             let wasExecuted = false;
             const props = mapDispatchToProps(dispatchExpect(() => wasExecuted = true));
             props.onResponseUpdate({ acquireToken: true }, createResponseStub(responseBody, 'application/json'), {});
+            should(wasExecuted).be.true();
+        });
+
+        it('should call dispatch server save action if acquire token and response PLAIN body contains token', function(){
+            let wasExecuted = false;
+            const props = mapDispatchToProps(dispatchExpect(() => wasExecuted = true));
+            props.onResponseUpdate({ acquireToken: true }, createResponseStub(`access_token=${expectedToken}&token_type=${expectedTokenType}`, 'text/plain'), {});
             should(wasExecuted).be.true();
         });
         

@@ -1,4 +1,4 @@
-import Request          from '/services/Request'
+import Request          from '/rest/Request'
 import { flowTypes }    from '/reducers/refs/flows'
 
 /**

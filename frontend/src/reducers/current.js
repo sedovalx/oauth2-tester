@@ -1,7 +1,7 @@
 import u            from 'updeep'
 
 import actionTypes  from '/actions/actionTypes'
-import Request      from '/services/Request'
+import Request      from '/rest/Request'
 
 const defaultState = {
     flow: null,

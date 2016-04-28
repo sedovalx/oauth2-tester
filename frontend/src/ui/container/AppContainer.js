@@ -7,7 +7,7 @@ import actionTypes          from '/actions/actionTypes'
 import App                  from '/component/App'
 import { deserializeState } from '/services/stateService'
 import { restoreRequest }   from '/services/clientRequestHistory'
-import Request              from '/services/Request'
+import Request              from '/rest/Request'
 
 const mapStateToProps = state => ({
     state,
