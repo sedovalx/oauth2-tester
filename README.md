@@ -1,14 +1,14 @@
 # oauth2-tester
 [![Build Status](https://travis-ci.org/sedovalx/oauth2-tester.svg?branch=master)](https://travis-ci.org/sedovalx/oauth2-tester)
 
-This is a Web application to explore responses from a OAuth 2.0 server. To try it you should 
+This is a Web application to explore responses from an OAuth 2.0 server. To try it you should 
 * Run application and copy provided callback URI
-* Use this URI when register on a OAuth 2.0 server like GitHub, Facebook, Google and etc.
-* Copy client ID, client secret, authorization and token endpoint addresses after registration
-* Add new OAuth server item in the application and fill it with copied information
-* Try to request OAuth server and explore response
+* Use this URI for registration on an OAuth 2.0 server like GitHub, Facebook, Google and etc.
+* Copy the client ID, the client secret, authorization and token endpoint addresses after the registration
+* Add a new OAuth server item in the application and fill it with copied registration information
+* Try to request OAuth server and explore the response
 
-The application will suggest you the proper URI to get Auth Code or token. The suggestions dependes on the currently selected server item and selected type of the OAuth grant. 
+The application will suggest you the proper URI to get auth information. The suggestions dependes on the currently selected server item state and selected type of the OAuth grant. 
 
 Under the hood:
 * [ECMAScript 2015](https://babeljs.io/docs/learn-es2015/)
