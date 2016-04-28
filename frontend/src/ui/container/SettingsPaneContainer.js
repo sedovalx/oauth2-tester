@@ -1,11 +1,13 @@
 import { connect }              from 'react-redux'
-
+import { createSelector }       from 'reselect'
 import { settingsModalShow }    from '/actions/settingsModal'
-import AppHeader                from '/component/AppHeader'
+import SettingsPane             from '/component/SettingsPane'
+
+const getCurrentFlow = createSelector([state => state.current.flow], _ => _);
 
 const mapStateToProps = (state) => {
     return {
-        settings: state.settings
+        flow: getCurrentFlow(state)
     };
 };
 
@@ -13,9 +15,9 @@ const mapDispatchToProps = dispatch => ({
     onSettingsClick: () => dispatch(settingsModalShow())
 });
 
-const AppHeaderContainer = connect(
+const SettingsPaneContainer = connect(
     mapStateToProps,
     mapDispatchToProps
-)(AppHeader);
+)(SettingsPane);
 
-export default AppHeaderContainer;
+export default SettingsPaneContainer;

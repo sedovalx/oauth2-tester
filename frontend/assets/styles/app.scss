@@ -2,46 +2,40 @@ $header-height: 100px;
 $left-pane-width: 370px;
 $app-side-margin: 20px;
 
-.app-main {
-  display:table;
-  width: 100%;
-  position: absolute;
-  top: $header-height;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  padding: 0 $app-side-margin;
+.app-container {
+  padding: 0 20px;
 
-  .app-main-row {
-    display: table-row;
+  .app-main {
+    display:table;
+    width: 100%;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 
-    .app-pane {
-      display: table-cell;
+    .app-main-row {
+      display: table-row;
 
-      &.left {
-        width: $left-pane-width;
-        min-width: $left-pane-width;
-        max-width: $left-pane-width;
-      }
+      .app-pane {
+        display: table-cell;
 
-      &.right {
-        padding-left: $app-side-margin;
-        float: none;
+        &.left {
+          vertical-align: top;
+          width: $left-pane-width;
+          min-width: $left-pane-width;
+          max-width: $left-pane-width;
+        }
+
+        &.right {
+          padding-left: $app-side-margin;
+          float: none;
+        }
       }
     }
   }
 }
 
-.app-header {
-  height: $header-height;
 
-  .page-header {
-    margin-top: 0;
-  }
 
-  .app-settings.btn {
-    margin-top: $header-height - 67px;
-  }
-}
+
 
 
 

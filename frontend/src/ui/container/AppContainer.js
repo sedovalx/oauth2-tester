@@ -11,6 +11,7 @@ import Request              from '/rest/Request'
 
 const mapStateToProps = state => ({
     state,
+    title: state.settings.title,
     isBusy: state.exchangeLog.isBusy
 });
 
