@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/sedovalx/oauth2-tester.svg?branch=master)](https://travis-ci.org/sedovalx/oauth2-tester)
 
 # oauth2-tester
-Pet application aimed to try a few frameworks/tools:
+Simple application to give a try to:
 * [ECMAScript 2015](https://babeljs.io/docs/learn-es2015/)
 * [Webpack](https://webpack.github.io/)
 * [React](https://facebook.github.io/react/)
