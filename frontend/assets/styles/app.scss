@@ -20,6 +20,7 @@ $app-side-margin: 20px;
       &.left {
         width: $left-pane-width;
         min-width: $left-pane-width;
+        max-width: $left-pane-width;
       }
 
       &.right {

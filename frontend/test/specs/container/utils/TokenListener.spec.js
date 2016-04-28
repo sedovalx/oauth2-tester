@@ -22,6 +22,18 @@ describe('TokenListener', function(){
             should(wasExecuted).be.true();
         });
         
+        it('should not dispatch server save if response body is not json', function(){
+            let wasExecuted = false;
+            const props = mapDispatchToProps(dispatchExpect(() => wasExecuted = true));
+            props.onResponseUpdate({ acquireToken: true }, { body: "not a json" }, {});
+            should(wasExecuted).be.false();
+        });
         
+        it('should not dispatch server save if it was not token acquire request', function(){
+            let wasExecuted = false;
+            const props = mapDispatchToProps(dispatchExpect(() => wasExecuted = true));
+            props.onResponseUpdate({ acquireToken: false }, { body: 'does not matter' }, {});
+            should(wasExecuted).be.false();
+        })
     });
 });

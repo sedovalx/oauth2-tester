@@ -22,59 +22,12 @@ export function suggestUri(server, flow, callbackUri, username, password) {
                 suggest4ImplicitFlow(request, server, callbackUri);
                 break;
             case flowTypes.RESOURCE_FLOW:
-                suggest4ResourceFlow(request, server, callbackUri, username, password);
+                suggest4ResourceFlow(request, server, username, password);
                 break;
             case flowTypes.CLIENT_FLOW:
-                suggest4ClientFlow(request, server, callbackUri);
+                suggest4ClientFlow(request, server);
         }
     }
-
-    // if (server && flow && flow.code) {
-    //     if (server.authToken) {
-    //         request.headers.push({ key: 'Authorization', value: 'Bearer ' + server.authToken });
-    //     }
-    //
-    //     request.headers.push({key: 'Accept', value: 'application/json'});
-    //
-    //     if (flow.code === flowTypes.CODE_FLOW) {
-    //         if (!(server.authCode && server.authToken)) {
-    //             // Step 1: Authorization Code Link
-    //             request.method = 'GET';
-    //             request.baseUri = server.authEndpoint;
-    //             request.queryParams.push({ key: 'response_type', value: 'code' });
-    //             request.queryParams.push({ key: 'client_id', value: server.clientID });
-    //             request.queryParams.push({ key: 'redirect_uri', value: callbackUri });
-    //         } else if (server.authCode) {
-    //             // Step 4: Application Requests Access Token
-    //             request.method = 'POST';
-    //             request.baseUri = server.tokenEndpoint;
-    //             request.queryParams.push({ key: 'client_id', value: server.clientID });
-    //             request.queryParams.push({ key: 'redirect_uri', value: callbackUri });
-    //             request.queryParams.push({ key: 'client_secret', value: server.clientSecret });
-    //             request.queryParams.push({ key: 'grant_type', value: 'authorization_code' });
-    //             request.queryParams.push({ key: 'code', value: server.authCode });
-    //         }
-    //     }
-    //
-    //     if (flow.code === flowTypes.CLIENT_FLOW) {
-    //         if (!server.authToken) {
-    //             request.method = 'POST';
-    //             request.baseUri = server.tokenEndpoint;
-    //             request.queryParams.push({ key: 'grant_type', value: 'client_credentials' });
-    //             request.queryParams.push({ key: 'client_id', value: server.clientID });
-    //             request.queryParams.push({ key: 'client_secret', value: server.clientSecret });
-    //         }
-    //     }
-    //     if (flow.code === flowTypes.RESOURCE_FLOW) {
-    //         if (!server.authToken) {
-    //             request.method = 'POST';
-    //             request.baseUri = server.tokenEndpoint;
-    //             request.queryParams.push({ key: 'client_id', value: server.clientID });
-    //             request.queryParams.push({ key: 'username', value: username });
-    //             request.queryParams.push({ key: 'password', value: password });
-    //         }
-    //     }
-    // }
     return request;
 }
 
@@ -82,38 +35,118 @@ function suggest4CodeFlow(request, server, callbackUri) {
     const { authCode, authToken, authEndpoint, tokenEndpoint, clientID, clientSecret } = server;
 
     if (authToken) {
-        // request API
-        request.headers.push({key: 'Authorization', value: 'Bearer ' + authToken});
+        // GET request API
+        addHeaderTokenBearer(request, authToken);
     } else if (!authCode) {
-        // request auth code
+        // GET request auth code
         request.baseUri = authEndpoint;
-        request.queryParams.push({ key: 'response_type', value: 'code' });
-        request.queryParams.push({ key: 'client_id', value: clientID });
-        request.queryParams.push({ key: 'redirect_uri', value: callbackUri });
+        addParam(request, 'response_type', 'code');
+        addParamClientId(request, clientID);
+        addParamCallbackUri(request, callbackUri);
         request.shouldNavigate = true;
         request.acquireCode = true;
     } else if (authCode) {
-        // request token
+        // POST request token
         request.method = 'POST';
         request.baseUri = tokenEndpoint;
-        request.headers.push({key: 'Accept', value: 'application/json'});
-        request.queryParams.push({ key: 'client_id', value: clientID });
-        request.queryParams.push({ key: 'client_secret', value: clientSecret });
-        request.queryParams.push({ key: 'grant_type', value: 'authorization_code' });
-        request.queryParams.push({ key: 'code', value: authCode });
-        request.queryParams.push({ key: 'redirect_uri', value: callbackUri });
+        addParam(request, 'grant_type', 'authorization_code');
+        addParam(request, 'code', authCode);
+        addParamClientId(request, clientID);
+        addParamClientSecret(request, clientSecret);
+        addParamCallbackUri(request, callbackUri);
+        addHeaderUrlencoded(request);
+        addHeaderAcceptJson(request);
         request.acquireToken = true;
     }
 }
 
-function suggest4ImplicitFlow(server, callbackUri) {
+function suggest4ImplicitFlow(request, server, callbackUri) {
+    const { authToken, authEndpoint, clientID } = server;
 
+    if (authToken) {
+        // GET request API
+        addHeaderTokenBearer(request, authToken);
+    } else {
+        // POST request token
+        request.baseUri = authEndpoint;
+        addParam(request, 'response_type', 'token');
+        addParamClientId(request, clientID);
+        addParamCallbackUri(request, callbackUri);
+        addHeaderUrlencoded(request);
+        request.shouldNavigate = true;
+        request.acquireToken = true;
+    }
 }
 
-function suggest4ResourceFlow(server, callbackUri, username, password) {
+function suggest4ResourceFlow(request, server, username, password) {
+    const { tokenEndpoint, clientID, authToken } = server;
 
+    if (authToken) {
+        // GET request API
+        addHeaderTokenBearer(request, authToken);
+    } else {
+        // POST request token
+        request.method = 'POST';
+        request.baseUri = tokenEndpoint;
+        addParam(request, 'grant_type', 'password');
+        addParam(request, 'username', username);
+        addParam(request, 'password', password);
+        addParamClientId(request, clientID);
+        addHeaderUrlencoded(request);
+        addHeaderAcceptJson(request);
+        request.shouldNavigate = false;
+        request.acquireToken = true;
+    }
 }
 
-function suggest4ClientFlow(server, callbackUri) {
+function suggest4ClientFlow(request, server) {
+    const { tokenEndpoint, clientID, clientSecret, authToken } = server;
 
+    if (authToken) {
+        // GET request API
+        addHeaderTokenBearer(request, authToken);
+    } else {
+        // POST request token
+        request.method = 'POST';
+        request.baseUri = tokenEndpoint;
+        addParam(request, 'grant_type', 'client_credentials');
+        addParamClientId(request, clientID);
+        addParamClientSecret(request, clientSecret);
+        addHeaderAcceptJson(request);
+        addHeaderUrlencoded(request);
+        request.shouldNavigate = false;
+        request.acquireToken = true;
+    }
+}
+
+function addHeaderTokenBearer(request, authToken) {
+    addHeader(request, 'Authorization', 'Bearer ' + authToken);
+}
+
+function addHeaderUrlencoded(request) {
+    addHeader(request, 'Content-Type', 'application/x-www-form-urlencoded');
+}
+
+function addHeaderAcceptJson(request) {
+    addHeader(request, 'Accept', 'application/json');
+}
+
+function addParamClientId(request, clientID) {
+    addParam(request, 'client_id', clientID);
+}
+
+function addParamCallbackUri(request, callbackUri) {
+    addParam(request, 'redirect_uri', callbackUri);
+}
+
+function addParamClientSecret(request, clientSecret) {
+    addParam(request, 'client_secret', clientSecret);
+}
+
+function addParam(request, key, value) {
+    request.queryParams.push({ key, value });
+}
+
+function addHeader(request, key, value){
+    request.headers.push({key, value});
 }

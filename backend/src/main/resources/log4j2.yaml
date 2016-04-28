@@ -17,3 +17,7 @@ Configuration:
     Logger:
       - name: com.github.sedovalx.oauth2
         level: debug
+      - name: org.apache.http
+        level: debug
+      - name: org.apache.http.wire
+        level: error

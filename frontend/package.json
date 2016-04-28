@@ -8,7 +8,8 @@
     "compile": "cross-env NODE_ENV=test babel --presets react,es2015,stage-0 -d lib/ src/",
     "mocha": "cross-env NODE_ENV=test mocha",
     "karma": "karma start",
-    "test": "npm run compile && mocha",
+    "test": "npm run compile && npm run mocha",
+    "mocha-w": "npm run mocha -w",
     "build": "npm test && npm run bundle"
   },
   "repository": {

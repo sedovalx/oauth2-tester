@@ -36,7 +36,7 @@ export const mapDispatchToProps = dispatch => ({
             try {
                 bodyObj = JSON.parse(response.body);
             } catch (e) {
-                console.warn("Unexpected format of the acquire token response's body. Should be a JSON string. \n" + request.body);
+                console.warn("Unexpected format of the acquire token response's body. Should be a JSON string but was: " + request.body);
             }
             if (bodyObj && bodyObj.access_token){
                 server.authToken = bodyObj.access_token;
