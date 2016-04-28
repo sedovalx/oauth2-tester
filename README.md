@@ -24,3 +24,27 @@ The base of the project is greatly influenced by the awesome https://github.com/
         * `echo "deb http://repo.mongodb.org/apt/ubuntu "$(lsb_release -sc)"/mongodb-org/3.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.0.list`
         * `sudo apt-get update`
         * `sudo apt-get install -y mongodb-org`
+        
+## Installation for Ubuntu
+* Copy the jar to the target host
+* [Create upstart script](http://stackoverflow.com/questions/24268890/run-jar-file-as-daemon-on-linux-ubuntu)
+    * `sudo touch /etc/init/oauth2tester.conf`
+    * `sudo vi /etc/init/oauth2tester.conf`
+    
+```
+description "oauth2tester"
+author "sedov.alx"
+
+start on runlevel [3]
+stop on shutdown
+
+expect fork
+
+script
+	cd /home/ubuntu/apps/oauth2tester/
+	sudo -u ubuntu java -jar /home/ubuntu/apps/oauth2tester/oauth2tester-0.0.1-SNAPSHOT.jar >/home/ubuntu/apps/oauth2tester/log.txt 2>&1
+	emit oauth2tester_running
+end script
+```
+
+And finally run `sudo start oauth2tester`. 
