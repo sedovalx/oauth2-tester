@@ -3,6 +3,7 @@ import { connect }          from 'react-redux'
 import { createSelector }   from 'reselect'
 
 import asyncApiSaveServer   from '/actions/asyncApiSaveServer'
+import TokenParser          from '/services/TokenParser'
 
 const TokenListenerComponent = React.createClass({
     shouldComponentUpdate(newProps){
@@ -31,13 +32,7 @@ const mapStateToProps = state => ({
 export const mapDispatchToProps = dispatch => ({
     onResponseUpdate: (request, response, server) => {
         if (server && request && request.acquireToken && response && response.body){
-            // try to parse response, expect token in the body
-            let bodyObj = null;
-            try {
-                bodyObj = JSON.parse(response.body);
-            } catch (e) {
-                console.warn("Unexpected format of the acquire token response's body. Should be a JSON string but was: " + request.body);
-            }
+            const bodyObj = TokenParser.parseBody(response.headers.get('Content-Type'), response.body);
             if (bodyObj && bodyObj.access_token){
                 server.authToken = bodyObj.access_token;
                 server.tokenType = bodyObj.token_type;

@@ -7,7 +7,7 @@
     "start": "node server.js",
     "compile": "cross-env NODE_ENV=test babel --presets react,es2015,stage-0 -d lib/ src/",
     "mocha": "cross-env NODE_ENV=test mocha",
-    "karma": "karma start",
+    "karma": "cross-env NODE_ENV=test karma start",
     "test": "npm run compile && npm run mocha",
     "mocha-w": "npm run mocha -w",
     "build": "npm test && npm run bundle"
@@ -72,6 +72,7 @@
     "axios": "^0.9.1",
     "classnames": "^2.2.3",
     "clipboard": "^1.5.10",
+    "content-type": "^1.0.1",
     "counterpart": "^0.17.2",
     "deep-equal": "^1.0.1",
     "es6-promise": "^3.1.2",
