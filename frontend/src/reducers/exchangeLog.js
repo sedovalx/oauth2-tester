@@ -2,6 +2,7 @@ import u                from 'updeep'
 import actionTypes      from '/actions/actionTypes'
 import ErrorResponse    from '/rest/ErrorResponse'
 import Response         from '/rest/Response'
+import Request          from '/rest/Request'
 
 const defaultState = {
     request: null,
@@ -25,10 +26,10 @@ export default function (state = defaultState, action) {
             } = action.payload;
             const update = { isBusy: false };
             if (!action.error) {
-                update.request = request;
-                update.response = error != null 
-                    ? new ErrorResponse({message: error.message, errorClass: error.errorClass, errorText: error.errorText}) 
-                    : new Response({status: response.status, headers: response.headers, body: response.body, contentLength: response.contentLength});
+                update.request = new Request(request);
+                update.response = error != null
+                    ? new ErrorResponse(error)
+                    : new Response(response);
             }
             return u(update, state);
         default:

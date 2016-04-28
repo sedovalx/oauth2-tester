@@ -1,4 +1,5 @@
 import store from 'store'
+import Request from '/rest/Request'
 
 const lastRequestKey = 'last-auth-request';
 
@@ -7,9 +8,13 @@ export function storeRequest(request) {
 }
 
 export function restoreRequest() {
-    const request = store.get(lastRequestKey);
+    const restored = store.get(lastRequestKey);
     store.remove(lastRequestKey);
-    return request;
+    if (restored) {
+        return new Request(restored);
+    } else {
+        return null;
+    }
 }
 
 

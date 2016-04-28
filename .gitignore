@@ -19,4 +19,5 @@ gradle-app.setting
 # Project
 frontend/dist
 frontend/lib
+**/npm-debug.log
 

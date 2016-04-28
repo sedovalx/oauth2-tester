@@ -1,4 +1,7 @@
-import React from 'react'
+import React            from 'react'
+import Request          from '/rest/Request'
+import Response         from '/rest/Response'
+import ErrorResponse    from '/rest/ErrorResponse'
 
 const ExchangeLog = React.createClass({
     render(){
@@ -24,9 +27,12 @@ const ExchangeLog = React.createClass({
         )
     }
 });
-// ExchangeLog.propTypes = {
-//     request: React.PropTypes.shape(ReqonseType),
-//     response: React.PropTypes.shape(ReqonseType)
-// };
+ExchangeLog.propTypes = {
+    request: React.PropTypes.instanceOf(Request),
+    response: React.PropTypes.oneOfType([
+        React.PropTypes.instanceOf(Response),
+        React.PropTypes.instanceOf(ErrorResponse)
+    ])
+};  
 
 export default ExchangeLog;
