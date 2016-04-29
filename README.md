@@ -21,6 +21,9 @@ Under the hood:
 
 The base of the project is greatly influenced by the awesome https://github.com/geowarin/boot-react. 
 
+## Build
+Just run `gradlew build` in the root of the project.
+
 ## Prerequisites
 * Install Java SE 8
 * Install NodeJS 4.4.2
